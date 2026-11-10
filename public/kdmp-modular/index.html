@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KDMP Akuntansi</title>
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+<header><div class=brand><img id=lg alt="Logo KDMP"><div><b id=ttl></b><small>Koperasi Merah Putih Kalurahan Sinduadi</small></div></div>
+<div class=ctl><label>Periode s.d. <select id=bln></select></label><input id=thn type=number style=width:74px><span id=st></span><span id=sync style="font-size:11px;color:#cfe"></span><span id=sv class="sv k">Siap</span>
+<button class=p onclick=manualSave()>Simpan</button>
+<details class=dd><summary>Unduh</summary><div>
+<button onclick="xls();cl(this)">Excel (.xls) &#8212; tampilan ini</button>
+<button onclick="csv();cl(this)">CSV &#8212; tampilan ini</button>
+<button onclick="printNow();cl(this)">PDF / Cetak &#8212; tampilan ini</button>
+<button onclick="xlsAll();cl(this)">Semua laporan sekaligus (Excel)</button>
+<button onclick="bakAll();cl(this)">Unduh Backup Database (.json)</button>
+<button onclick="$('#rf').click();cl(this)">Pulihkan dari Backup (.json)</button><input id=rf type=file accept=.json style=display:none onchange="pulihFile(this.files[0]);this.value=''">
+</div></details>
+<button onclick=printNow()>Cetak / PDF</button></div></header><nav id=nav></nav><main id=m>Memuat&#8230;</main><datalist id=dl></datalist><div id=ov style="padding:24px;font:14px sans-serif">Memuat aplikasi&#8230;</div><div id=tt></div>
+<script>
+window.__ok=0;
+window.__err=function(m){var o=document.getElementById('ov');if(!o||window.__ok==2)return;o.style.display='block';o.innerHTML='<div style="max-width:620px;margin:30px auto;padding:20px;background:#fff;border-top:5px solid #A4161F;font:14px sans-serif"><b>Aplikasi gagal dimuat.</b><br><br>'+String(m)+'<br><br><small>Kirim tulisan ini (atau screenshot-nya) agar bisa diperbaiki.</small></div>'};
+
+window.__diag=function(){try{var ss=document.scripts,r='';for(var s=0;s<ss.length;s++){var t=ss[s].text||'';if(t.length<3000)continue;var L=t.split('\n');
+var hard=function(n){try{new Function(L.slice(0,n).join('\n'));return false}catch(e){return e.name=='SyntaxError'&&!/end of input|Unterminated|missing \)|Unexpected end|Unexpected token '[})]'/i.test(e.message)}};
+if(!hard(L.length)){try{new Function(t);r+='<br>Skrip #'+s+' valid ('+L.length+' baris).'}catch(e2){r+='<br>Skrip #'+s+' tampak terpotong: '+String(e2.message)+' ('+L.length+' baris, '+t.length+' karakter)'}continue}
+var lo=1,hi=L.length;while(lo<hi){var mid=(lo+hi)>>1;if(hard(mid))hi=mid;else lo=mid+1}
+var ln=L[lo-1]||'';r+='<br><b>Skrip #'+s+', baris '+lo+' dari '+L.length+':</b><br><code style="word-break:break-all">'+ln.slice(0,260).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</code>';
+var odd=[];for(var k=0;k<ln.length&&odd.length<8;k++){if(ln.charCodeAt(k)>126||ln.charCodeAt(k)<32)odd.push(k+':'+ln.charCodeAt(k))}
+if(odd.length)r+='<br>karakter aneh (posisi:kode): '+odd.join(', ')}return r}catch(e){return '<br>(diagnosa gagal: '+e.message+')'}};
+window.onerror=function(m,s,l,c){window.__err(m+' (baris '+l+':'+c+')'+(window.__ok==0?window.__diag():''))};
+window.addEventListener('unhandledrejection',function(e){window.__err((e.reason&&e.reason.message)||e.reason)});
+</script>
+<script type="module" src="js/main.js"></script>
+</body></html>
