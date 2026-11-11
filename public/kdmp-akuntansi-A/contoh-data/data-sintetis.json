@@ -1,0 +1,3048 @@
+{
+ "tahun": 2026,
+ "bulan": 10,
+ "USP": {
+  "rows": [
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 5000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "1.1.2.06 Kredit Anggota",
+    "db": 300000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "1.3.3.01 Peralatan dan Mesin",
+    "db": 15000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "1.1.3.05 Cadangan Kerugian Piutang (CRK)",
+    "db": 0,
+    "kr": 4500000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "2.1.1.04 Simpanan Anggota",
+    "db": 0,
+    "kr": 100000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "3.1.1.01 Simpanan Pokok",
+    "db": 0,
+    "kr": 50000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 60000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-USP",
+    "ak": "3.1.5.01 Modal Awal",
+    "db": 0,
+    "kr": 222500000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-15",
+    "no": "U-2512-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 3500000,
+    "kr": 0,
+    "ket": "Jasa pinjaman Des 2025",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2025-12-15",
+    "no": "U-2512-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 3500000,
+    "ket": "Jasa pinjaman Des 2025"
+   },
+   {
+    "d": "2025-12-20",
+    "no": "U-2512-02",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji Des 2025"
+   },
+   {
+    "d": "2025-12-20",
+    "no": "U-2512-02",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji Des 2025"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4100000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4100000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 510000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 510000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 355000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 355000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-01-15",
+    "no": "U-01-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4200000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4200000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 520000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 520000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 360000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 360000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-02-15",
+    "no": "U-02-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4300000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4300000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 530000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 530000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 365000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 365000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-09",
+    "ak": "2.1.1.04 Simpanan Anggota",
+    "db": 2000000,
+    "kr": 0,
+    "ket": "Penarikan simpanan anggota"
+   },
+   {
+    "d": "2026-03-15",
+    "no": "U-03-09",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 2000000,
+    "ket": "Penarikan simpanan anggota",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4400000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4400000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 540000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 540000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 370000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 370000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-09",
+    "ak": "1.3.3.01 Peralatan dan Mesin",
+    "db": 6000000,
+    "kr": 0,
+    "ket": "Beli peralatan kantor"
+   },
+   {
+    "d": "2026-04-15",
+    "no": "U-04-09",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 6000000,
+    "ket": "Beli peralatan kantor"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4500000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4500000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 550000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 550000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 375000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 375000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-09",
+    "ak": "6.1.9.09 Beban Pajak",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Pajak"
+   },
+   {
+    "d": "2026-05-15",
+    "no": "U-05-09",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Pajak"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4600000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4600000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 560000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 560000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 380000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 380000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-09",
+    "ak": "1.1.9.08 RK Piutang Gerai Sembako",
+    "db": 20000000,
+    "kr": 0,
+    "ket": "RK ke Gerai Sembako"
+   },
+   {
+    "d": "2026-06-15",
+    "no": "U-06-09",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 20000000,
+    "ket": "RK ke Gerai Sembako",
+    "kom": "Pengeluaran Investasi"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4700000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4700000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 570000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 570000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 385000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 385000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-07-15",
+    "no": "U-07-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4800000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4800000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 580000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 580000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 390000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 390000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-08-15",
+    "no": "U-08-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 4900000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 4900000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 590000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 590000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 395000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 395000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-09-15",
+    "no": "U-09-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-01",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 5000000,
+    "kr": 0,
+    "ket": "Penerimaan jasa pinjaman",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-01",
+    "ak": "4.1.3.02 Pendapatan Jasa Pinjaman",
+    "db": 0,
+    "kr": 5000000,
+    "ket": "Penerimaan jasa pinjaman"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 600000,
+    "kr": 0,
+    "ket": "Penerimaan administrasi",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-02",
+    "ak": "4.1.3.05 Pendapatan Administrasi",
+    "db": 0,
+    "kr": 600000,
+    "ket": "Penerimaan administrasi"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-03",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 120000,
+    "kr": 0,
+    "ket": "Bunga bank",
+    "kom": "Penerimaan Pendapatan Lain-lain"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-03",
+    "ak": "9.1.1.01 Pendapatan Bunga",
+    "db": 0,
+    "kr": 120000,
+    "ket": "Bunga bank"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-04",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-04",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-05",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 400000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 400000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-06",
+    "ak": "9.2.1.01 Beban Administrasi Bank",
+    "db": 15000,
+    "kr": 0,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-06",
+    "ak": "1.1.1.02 Kas di Bank BRI",
+    "db": 0,
+    "kr": 15000,
+    "ket": "Administrasi bank"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-07",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 1200000,
+    "kr": 0,
+    "ket": "Setoran simpanan wajib",
+    "kom": "Simpanan Anggota"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-07",
+    "ak": "3.1.2.01 Simpanan Wajib",
+    "db": 0,
+    "kr": 1200000,
+    "ket": "Setoran simpanan wajib"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-08",
+    "ak": "6.1.8.02 Beban Penyusutan Peralatan dan Mesin",
+    "db": 250000,
+    "kr": 0,
+    "ket": "Penyusutan peralatan"
+   },
+   {
+    "d": "2026-10-15",
+    "no": "U-10-08",
+    "ak": "1.3.9.02 Akumulasi Penyusutan Peralatan dan Mesin",
+    "db": 0,
+    "kr": 250000,
+    "ket": "Penyusutan peralatan"
+   }
+  ],
+  "tahun": 2026,
+  "bulan": 10,
+  "sub": {
+   "aset": [
+    {
+     "kode": "US-001",
+     "nama": "Komputer kantor",
+     "kat": "Peralatan dan Mesin",
+     "tgl": "2025-03-01",
+     "hp": 15000000,
+     "res": 0,
+     "umur": 5,
+     "met": "Garis Lurus"
+    },
+    {
+     "kode": "US-002",
+     "nama": "Printer",
+     "kat": "Peralatan dan Mesin",
+     "tgl": "2026-04-10",
+     "hp": 6000000,
+     "res": 600000,
+     "umur": 4,
+     "met": "Garis Lurus"
+    }
+   ]
+  },
+  "kop": "KDMP",
+  "alamat": "Jl. Contoh No. 1, Kalurahan Contoh",
+  "kota": "Sleman",
+  "pet": "Siti Aminah",
+  "ben": "Budi Santoso",
+  "ket": "Slamet Riyadi"
+ },
+ "Sembako": {
+  "rows": [
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 8000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 40000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "1.1.4.03 Persediaan Barang Gas",
+    "db": 6000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "1.3.3.02 Meubelair",
+    "db": 10000000,
+    "kr": 0,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 2000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "2.1.3.01 Utang Usaha",
+    "db": 0,
+    "kr": 12000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-01",
+    "no": "SA-SEM",
+    "ak": "3.1.5.01 Modal Awal",
+    "db": 0,
+    "kr": 50000000,
+    "ket": "Saldo Awal"
+   },
+   {
+    "d": "2025-12-18",
+    "no": "S-2512-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 30000000,
+    "kr": 0,
+    "ket": "Penjualan Des 2025",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2025-12-18",
+    "no": "S-2512-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 30000000,
+    "ket": "Penjualan Des 2025"
+   },
+   {
+    "d": "2025-12-18",
+    "no": "S-2512-02",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 20000000,
+    "kr": 0,
+    "ket": "HPP Des 2025"
+   },
+   {
+    "d": "2025-12-18",
+    "no": "S-2512-02",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 20000000,
+    "ket": "HPP Des 2025"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 18600000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 18600000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 12400000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 12400000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 24800000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 24800000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 22600000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 22600000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-01-20",
+    "no": "S-01-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 19200000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 19200000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 12800000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 12800000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 25600000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 25600000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 23200000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 23200000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-08",
+    "ak": "2.1.3.01 Utang Usaha",
+    "db": 1000000,
+    "kr": 0,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-02-20",
+    "no": "S-02-08",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 1000000,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 19800000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 19800000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 13200000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 13200000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 26400000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 26400000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 23800000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 23800000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-03-20",
+    "no": "S-03-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 20400000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 20400000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 13600000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 13600000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 27200000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 27200000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 24400000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 24400000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-08",
+    "ak": "2.1.3.01 Utang Usaha",
+    "db": 1000000,
+    "kr": 0,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-04-20",
+    "no": "S-04-08",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 1000000,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 21000000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 21000000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 14000000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 14000000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 28000000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 28000000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 25000000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 25000000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-05-20",
+    "no": "S-05-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 21600000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 21600000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 14400000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 14400000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 28800000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 28800000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 25600000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 25600000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-08",
+    "ak": "2.1.3.01 Utang Usaha",
+    "db": 1000000,
+    "kr": 0,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-08",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 1000000,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-09",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 20000000,
+    "kr": 0,
+    "ket": "RK dari USP",
+    "kom": "Pinjaman Jangka Pendek"
+   },
+   {
+    "d": "2026-06-20",
+    "no": "S-06-09",
+    "ak": "2.1.9.01 Utang ke USP",
+    "db": 0,
+    "kr": 20000000,
+    "ket": "RK dari USP"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 22200000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 22200000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 14800000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 14800000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 29600000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 29600000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 26200000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 26200000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-09",
+    "ak": "1.3.3.02 Meubelair",
+    "db": 3000000,
+    "kr": 0,
+    "ket": "Beli meubelair"
+   },
+   {
+    "d": "2026-07-20",
+    "no": "S-07-09",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 3000000,
+    "ket": "Beli meubelair"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 22800000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 22800000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 15200000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 15200000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 30400000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 30400000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 26800000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 26800000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-08",
+    "ak": "2.1.3.01 Utang Usaha",
+    "db": 1000000,
+    "kr": 0,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-08-20",
+    "no": "S-08-08",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 1000000,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 23400000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 23400000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 15600000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 15600000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 31200000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 31200000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 27400000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 27400000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-09-20",
+    "no": "S-09-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-01",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 24000000,
+    "kr": 0,
+    "ket": "Penjualan anggota",
+    "kom": "Penerimaan Kas dari Pelayanan kepada Anggota"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-01",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 24000000,
+    "ket": "Penjualan anggota"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-02",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 16000000,
+    "kr": 0,
+    "ket": "Penjualan non anggota",
+    "kom": "Penerimaan Kas dari Non Anggota"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-02",
+    "ak": "4.1.1.01 Pendapatan Penjualan Barang Dagangan",
+    "db": 0,
+    "kr": 16000000,
+    "ket": "Penjualan non anggota"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-03",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 32000000,
+    "kr": 0,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-03",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 32000000,
+    "ket": "Pembelian tunai barang"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-04",
+    "ak": "5.1.1.01 Harga Pokok Penjualan Barang Dagangan",
+    "db": 28000000,
+    "kr": 0,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-04",
+    "ak": "1.1.4.02 Persediaan Barang dari Bulog",
+    "db": 0,
+    "kr": 28000000,
+    "ket": "HPP"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-05",
+    "ak": "6.1.1.01 Beban Gaji dan Tunjangan Pegawai",
+    "db": 2500000,
+    "kr": 0,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-05",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 2500000,
+    "ket": "Gaji pegawai"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-06",
+    "ak": "6.1.4.01 Beban Listrik",
+    "db": 300000,
+    "kr": 0,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-06",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 300000,
+    "ket": "Listrik"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-07",
+    "ak": "6.1.8.03 Beban Penyusutan Meubelair",
+    "db": 100000,
+    "kr": 0,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-07",
+    "ak": "1.3.9.03 Akumulasi Penyusutan Meubelair",
+    "db": 0,
+    "kr": 100000,
+    "ket": "Penyusutan meubelair"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-08",
+    "ak": "2.1.3.01 Utang Usaha",
+    "db": 1000000,
+    "kr": 0,
+    "ket": "Bayar utang usaha"
+   },
+   {
+    "d": "2026-10-20",
+    "no": "S-10-08",
+    "ak": "1.1.1.01 Kas Tunai",
+    "db": 0,
+    "kr": 1000000,
+    "ket": "Bayar utang usaha"
+   }
+  ],
+  "tahun": 2026,
+  "bulan": 10,
+  "sub": {
+   "aset": [
+    {
+     "kode": "SM-001",
+     "nama": "Meja etalase",
+     "kat": "Meubelair",
+     "tgl": "2025-06-10",
+     "hp": 10000000,
+     "res": 0,
+     "umur": 5,
+     "met": "Garis Lurus"
+    },
+    {
+     "kode": "SM-002",
+     "nama": "Rak gondola",
+     "kat": "Rak",
+     "tgl": "2026-02-05",
+     "hp": 4000000,
+     "res": 400000,
+     "umur": 4,
+     "met": "Saldo Menurun"
+    },
+    {
+     "kode": "SM-003",
+     "nama": "Tanah kios",
+     "kat": "Tanah",
+     "tgl": "2024-01-01",
+     "hp": 25000000,
+     "res": 0,
+     "umur": 0,
+     "met": "Garis Lurus"
+    },
+    {
+     "kode": "SM-004",
+     "nama": "Timbangan lama",
+     "kat": "Peralatan dan Mesin",
+     "tgl": "2025-01-01",
+     "hp": 2400000,
+     "res": 0,
+     "umur": 4,
+     "met": "Garis Lurus",
+     "lepas": "2026-08-15"
+    },
+    {
+     "kode": "SM-005",
+     "nama": "Meubelair baru",
+     "kat": "Meubelair",
+     "tgl": "2026-07-20",
+     "hp": 3000000,
+     "res": 0,
+     "umur": 5,
+     "met": "Garis Lurus"
+    }
+   ],
+   "pb": [
+    {
+     "k": "BRG-001",
+     "n": "Beras 5kg",
+     "akun": "1.1.4.02"
+    },
+    {
+     "k": "BRG-002",
+     "n": "Minyak goreng 2L",
+     "akun": "1.1.4.02"
+    },
+    {
+     "k": "GAS-3",
+     "n": "Gas LPG 3kg",
+     "akun": "1.1.4.03"
+    }
+   ],
+   "pm": [
+    {
+     "d": "2025-12-01",
+     "no": "SA-SEM",
+     "k": "BRG-001",
+     "j": "Saldo Awal",
+     "q": 1000,
+     "h": 36000,
+     "ket": "Saldo Awal"
+    },
+    {
+     "d": "2025-12-01",
+     "no": "SA-SEM",
+     "k": "BRG-002",
+     "j": "Saldo Awal",
+     "q": 200,
+     "h": 28000,
+     "ket": "Saldo Awal"
+    },
+    {
+     "d": "2025-12-01",
+     "no": "SA-SEM",
+     "k": "GAS-3",
+     "j": "Saldo Awal",
+     "q": 300,
+     "h": 20000,
+     "ket": "Saldo Awal"
+    },
+    {
+     "d": "2026-09-03",
+     "no": "M-01",
+     "k": "BRG-001",
+     "j": "Masuk",
+     "q": 400,
+     "h": 38000,
+     "ket": "Beli"
+    },
+    {
+     "d": "2026-09-10",
+     "no": "M-02",
+     "k": "BRG-001",
+     "j": "Keluar",
+     "q": 700,
+     "h": 0,
+     "ket": "Jual"
+    },
+    {
+     "d": "2026-10-02",
+     "no": "M-03",
+     "k": "BRG-002",
+     "j": "Keluar",
+     "q": 150,
+     "h": 0,
+     "ket": "Jual"
+    },
+    {
+     "d": "2026-10-05",
+     "no": "M-04",
+     "k": "GAS-3",
+     "j": "Masuk",
+     "q": 100,
+     "h": 21000,
+     "ket": "Beli"
+    },
+    {
+     "d": "2026-10-08",
+     "no": "M-05",
+     "k": "GAS-3",
+     "j": "Keluar",
+     "q": 350,
+     "h": 0,
+     "ket": "Jual (melebihi stok)"
+    },
+    {
+     "d": "2026-10-09",
+     "no": "M-06",
+     "k": "XXX-9",
+     "j": "Masuk",
+     "q": 5,
+     "h": 1000,
+     "ket": "kode tak dikenal"
+    }
+   ]
+  },
+  "kop": "KDMP",
+  "alamat": "Jl. Contoh No. 1, Kalurahan Contoh",
+  "kota": "Sleman",
+  "pet": "Siti Aminah",
+  "ben": "Budi Santoso",
+  "ket": "Slamet Riyadi"
+ }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KDMP Akuntansi</title>
+<link rel="stylesheet" href="css/dasar.css">
+<link rel="stylesheet" href="css/tata-letak.css">
+<link rel="stylesheet" href="css/tabel.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/komponen.css">
+<link rel="stylesheet" href="css/cetak.css">
+</head>
+<body>
+<header><div class=brand><img id=lg alt="Logo"><div><b id=ttl></b><small id=nm-koperasi></small></div></div>
+<div class=ctl><label>Periode s.d. <select id=bln></select></label><input id=thn type=number style=width:74px><span id=st></span><span id=sync style="font-size:11px;color:#cfe"></span><span id=sv class="sv k">Siap</span>
+<button class=p onclick=manualSave()>Simpan</button>
+<details class=dd><summary>Unduh</summary><div>
+<button onclick="xls();cl(this)">Excel (.xls) &#8212; tampilan ini</button>
+<button onclick="csv();cl(this)">CSV &#8212; tampilan ini</button>
+<button onclick="printNow();cl(this)">PDF / Cetak &#8212; tampilan ini</button>
+<button onclick="xlsAll();cl(this)">Semua laporan sekaligus (Excel)</button>
+<button onclick="bakAll();cl(this)">Unduh Backup Database (.json)</button>
+<button onclick="$('#rf').click();cl(this)">Pulihkan dari Backup (.json)</button><input id=rf type=file accept=.json style=display:none onchange="pulihFile(this.files[0]);this.value=''">
+</div></details>
+<button onclick=printNow()>Cetak / PDF</button></div></header><nav id=nav></nav><main id=m>Memuat&#8230;</main><datalist id=dl></datalist><div id=ov style="padding:24px;font:14px sans-serif">Memuat aplikasi&#8230;</div><div id=tt></div>
+<script src="js/00-penanganan-error.js"></script>
+<script src="config/aplikasi.js"></script>
+<script src="config/coa.js"></script>
+<script src="config/coa-legacy.js"></script>
+<script src="config/arus-kas.js"></script>
+<script src="config/laporan-usp.js"></script>
+<script src="config/laporan-sembako.js"></script>
+<script src="config/laporan-konsolidasi.js"></script>
+<script src="js/10-konstanta.js"></script>
+<script src="js/11-migrasi-coa.js"></script>
+<script src="js/12-variabel-global.js"></script>
+<script src="js/20-kripto.js"></script>
+<script src="js/21-penyimpanan-indexeddb.js"></script>
+<script src="js/30-hitung-saldo.js"></script>
+<script src="js/31-susun-laporan.js"></script>
+<script src="js/32-arus-kas-komponen.js"></script>
+<script src="js/40-ui-umum.js"></script>
+<script src="js/41-input-tanggal-angka.js"></script>
+<script src="js/42-simpan-otomatis.js"></script>
+<script src="js/43-ekspor.js"></script>
+<script src="js/44-kop-laporan.js"></script>
+<script src="js/45-coa.js"></script>
+<script src="js/50-login-dan-setup.js"></script>
+<script src="js/51-sinkronisasi.js"></script>
+<script src="js/52-mulai-sesi.js"></script>
+<script src="js/53-paket-unit.js"></script>
+<script src="js/54-backup.js"></script>
+<script src="js/60-tab-jurnal.js"></script>
+<script src="js/61-tab-buku-besar.js"></script>
+<script src="js/62-tab-laporan-unit.js"></script>
+<script src="js/63-tab-data.js"></script>
+<script src="js/64-tab-konsolidasi.js"></script>
+<script src="js/65-tab-master-coa.js"></script>
+<script src="js/66-grid-buku-pembantu.js"></script>
+<script src="js/67-tab-bp-aset.js"></script>
+<script src="js/68-tab-bp-persediaan.js"></script>
+<script src="js/80-panel-database.js"></script>
+<script src="js/99-main.js"></script>
+</body>
+</html>

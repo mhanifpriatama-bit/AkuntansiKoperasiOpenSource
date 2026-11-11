@@ -1,0 +1,18 @@
+/* Pengelolaan Master COA (tambah/ubah/hapus/impor/ekspor) */
+const GRP=new Set(COA0.map(a=>a[0].slice(0,4))),KODE=/^[1-9]\.\d\.\d\.\d{2}$/;
+function dlist(){const d=$('#dl');if(d)d.innerHTML=COA.map(a=>`<option value="${esc(a[0]+' '+a[1])}">`).join('')}
+function setCOA(a){COA=a;Object.keys(NM).forEach(k=>delete NM[k]);COA.forEach(x=>NM[x[0]]=x[2]);dlist()}
+async function loadCOA(){const c=await kv.get('coa');if(Array.isArray(c)&&c.length){if(c.some(a=>a[0]=='#v'&&a[1]=='3'))setCOA(c.filter(a=>a[0]!='#v'));else{const bs=new Set(COA0.map(a=>a[0])),od=new Set(OLDC),ex=c.filter(a=>a&&!bs.has(a[0])&&!od.has(a[0])).map(a=>a.slice());setCOA(COA0.map(a=>a.slice()).concat(ex).sort((a,b)=>a[0]<b[0]?-1:a[0]>b[0]?1:0))}}}
+const coaSave=()=>kv.set('coa',COA.map(a=>a.slice()).concat([['#v','3','']])),
+ sortCOA=()=>COA.sort((a,b)=>a[0]<b[0]?-1:a[0]>b[0]?1:0),
+ defN=c=>{const d=c[0];return d=='1'||d=='5'||d=='6'||d=='8'||(d=='9'&&c[2]!='1')?'Debit':'Kredit'};
+function usedMap(){const u={};(K?Object.values(S.units||{}):[S]).forEach(x=>(x.rows||[]).forEach(r=>{const c=(r.ak||'').split(' ')[0];if(c)u[c]=(u[c]||0)+1}));return u}
+function codeErr(c,self){if(!KODE.test(c))return 'Format kode harus x.x.x.xx, misalnya 6.1.9.24 atau 7.1.1.01 / 8.1.1.01 (awalan 1-9).';if(!GRP.has(c.slice(0,4))&&!/^[78]/.test(c))return 'Kelompok akun '+c.slice(0,4)+' tidak ada dalam struktur laporan.';if(COA.some((a,i)=>a[0]==c&&i!==self))return 'Kode akun sudah ada.';return ''}
+function nkAuto(v){if(KODE.test(v))$('#nm').value=defN(v)}
+function coaAdd(){const k=$('#nk').value.trim(),n=$('#nn').value.trim(),m=$('#nm').value,e=codeErr(k,-1);if(e)return alert(e);if(!n)return alert('Nama akun wajib diisi.');if(m!=defN(k)&&!confirm('Saldo normal berbeda dari kebiasaan golongan akun ini. Tetap lanjut?'))return;COA.push([k,n,m]);sortCOA();setCOA(COA);coaSave();go();toast('Akun '+k+' ditambahkan')}
+function coaEdit(i,fl,v){const a=COA[i];v=v.trim();if(fl=='n'){if(!v){alert('Nama akun wajib diisi.');return go()}a[1]=v}else if(fl=='k'){const e=codeErr(v,i);if(e){alert(e);return go()}a[0]=v;sortCOA()}else a[2]=v;setCOA(COA);coaSave();if(fl=='k')go()}
+function coaDel(i){const a=COA[i];if(!confirm('Hapus akun '+a[0]+' '+a[1]+'?'))return;COA.splice(i,1);setCOA(COA);coaSave();go()}
+function coaFilter(q){q=q.toLowerCase();document.querySelectorAll('#ct tr[data-t]').forEach(r=>r.style.display=r.dataset.t.includes(q)?'':'none')}
+function coaReset(){const u=usedMap(),base=new Set(COA0.map(a=>a[0])),bad=Object.keys(u).filter(c=>!base.has(c));if(bad.length)return alert('Tidak bisa dikembalikan: akun tambahan berikut masih dipakai di jurnal: '+bad.join(', '));if(!confirm('Kembalikan seluruh akun ke daftar bawaan? Akun tambahan dan perubahan nama akan hilang.'))return;setCOA(JSON.parse(JSON.stringify(COA0)));kv.del('coa');go()}
+function coaExp(){saveAs('KDMP_COA.json',new Blob([JSON.stringify({app:'kdmp-coa',tgl:new Date().toLocaleString('id-ID'),coa:COA})],{type:'application/json'}))}
+function coaImp(fl){if(!fl)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(o.app!='kdmp-coa'||!Array.isArray(o.coa))throw 0;const nw=o.coa;if(!nw.every(a=>Array.isArray(a)&&KODE.test(a[0])&&(GRP.has(a[0].slice(0,4))||/^[78]/.test(a[0]))&&a[1]&&(a[2]=='Debit'||a[2]=='Kredit')))throw 0;const u=usedMap(),m={};nw.forEach(a=>m[a[0]]=a[2]);const bad=Object.keys(u).filter(c=>m[c]!==(NM[c]));if(bad.length)return alert('COA ditolak: akun yang sudah dipakai di jurnal harus tetap ada dengan saldo normal sama ('+bad.slice(0,6).join(', ')+').');if(!confirm('Ganti daftar akun dengan '+nw.length+' akun dari file ini?'))return;setCOA(nw);coaSave();go();toast('COA diimpor')}catch(e){alert('File bukan ekspor COA KDMP yang valid.')}};r.readAsText(fl)}
