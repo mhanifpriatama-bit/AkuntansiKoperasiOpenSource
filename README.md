@@ -24,7 +24,7 @@ Perangkat lunak ini memiliki nilai sejarah pengabdian masyarakat yang istimewa:
 
 3. **Asistensi Teknologi & Pemodelan Kecerdasan Buatan**:
    * **Claude (Anthropic)** — Asistensi pemrograman awal single-file HTML & refraktorisasi modularisasi sistem : public/kdmp-akuntansi-A dan public/kdmp-akuntansi-B
-   * **Aistudio (Gemini)** — refraktorisasi modularisasi sistem di public/modular
+   * **Aistudio (Gemini)** — refraktorisasi modularisasi sistem : public/kdmp-modular
 
 4. **Status Lisensi & Hak Penggunaan**:
    * Berdasarkan izin resmi dari para mahasiswa perintis PKN STAN dan Pengurus KDMP Sinduadi, proyek ini resmi dirilis ke publik sebagai **Perangkat Lunak Terbuka (Open Source)** di bawah lisensi **[Apache License 2.0](./LICENSE)** agar dapat diadopsi, dipelajari, dan dikembangkan oleh ribuan Koperasi Desa, Koperasi Simpan Pinjam, dan BUMDes di seluruh Indonesia.
