@@ -1,0 +1,11 @@
+{
+  "name": "kdmp-akuntansi",
+  "version": "9.0.0",
+  "description": "Aplikasi akuntansi koperasi (offline, satu halaman) - Versi B: kode terstruktur",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "bundle": "node tools/satu-berkas.js"
+  }
+}

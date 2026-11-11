@@ -1,0 +1,3 @@
+/* Aturan cetak / PDF */
+@page{margin:12mm}
+@media print{header,nav,.bar,p.c,#tt,.dd{display:none}main{padding:0;max-width:none;overflow:visible}main button{display:none}body{background:#fff}input.i{color:#000}th,.h1,.h2,.t,.g,.hd{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{page-break-inside:avoid}}
