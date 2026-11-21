@@ -1,0 +1,13 @@
+/* Header, navigasi, kerangka utama */
+header{background:#fff;border-top:5px solid var(--c);border-bottom:1px solid var(--cl);padding:8px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;flex:1;min-width:280px}
+.brand img{height:48px;width:auto}
+.brand b{display:block;font-size:16px;letter-spacing:.2px}
+.brand small{color:var(--mut)}
+.ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ctl label{color:var(--mut)}
+nav{display:flex;background:#fff;border-bottom:1px solid var(--cl);padding:0 12px;flex-wrap:wrap}
+nav button{border:0;border-bottom:3px solid transparent;border-radius:0;background:none;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--mut)}
+nav button:hover{background:none;color:var(--ink)}
+nav button.on{color:var(--c);border-bottom-color:var(--c)}
+main{padding:16px;max-width:1360px;margin:auto;overflow-x:auto}

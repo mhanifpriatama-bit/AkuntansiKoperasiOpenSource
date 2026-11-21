@@ -1,0 +1,4 @@
+/* Variabel warna & dasar halaman */
+:root{--c:#A4161F;--cd:#7F1018;--ct:#F9ECEC;--cl:#E4D3D4;--ink:#262122;--mut:#6F6667;--bg:#F5F2F0}
+*{box-sizing:border-box}
+body{font:13px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;margin:0;background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums}
