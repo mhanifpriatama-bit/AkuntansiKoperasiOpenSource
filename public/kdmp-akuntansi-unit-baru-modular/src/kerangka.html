@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KDMP Akuntansi</title>
+<!--@css css/00-dasar.css-->
+<!--@css css/10-kerangka.css-->
+<!--@css css/20-tabel.css-->
+<!--@css css/30-input-tombol.css-->
+<!--@css css/40-komponen.css-->
+<!--@css css/50-cetak.css-->
+</head>
+<body>
+<header><div class=brand><img id=lg alt="Logo"><div><b id=ttl></b><small id=nm-koperasi></small></div></div>
+<div class=ctl><label>Periode s.d. <select id=bln></select></label><input id=thn type=number style=width:74px><span id=st></span><span id=sync style="font-size:11px;color:#cfe"></span><span id=sv class="sv k">Siap</span>
+<button class=p data-aksi="simpan.manual">Simpan</button>
+<details class=dd><summary>Unduh</summary><div>
+<button data-aksi="ekspor.excel">Excel (.xls) &#8212; tampilan ini</button>
+<button data-aksi="ekspor.csv">CSV &#8212; tampilan ini</button>
+<button data-aksi="ekspor.cetak">PDF / Cetak &#8212; tampilan ini</button>
+<button data-aksi="ekspor.excelSemua">Semua laporan sekaligus (Excel)</button>
+<button data-aksi="backup.unduh">Unduh Backup Database (.json)</button>
+<button data-aksi="backup.pilihBerkas">Pulihkan dari Backup (.json)</button><input id=rf type=file accept=.json style=display:none data-aksi-ubah="backup.pulihkan">
+</div></details>
+<button data-aksi="ekspor.cetak">Cetak / PDF</button></div></header><nav id=nav></nav><main id=m>Memuat&#8230;</main><datalist id=dl></datalist><div id=ov style="padding:24px;font:14px sans-serif">Memuat aplikasi&#8230;</div><div id=tt></div>
+<!--@js js/galat-global.js-->
+<!--@js js/namespace.js-->
+<!--@js js/app/state.js-->
+<!--@js js/config/aplikasi.js-->
+<!--@js js/config/coa.js-->
+<!--@js js/config/coa-legacy.js-->
+<!--@js js/config/arus-kas.js-->
+<!--@js js/config/pemetaan-arus-kas.js-->
+<!--@js js/config/kategori-aset.js-->
+<!--@js js/config/laporan-usp.js-->
+<!--@js js/config/laporan-sembako.js-->
+<!--@js js/config/laporan-konsolidasi.js-->
+<!--@js js/core/format.js-->
+<!--@js js/core/rumus.js-->
+<!--@js js/core/coa.js-->
+<!--@js js/core/arus-kas.js-->
+<!--@js js/core/saldo.js-->
+<!--@js js/core/laporan.js-->
+<!--@js js/core/konsolidasi.js-->
+<!--@js js/core/aset-tetap.js-->
+<!--@js js/core/persediaan.js-->
+<!--@js js/core/unit.js-->
+<!--@js js/storage/kv.js-->
+<!--@js js/storage/coa-db.js-->
+<!--@js js/storage/titik-pulih.js-->
+<!--@js js/storage/backup.js-->
+<!--@js js/security/kripto.js-->
+<!--@js js/security/kunci.js-->
+<!--@js js/ui/dom.js-->
+<!--@js js/ui/aksi.js-->
+<!--@js js/ui/pesan.js-->
+<!--@js js/ui/berkas.js-->
+<!--@js js/ui/tanggal-angka.js-->
+<!--@js js/ui/header.js-->
+<!--@js js/ui/kop.js-->
+<!--@js js/ui/tabel-laporan.js-->
+<!--@js js/ui/ekspor.js-->
+<!--@js js/ui/daftar-akun.js-->
+<!--@js js/ui/grid.js-->
+<!--@js js/app/simpan.js-->
+<!--@js js/app/navigasi.js-->
+<!--@js js/app/sinkron.js-->
+<!--@js js/app/cadangan.js-->
+<!--@js js/app/sandi.js-->
+<!--@js js/app/paket-unit.js-->
+<!--@js js/app/unit-baru.js-->
+<!--@js js/app/panel-db.js-->
+<!--@js js/app/sesi.js-->
+<!--@js js/fitur/jurnal.js-->
+<!--@js js/fitur/buku-besar.js-->
+<!--@js js/fitur/laporan-unit.js-->
+<!--@js js/fitur/konsolidasi.js-->
+<!--@js js/fitur/master-coa.js-->
+<!--@js js/fitur/data.js-->
+<!--@js js/fitur/bp-aset.js-->
+<!--@js js/fitur/bp-persediaan.js-->
+<!--@js js/uji/pintu-uji.js-->
+<!--@js js/app/mulai.js-->
+</body>
+</html>

@@ -1,0 +1,84 @@
+/*
+ * Daftar Komponen Arus Kas (pilihan di kolom jurnal) dan susunan Laporan Arus Kas.
+ * Baris laporan: [level, uraian, tipe, argumen]
+ *   tipe  h     judul (tanpa angka)
+ *         c     komponen: jumlah dari kolom "Komponen Arus Kas" jurnal bernama sama
+ *         s     jumlah baris nomor argumen[0]..argumen[1]
+ *         x/x1  rumus "=E26+E18" (E<n> = nilai baris bernomor n); x1 juga memakai SUM(E55:E56)
+ *         open  saldo kas awal tahun
+ *         e     baris kosong
+ * Nomor baris dimulai dari 13 (mengikuti lembar Excel asal): indeks 0 = baris 13.
+ */
+;(function(){
+globalThis.KDMP=globalThis.KDMP||{};KDMP.config=KDMP.config||{};
+KDMP.config.komponenArusKas=[
+  "Penerimaan Kas dari Pelayanan kepada Anggota",
+  "Penerimaan Kas dari Non Anggota",
+  "Penerimaan Pendapatan Lain-lain",
+  "Pembelian Harga Pokok Barang",
+  "Pembayaran Beban Administrasi",
+  "Pembayaran Beban Pemasaran",
+  "Pengeluaran Beban Lain-lain",
+  "Pembayaran Beban Telepon",
+  "Pembayaran Pajak",
+  "Penjualan Aset Tetap",
+  "Penjualan Investasi",
+  "Pembelian Aset Tetap",
+  "Pengeluaran Investasi",
+  "Simpanan Anggota",
+  "Simpanan Lainnya",
+  "Hibah",
+  "Pinjaman Jangka Panjang",
+  "Pinjaman Jangka Pendek",
+  "Pembayaran Pinjaman Jangka Panjang",
+  "Pembayaran Pinjaman Jangka Pendek",
+  "Pembagian SHU"
+];
+KDMP.config.arusKas=[
+  [1,"ARUS KAS DARI AKTIVITAS OPERASI","h",null],
+  [2,"Arus Kas Masuk","h",null],
+  [3,"Penerimaan Kas dari Pelayanan kepada Anggota","c",null],
+  [3,"Penerimaan Kas dari Non Anggota","c",null],
+  [3,"Penerimaan Pendapatan Lain-lain","c",null],
+  [0,"Jumlah arus kas masuk dari aktivitas operasi","s",[15,17]],
+  [2,"Arus Kas Keluar","h",null],
+  [3,"Pembelian Harga Pokok Barang","c",null],
+  [3,"Pembayaran Beban Administrasi","c",null],
+  [3,"Pembayaran Beban Pemasaran","c",null],
+  [3,"Pengeluaran Beban Lain-lain","c",null],
+  [3,"Pembayaran Beban Telepon","c",null],
+  [3,"Pembayaran Pajak","c",null],
+  [0,"Jumlah arus kas keluar dari aktivitas operasi","s",[20,25]],
+  [0,"Arus kas bersih dari aktivitas operasi","x","=E26+E18"],
+  [0,"","e",null],
+  [1,"ARUS KAS DARI AKTIVITAS INVESTASI","h",null],
+  [2,"Arus Kas Masuk","h",null],
+  [3,"Penjualan Aset Tetap","c",null],
+  [3,"Penjualan Investasi","c",null],
+  [0,"Jumlah arus kas masuk dari aktivitas Investasi","s",[31,32]],
+  [2,"Arus Kas Keluar","h",null],
+  [3,"Pembelian Aset Tetap","c",null],
+  [3,"Pengeluaran Investasi","c",null],
+  [0,"Jumlah arus kas keluar dari aktivitas Investasi","s",[35,36]],
+  [0,"Arus kas bersih dari aktivitas Investasi","x","=E37+E33"],
+  [0,"","e",null],
+  [1,"ARUS KAS DARI AKTIVITAS PENDANAAN","h",null],
+  [2,"Arus Kas Masuk","h",null],
+  [3,"Simpanan Anggota","c",null],
+  [3,"Simpanan Lainnya","c",null],
+  [3,"Hibah","c",null],
+  [3,"Pinjaman Jangka Panjang","c",null],
+  [3,"Pinjaman Jangka Pendek","c",null],
+  [0,"Jumlah arus kas masuk dari aktivitas Pendanaan","s",[42,46]],
+  [2,"Arus Kas Keluar","h",null],
+  [3,"Pembayaran Pinjaman Jangka Panjang","c",null],
+  [3,"Pembayaran Pinjaman Jangka Pendek","c",null],
+  [3,"Pembagian SHU","c",null],
+  [0,"Jumlah arus kas keluar dari aktivitas Pendanaan","s",[49,51]],
+  [0,"Arus kas bersih dari aktivitas Pendanaan","x","=E52+E47"],
+  [0,"","e",null],
+  [1,"Kenaikan (penurunan) Kas","x1","=E53+E38+E27"],
+  [1,"Saldo kas awal tahun","open",null],
+  [1,"Saldo kas akhir periode","x1","=SUM(E55:E56)"]
+];
+})();
