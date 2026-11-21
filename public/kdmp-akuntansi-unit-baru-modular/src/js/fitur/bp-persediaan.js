@@ -1,22 +1,29 @@
 /*
  * Tab BP Persediaan (unit yang memakainya: Sembako dan unit tambahan dengan opsi itu): Master Barang, Mutasi Stok, Kartu Stok, Rekap & Rekonsiliasi.
- * Hitungan stok (rata-rata bergerak) ada di KDMP.core.persediaan.
+ * Hitungan stok (rata-rata bergerak atau FIFO, sesuai pengaturan unit) ada di KDMP.core.persediaan.
  */
 (function (KDMP) {
   'use strict';
   const { esc, tanggalId, akhirBulan, akhirBulanSebelumnya, angkaAman } = KDMP.core.format;
   const { grid, subTab, rekonsiliasi, pilih, barisTotal, selAngka: nq, selRupiah: nc } = KDMP.ui.grid;
   const { kop, tandaTangan } = KDMP.ui.kop;
+  const { ubah } = KDMP.ui.aksi;
   const app = KDMP.app.state;
 
+  const metode = () => KDMP.core.persediaan.metodeUnit(app.data);
   function hitungStok(batas) {
-    return KDMP.core.persediaan.hitungStok(KDMP.app.sub('pb'), KDMP.app.sub('pm'), batas);
+    return KDMP.core.persediaan.hitungStok(KDMP.app.sub('pb'), KDMP.app.sub('pm'), batas, metode());
   }
   const akhirPeriode = () => akhirBulan(app.data.tahun, KDMP.app.bulan());
 
+  function pilihMetode() {
+    const m = metode();
+    return `<div class=bar><label>Metode biaya persediaan: <select ${ubah('persediaan.metode')}><option value=RATA${m == 'RATA' ? ' selected' : ''}>Rata-rata bergerak</option><option value=FIFO${m == 'FIFO' ? ' selected' : ''}>FIFO (masuk pertama keluar pertama)</option></select></label></div>`;
+  }
+
   function renderMaster() {
     const akun = KDMP.core.coa.daftar.filter((a) => a[0].startsWith('1.1.4.')).map((a) => [a[0], a[0] + ' ' + a[1]]);
-    return grid('pb', [{ k: 'k', l: 'Kode Barang', w: 100 }, { k: 'n', l: 'Nama Barang', w: 260 }, { k: 'akun', l: 'Akun Persediaan (Buku Besar)', o: akun }], 'Tiap barang dikaitkan ke akun persediaan agar bisa direkonsiliasi dengan Buku Besar.');
+    return pilihMetode() + grid('pb', [{ k: 'k', l: 'Kode Barang', w: 100 }, { k: 'n', l: 'Nama Barang', w: 260 }, { k: 'akun', l: 'Akun Persediaan (Buku Besar)', o: akun }], 'Tiap barang dikaitkan ke akun persediaan agar bisa direkonsiliasi dengan Buku Besar.');
   }
 
   const daftarBarang = () => '<datalist id=dlb>' + KDMP.app.sub('pb').filter((x) => x.k).map((x) => `<option value="${esc(x.k)}" label="${esc(x.n)}">`).join('') + '</datalist>';
@@ -25,8 +32,11 @@
     return grid('pm', [
       { k: 'd', l: 'Tanggal', t: 'date' }, { k: 'no', l: 'No Bukti', w: 110 }, { k: 'k', l: 'Kode Barang', list: 'dlb', w: 110 },
       { k: 'j', l: 'Jenis', o: ['Saldo Awal', 'Masuk', 'Keluar'] }, { k: 'q', l: 'Jumlah', t: 'number', w: 90 },
-      { k: 'h', l: 'Harga Satuan (Saldo Awal/Masuk)', t: 'number', w: 130 }, { k: 'ket', l: 'Keterangan', w: 220 }
-    ], 'Metode biaya: rata-rata bergerak. Mutasi Keluar dinilai otomatis dari harga rata-rata saat itu; kolom harga tidak dipakai.', 'd');
+      { k: 'h', l: 'Harga Satuan (Saldo Awal/Masuk)', t: 'number', w: 130 }, { k: 'ket', l: 'Keterangan', w: 220 },
+      { k: 'lot', l: 'Lot asal (retur, FIFO)', w: 130 }
+    ], metode() == 'FIFO'
+      ? 'Metode biaya: FIFO. Mutasi Keluar dinilai otomatis dari lapisan masuk tertua; kolom harga tidak dipakai. Isi Lot asal (No Bukti mutasi Masuk) hanya untuk retur pembelian.'
+      : 'Metode biaya: rata-rata bergerak. Mutasi Keluar dinilai otomatis dari harga rata-rata saat itu; kolom harga tidak dipakai.', 'd');
   }
 
   function renderKartu() {
@@ -56,7 +66,7 @@
       to += r.vout;
       const ak = r.it.akun || '(belum diisi)';
       A[ak] = (A[ak] || 0) + r.v;
-      if (r.q < -1e-9) minus.push(r.it.k);
+      if (r.q < -1e-9 || r.minus) minus.push(r.it.k);
       h += `<tr><td>${esc(r.it.k)}</td><td>${esc(r.it.n)}</td>${nq(a.q)}${nq(r.in)}${nq(r.out)}${nq(r.q)}${nc(r.q > 0 ? r.v / r.q : 0)}${nc(r.v)}${nc(r.vout)}</tr>`;
     });
     h += barisTotal(`<td colspan=7>JUMLAH</td>${nc(tv)}${nc(to)}`) + '</table>';
@@ -76,5 +86,13 @@
     KDMP.ui.dom.isi(h);
   }
 
+  KDMP.ui.aksi.daftar({
+    'persediaan.metode': (el) => {
+      if (!app.data.sub) app.data.sub = {};
+      app.data.sub.hpp = el.value == 'FIFO' ? 'FIFO' : 'RATA';
+      KDMP.app.simpan.jadwalkan();
+      render();
+    }
+  });
   KDMP.app.tab['BP Persediaan'] = { render };
 })(globalThis.KDMP);
