@@ -28,3 +28,5 @@ table.sg,table.sg td{border:0;background:none}
 #tt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 18px;border-radius:3px;display:none;z-index:30}
 #ov{position:fixed;inset:0;background:var(--bg);z-index:9;overflow:auto}
 .dt{position:relative;display:flex;align-items:center;min-width:120px}.dt .dti{flex:1;min-width:88px}.dtb{border:0;background:none;padding:0 4px;cursor:pointer;font-size:14px;line-height:1}.dtb:hover{background:none}.dtp{position:absolute;right:0;top:0;width:28px;height:100%;opacity:0;cursor:pointer;margin:0;padding:0;border:0}.dtp::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+
+tr.pos td{background:#eef6ff}

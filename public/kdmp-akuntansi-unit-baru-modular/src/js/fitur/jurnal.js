@@ -54,7 +54,7 @@
       const al = m ? Object.keys(m).join(' + ') : '';
       const teks = (k) => `<td><input class="i" ${k == 'ak' ? 'list=dl' : ''} value="${esc(r[k])}" ${ubah('jurnal.isi', { i, k })}></td>`;
       const angka = (k) => `<td class=n><input class="i n" data-f=1 inputmode=numeric value="${angkaInput(r[k])}" ${input('angka.ketik')} ${ubah('jurnal.angka', { i, k })}></td>`;
-      h += `<tr class="${salah ? 'bad' : ''}"><td class=c>${n + 1}</td><td>${kolomTanggal(r.d, 'rows:' + i + ':d', 1)}</td>${teks('no')}${teks('ak')}${angka('db')}${angka('kr')}${teks('ket')}<td><select ${ubah('jurnal.komponen', { i })}><option value="">${al ? '(otomatis) ' + esc(al) : ''}</option>${KDMP.config.komponenArusKas.map((x) => `<option ${r.kom == x ? 'selected' : ''}>${x}</option>`).join('')}</select></td><td><button ${klik('jurnal.hapus', { i })}>×</button></td></tr>`;
+      h += `<tr class="${salah ? 'bad' : ''}${KDMP.core.posKontrak.adaPos(r.no) ? ' pos' : ''}"${KDMP.core.posKontrak.adaPos(r.no) ? ' title="Baris dari POS: diganti saat data POS diimpor ulang"' : ''}><td class=c>${n + 1}</td><td>${kolomTanggal(r.d, 'rows:' + i + ':d', 1)}</td>${teks('no')}${teks('ak')}${angka('db')}${angka('kr')}${teks('ket')}<td><select ${ubah('jurnal.komponen', { i })}><option value="">${al ? '(otomatis) ' + esc(al) : ''}</option>${KDMP.config.komponenArusKas.map((x) => `<option ${r.kom == x ? 'selected' : ''}>${x}</option>`).join('')}</select></td><td><button ${klik('jurnal.hapus', { i })}>×</button></td></tr>`;
     });
     KDMP.ui.dom.isi(h + `</table><p>Total Debit <b id=jtd></b> | Total Kredit <b id=jtk></b> <span class=c>(periode ini)</span></p>`);
     totalPeriode();

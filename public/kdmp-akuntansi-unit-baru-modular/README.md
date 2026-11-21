@@ -22,6 +22,9 @@ src/
     uji/               pintu masuk untuk uji otomatis di browser
 build.py / build.js    penyusun (pilih salah satu; hasilnya identik)
 alat/uji-asap.js       uji asap di Chrome headless (opsional)
+alat/uji-fifo.js       uji hitungan FIFO (Node saja)
+alat/uji-pos-kontrak.js uji kontrak POS: template, validasi, impor idempoten (Node saja)
+alat/uji-impor-pos.js  uji alur impor data POS di Chrome headless
 dist/                  hasil build: kdmp-akuntansi.html  <- berkas yang dibagikan
 index.html             halaman pengembangan (memuat modul satu per satu)
 ```
@@ -52,3 +55,13 @@ Urutan penanda adalah urutan muat. Modul harus dimuat setelah modul yang dipakai
 - `src/js/config/aplikasi.js` memuat logo dalam bentuk base64 (±23 KB). Bila ingin dipisah, jadikan modul sendiri.
 - Komentar di beberapa modul menyebut `docs/struktur-data.md` dan `docs/format-laporan.md`; berkas itu belum ada.
 - Modul dimuat sebagai skrip biasa (bukan ES module) agar tetap berjalan bila dibuka langsung dari folder (`file://`).
+
+## Pertukaran data dengan POS Sembako (v1.1)
+
+- `core/persediaan.js`: metode biaya `RATA` (bawaan) atau `FIFO`, dipilih per unit di BP Persediaan > Master Barang (`data.sub.hpp`).
+  Retur pembelian memakai kolom `lot` (No Bukti mutasi Masuk asal).
+- `core/pos-kontrak.js`: template, validasi, rencana impor idempoten, checksum SHA-256.
+- `app/impor-pos.js`: tombol di tab Data (unit yang memakai persediaan): Ekspor template POS dan Impor data POS dengan pratinjau.
+  Impor membuat titik pulih otomatis "Sebelum impor POS <idBatch>", mengganti baris ber-No Bukti `POS-` pada rentang tanggal berkas,
+  dan mencatat batch di `data.imporPos`. Baris POS ditandai biru di tab Jurnal.
+- Uji: `node alat/uji-fifo.js`, `node alat/uji-pos-kontrak.js`, `node alat/uji-impor-pos.js file://$PWD/dist/kdmp-akuntansi.html 9351`.
