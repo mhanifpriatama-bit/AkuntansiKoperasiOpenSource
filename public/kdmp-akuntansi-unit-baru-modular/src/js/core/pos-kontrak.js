@@ -98,6 +98,8 @@
     // 3. Jurnal
     const jumlah = {};
     const kodeKas = (k) => k.startsWith('1.1.1.');
+    // No Bukti yang punya sisi kredit kas/bank = pemindahan antar-kas (mis. setoran ke bank): tidak butuh komponen arus kas
+    const pindahKas = new Set(jurnal.filter((r) => kodeKas(kodeAkun(r.ak)) && angkaAman(r.kr) > 0).map((r) => r.no));
     jurnal.forEach((r, i) => {
       const b = i + 1;
       const kode = kodeAkun(r.ak);
@@ -109,7 +111,7 @@
       if (r.kom) {
         if (!(ctx.komponen || []).includes(r.kom)) G('KOMPONEN', 'Komponen arus kas tidak dikenal: ' + r.kom, b);
         if (!kodeKas(kode)) G('KOMPONEN', 'kom hanya boleh pada baris kas/bank.', b);
-      } else if (kodeKas(kode) && db > 0) W('KOMPONEN', 'Penerimaan kas tanpa komponen arus kas.', b);
+      } else if (kodeKas(kode) && db > 0 && !pindahKas.has(r.no)) W('KOMPONEN', 'Penerimaan kas tanpa komponen arus kas.', b);
       const s = (jumlah[r.no] = jumlah[r.no] || { db: 0, kr: 0 });
       s.db += db; s.kr += kr;
     });

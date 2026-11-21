@@ -69,5 +69,9 @@ const ctx = { unit: 'Sembako', rows, barang, mutasi, impor: {}, templatDikenal: 
   x = salin(); x.mutasiStok.push({ d: '2027-01-05', no: 'POS-20270105-RBELI', k: 'BRS-5KG', j: 'Keluar', q: 2, h: 66000, nilai: 132000, lot: 'POS-20270105-BELI-001', ket: '' });
   x.kontrol.jumlahMutasi = 3; x.kontrol.checksum = await P.hitungChecksum(x.jurnal, x.mutasiStok, []); v = await P.validasiData(x, ctx);
   as.ok(!v.galat.some((g) => g.kode === 'STOK' || g.kode === 'LOT'), JSON.stringify(v.galat));
+  // Setoran kas ke bank (pemindahan antar-kas) tidak diperingatkan soal komponen
+  x = salin(); x.jurnal.push(J('POS-20270105-SETOR', '1.1.1.02 Kas di Bank BRI', 100000, 0, 'Setoran'), J('POS-20270105-SETOR', '1.1.1.01 Kas Tunai', 0, 100000, 'Setoran'));
+  x.kontrol.jumlahJurnal = 11; x.kontrol.totalDebit += 100000; x.kontrol.totalKredit += 100000; x.kontrol.checksum = await P.hitungChecksum(x.jurnal, x.mutasiStok, []);
+  v = await P.validasiData(x, ctx); as.ok(!v.peringatan.some((w) => w.kode === 'KOMPONEN'), JSON.stringify(v.peringatan));
   console.log('uji kontrak POS lolos');
 })().catch((e) => { console.error('GAGAL', e); process.exit(1); });
