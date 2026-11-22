@@ -52,7 +52,7 @@
     POS.simpan.jadwalkan(S);
     return true;
   };
-  U.perlu = () => { if (S.tpl) return ''; return '<div class=info>Belum ada template. Buka tab <b>Ekspor/Impor</b> dan impor template dari akuntansiApp dulu.</div>'; };
+  U.perlu = () => { if (S.tpl) return ''; return '<div class=info>Belum ada template. Buka <b>Menu › Ekspor/Impor</b> dan impor template dari akuntansiApp dulu. <button class=x data-a="tab" data-t="Ekspor/Impor">Buka Ekspor/Impor</button></div>'; };
   // Angka gaya Indonesia: "1.500" = 1500 (titik ribuan), "2,5" = 2,5, "2.5" = 2,5 (titik diikuti bukan tiga angka)
   U.ubahBilangan = (v) => {
     let t = String(v).trim();
@@ -65,14 +65,18 @@
   let tab = null;
 
   function render() {
-    const nav = document.getElementById('nav');
-    nav.innerHTML = TAB.map((t) => `<button data-a="tab" data-t="${U.esc(t)}" class="${t === tab ? 'on' : ''}">${U.esc(t)}</button>`).join('');
+    const panel = document.getElementById('menupanel');
+    panel.innerHTML = TAB.map((t) => `<button data-a="tab" data-t="${U.esc(t)}" class="${t === tab ? 'on' : ''}">${U.esc(t)}</button>`).join('');
+    panel.hidden = true;
+    document.getElementById('menu').setAttribute('aria-expanded', 'false');
     const info = S.tpl ? `${U.esc(S.tpl.unit)} · periode ${S.tpl.periode.tahun}-${String(S.tpl.periode.bulan).padStart(2, '0')}` : 'Belum ada template';
     document.getElementById('info').textContent = info;
     document.getElementById('isi').innerHTML = R[tab] ? R[tab]() : '';
+    if (U.fokus) { const e = document.getElementById(U.fokus); U.fokus = null; if (e) e.focus(); }
   }
   U.render = render;
-  U.pergi = (t) => { tab = t; render(); };
+  U.pergi = (t) => { tab = t; render(); window.scrollTo(0, 0); };
+  U.pos = () => tab;
 
   function setJalur(jalur, nilai) {
     const p = jalur.split('.');
@@ -101,7 +105,17 @@
     if (b && A[b.dataset.b]) { const r = A[b.dataset.b](b, e); if (r && r.catch) r.catch((x) => toast(String((x && x.message) || x), true)); }
   });
 
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const el = e.target.closest && e.target.closest('[data-enter]');
+    if (!el) return;
+    e.preventDefault();
+    const r = A[el.dataset.enter](el, e);
+    if (r && r.catch) r.catch((x) => toast(String((x && x.message) || x), true));
+  });
   A.tab = (el) => U.pergi(el.dataset.t);
+  A.menu = () => { const p = document.getElementById('menupanel'); p.hidden = !p.hidden; document.getElementById('menu').setAttribute('aria-expanded', String(!p.hidden)); };
+  document.addEventListener('click', (e) => { const p = document.getElementById('menupanel'); if (p && !p.hidden && !e.target.closest('#menupanel') && !e.target.closest('#menu')) p.hidden = true; });
 
   POS.mulai = async function () {
     S = await POS.simpan.muat();
@@ -113,7 +127,7 @@
     F.opname = { tgl: U.hariIni(), fisik: {} };
     F.kas = { tgl: U.hariIni(), jumlah: 0 };
     F.ekspor = { dari: '', sampai: '' };
-    tab = S.tpl ? 'Kasir' : 'Ekspor/Impor';
+    tab = 'Kasir';
     render();
     if (!POS.simpan.tersedia()) toast('IndexedDB tidak tersedia: data hanya di memori. Unduh backup secara rutin.', true);
   };

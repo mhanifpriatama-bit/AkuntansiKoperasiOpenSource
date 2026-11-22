@@ -47,6 +47,15 @@ const K = globalThis.KDMP;
     const tpl = K.core.posKontrak.bangunTemplat({ unit: 'Sembako', tahun: 2027, bulan: 1, rows, barang: barangA, mutasi: mutasiA, coaDaftar: K.core.coa.daftar, komponen, koperasi: 'KDMP', now: '2027-01-02T08:30:00+07:00', idTemplat: 'T-UI' });
 
     as.ok((await js(teks('#isi'))).includes('Belum ada template'), 'awal: harus minta template');
+    // Kasir adalah halaman utama; navigasi lewat tombol Menu di samping judul
+    as.strictEqual(await js(`POS.u.pos()`), 'Kasir');
+    as.strictEqual(await js(`!!document.querySelector('nav')`), false, 'bilah tab lama harus hilang');
+    as.strictEqual(await js(`document.querySelector('header h1').nextElementSibling.contains(document.getElementById('menu'))`), true, 'tombol Menu harus di samping judul');
+    as.strictEqual(await js(`document.getElementById('menupanel').hidden`), true);
+    await ok(klik('menu')); as.strictEqual(await js(`document.getElementById('menupanel').hidden`), false);
+    as.ok((await js(teks('#menupanel'))).includes('Ekspor/Impor') && (await js(teks('#menupanel'))).includes('Master'));
+    await ok(klik('tab', '[data-t="Ekspor/Impor"]')); as.strictEqual(await js(`document.getElementById('menupanel').hidden`), true, 'menu menutup setelah memilih');
+    as.strictEqual(await js(`POS.u.pos()`), 'Ekspor/Impor');
     await js(`window.__tpl=${JSON.stringify(tpl)}; 1`);
     const pilihBerkas = (b, objek, nama) => js(`(function(){var i=document.querySelector('[data-b="${b}"]');var dt=new DataTransfer();dt.items.add(new File([JSON.stringify(${objek})],'${nama}',{type:'application/json'}));i.files=dt.files;i.dispatchEvent(new Event('change',{bubbles:true}));return 'ok'})()`);
     await ok(pilihBerkas('x.templat', 'window.__tpl', 'template.json')); await tidur(400);
@@ -61,12 +70,19 @@ const K = globalThis.KDMP;
     await ok(set('[data-f="m.p.0.nama"]', 'Bu Sri')); await ok(set('[data-f="m.p.0.anggota"]', true)); await ok(set('[data-f="m.p.0.saldoAwal"]', '400.000'));
     await ok(klik('m.tambahP')); await ok(set('[data-f="m.p.1.nama"]', 'Pak Budi'));
     await ok(set('[data-f="m.b.0.harga"]', '70.000'));
+    await ok(set('[data-f="m.b.0.barcode"]', '8999999000011'));
+    as.strictEqual(await js(`POS.S.barang[0].barcode`), '8999999000011');
+    await ok(klik('m.tambahB')); await ok(set('[data-f="m.b.1.barcode"]', '8999999000011'));
+    as.ok((await toast()).includes('sudah dipakai'), 'barcode ganda harus ditolak: ' + await toast());
+    await ok(klik('m.hapusB', '[data-i="1"]'));
     await ok(set('[data-f="m.s.0.saldoAwal"]', '800000'));
     as.strictEqual(await js(`POS.S.pelanggan[0].saldoAwal`), 400000);
     as.strictEqual(await js(`POS.u.ubahBilangan('2,5')+POS.u.ubahBilangan('2.5')+POS.u.ubahBilangan('1.500')`), 2.5 + 2.5 + 1500);
 
     // Pembelian kredit 30 @ 66.000
     await ok(tab('Pembelian'));
+    await js(`(function(){var e=document.getElementById('bscan');e.value='8999999000011';e.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))})()`);
+    as.strictEqual(await js(`POS.F.beli.k`), 'BRS-5KG', 'scan barcode di Pembelian');
     await ok(set('[data-f="beli.tgl"]', '2027-01-05')); await ok(set('[data-f="beli.pemasok"]', await js(`POS.S.pemasok[0].id`)));
     await ok(set('[data-f="beli.faktur"]', '0123')); await ok(set('[data-f="beli.k"]', 'BRS-5KG')); await ok(set('[data-f="beli.q"]', '30')); await ok(set('[data-f="beli.h"]', '66000'));
     await ok(klik('beli.tambah')); await ok(klik('beli.simpan'));
@@ -84,6 +100,15 @@ const K = globalThis.KDMP;
     // Penjualan 2: umum, tunai pas
     await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '20')); await ok(klik('kasir.tambah')); await ok(klik('kasir.pas')); await ok(klik('kasir.simpan'));
     as.strictEqual(await js(`POS.S.tx.length`), 3, await toast());
+    // Barcode di Kasir: tiap scan menambah 1; barcode tak dikenal ditolak; fokus kembali ke kolom scan
+    const scan = (c) => js(`(function(){var e=document.getElementById('scan');e.value=${JSON.stringify(c)};e.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));return 'ok'})()`);
+    await ok(scan('8999999000011')); await ok(scan('8999999000011'));
+    as.strictEqual(await js(`POS.F.kasir.item.length`), 1); as.strictEqual(await js(`POS.F.kasir.item[0].q`), 2);
+    as.ok((await js(teks('#ktot'))).includes('140.000'), 'total setelah 2 scan: ' + await js(teks('#ktot')));
+    as.strictEqual(await js(`document.activeElement.id`), 'scan', 'fokus harus kembali ke kolom scan');
+    await ok(scan('0000000000000')); as.ok((await toast()).includes('tidak dikenal'), await toast());
+    as.strictEqual(await js(`POS.F.kasir.item.length`), 1);
+    await ok(klik('kasir.batal'));
     // Penolakan: kredit tanpa pelanggan; melebihi stok
     await ok(set('[data-f="kasir.pelanggan"]', ''));
     await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '1')); await ok(klik('kasir.tambah'));

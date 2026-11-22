@@ -20,15 +20,16 @@
     const akunP = U.akunCoa('1.1.4.'), akunU = U.akunCoa('2.1.3.');
     const dariTpl = (k) => ((S.tpl && S.tpl.barang) || []).some((b) => b.k === k);
     return `<h2>Master data</h2>
-<div class=card><h3>Barang</h3><table><tr><th>Kode</th><th>Nama</th><th>Akun persediaan</th><th class=n>Harga jual</th><th class=n>Harga beli terakhir</th><th></th></tr>
+<div class=card><h3>Barang</h3><table><tr><th>Kode</th><th>Nama</th><th>Barcode</th><th>Akun persediaan</th><th class=n>Harga jual</th><th class=n>Harga beli terakhir</th><th></th></tr>
 ${S.barang.map((b, i) => `<tr><td>${dariTpl(b.k) ? esc(b.k) : `<input class=s style="width:110px" value="${esc(b.k)}" data-f="m.b.${i}.k" data-r="m.ubah">`}</td>
 <td><input value="${esc(b.n)}" data-f="m.b.${i}.n" data-r="m.ubah"></td>
+<td style="white-space:nowrap"><input style="width:130px" value="${esc(b.barcode || '')}" data-f="m.b.${i}.barcode" data-r="m.ubah" placeholder="scan / ketik">${POS.kamera.tersedia() ? ` <button class=x data-a="m.pindai" data-i="${i}">Pindai</button>` : ''}</td>
 <td><select data-f="m.b.${i}.akun" data-r="m.ubah">${U.opt(akunP, b.akun, '— pilih —')}</select></td>
 <td class=n><input class=n value="${b.harga || ''}" data-t=num data-f="m.b.${i}.harga" data-r="m.ubah"></td>
 <td class=n><input class=n value="${b.hargaBeli || ''}" data-t=num data-f="m.b.${i}.hargaBeli" data-r="m.ubah"></td>
 <td>${dariTpl(b.k) ? '' : `<button class=k data-a="m.hapusB" data-i="${i}">hapus</button>`}</td></tr>`).join('')}</table>
 <div class=bar><button class=x data-a="m.tambahB">+ Barang baru</button></div>
-<p class=c>Barang dari template tidak bisa dihapus atau diganti kodenya. Barang baru dikirim ke akuntansiApp sebagai barangBaru — pastikan akun persediaannya terisi.</p></div>
+<p class=c>Barcode hanya ada di POS (tidak dikirim ke akuntansiApp). Pemindai fisik cukup diarahkan ke kolom Barcode lalu scan. Barang dari template tidak bisa dihapus atau diganti kodenya. Barang baru dikirim ke akuntansiApp sebagai barangBaru — pastikan akun persediaannya terisi.</p></div>
 <div class=card><h3>Pelanggan</h3><table><tr><th>Nama</th><th>Anggota</th><th class=n>Saldo awal piutang</th><th></th></tr>
 ${S.pelanggan.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.p.${i}.nama" data-r="m.ubah"></td><td><input type=checkbox ${p.anggota ? 'checked' : ''} data-f="m.p.${i}.anggota" data-r="m.ubah"></td>
 <td class=n><input class=n value="${p.saldoAwal || ''}" data-t=num data-f="m.p.${i}.saldoAwal" data-r="m.ubah"></td><td><button class=k data-a="m.hapusP" data-i="${i}">hapus</button></td></tr>`).join('')}</table>
@@ -47,8 +48,14 @@ ${S.pemasok.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.s.${i
     const v = el.type === 'checkbox' ? el.checked : el.dataset.t === 'num' ? U.ubahBilangan(el.value) : el.value.trim();
     if (kolom === 'k' && S.barang.some((b, x) => x !== +i && b.k === v)) { U.toast('Kode barang sudah dipakai.', true); return U.render(); }
     if (kolom === 'k' && baris.k && pakai(S, 'x', (t) => (t.item || []).some((x) => x.k === baris.k))) { U.toast('Kode tidak bisa diganti: barang sudah dipakai di transaksi.', true); return U.render(); }
+    if (kolom === 'barcode' && v && S.barang.some((b, x) => x !== +i && b.barcode === v)) { U.toast('Barcode itu sudah dipakai barang lain.', true); return U.render(); }
     baris[kolom] = v; simpan();
   };
+  A['m.pindai'] = (el) => POS.kamera.pindai((kode) => {
+    const S = U.s(), i = +el.dataset.i;
+    if (S.barang.some((b, x) => x !== i && b.barcode === kode)) return U.toast('Barcode ' + kode + ' sudah dipakai barang lain.', true);
+    S.barang[i].barcode = kode; simpan(); if (U.pos() === 'Master') U.render();
+  });
   const idBaru = (a) => { const S = U.s(); S.seq++; return a + S.seq; };
   A['m.tambahB'] = () => { U.s().barang.push({ k: 'BRG-' + (U.s().barang.length + 1), n: '', akun: '', harga: 0, hargaBeli: 0 }); simpan(); U.render(); };
   A['m.tambahP'] = () => { U.s().pelanggan.push({ id: idBaru('p'), nama: 'Pelanggan baru', anggota: false, saldoAwal: 0 }); simpan(); U.render(); };

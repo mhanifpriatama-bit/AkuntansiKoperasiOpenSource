@@ -9,6 +9,11 @@ Terhubung ke akuntansiApp lewat dua berkas JSON (spesifikasi kontrak v1.1): **te
 3. Catat transaksi: Kasir, Pembelian, Retur, Piutang & Utang, Opname, Kas.
 4. POS › Ekspor/Impor › *Unduh data POS*, lalu akuntansiApp › Data › *Impor data POS* (pratinjau, titik pulih otomatis, idempoten).
 
+## Tampilan dan barcode
+- Halaman utama adalah **Kasir**. Tab lain dibuka lewat tombol **Menu** di samping judul.
+- **Barcode** disimpan per barang (kolom Barcode di Master; hanya ada di POS, tidak dikirim ke akuntansiApp). Di Kasir, scan memasukkan 1 barang per scan; di Pembelian, scan memilih barang.
+- Pemindai fisik (USB/Bluetooth, mode keyboard) cukup diarahkan ke kolom Scan lalu Enter. Tombol **Kamera** muncul bila peramban mendukung `BarcodeDetector` (umumnya Chrome, dan butuh https atau localhost).
+
 ## Perilaku penting
 - Stok dan HPP dihitung FIFO di POS (`src/js/mesin.js`), identik dengan hitungan akuntansiApp. Transaksi yang membuat stok minus atau jurnal tak seimbang ditolak saat disimpan.
 - Pelanggan menentukan komponen arus kas (anggota / non-anggota). Penjualan tanpa pelanggan = non-anggota. Kredit hanya untuk pelanggan terdaftar.

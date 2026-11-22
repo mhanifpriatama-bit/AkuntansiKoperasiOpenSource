@@ -11,7 +11,7 @@
     const t = String(teks || '').trim().toLowerCase();
     if (!t) return null;
     const S = U.s();
-    return S.barang.find((b) => b.k.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase().includes(t));
+    return S.barang.find((b) => b.barcode && String(b.barcode).toLowerCase() === t) || S.barang.find((b) => b.k.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase().includes(t));
   };
   const tabelItem = (items, kolomHarga, hapusAksi, harga) => items.length
     ? `<table><tr><th>Barang</th><th class=n>Jumlah</th><th class=n>${kolomHarga}</th><th class=n>Jumlah Rp</th><th></th></tr>${items.map((x, i) => `<tr><td>${esc(x.k)} <span class=c>${esc((U.barang(x.k) || {}).n)}</span></td><td class=n>${qty(x.q)}</td><td class=n>${rp(harga(x))}</td><td class=n>${rp(POS.mesin.bulat(x.q * harga(x)))}</td><td><button class=k data-a="${hapusAksi}" data-i="${i}">hapus</button></td></tr>`).join('')}</table>`
@@ -24,6 +24,8 @@
     const S = U.s(), f = kasir();
     const tot = total(f.item, (x) => x.harga);
     return `<h2>Kasir — penjualan</h2>${U.datalistBarang()}
+<div class=scan><label style="flex:1">Scan barcode (Enter)<input id=scan autocomplete=off inputmode=text placeholder="Arahkan pemindai ke sini, atau ketik kode lalu Enter" data-enter="kasir.scan"></label>
+${POS.kamera.tersedia() ? '<button class=x data-a="kasir.kamera">Kamera</button>' : ''}</div>
 <div class=card><div class=bar>
 <label>Tanggal<input type=date value="${f.tgl}" data-f="kasir.tgl"></label>
 <label>Pelanggan<select data-f="kasir.pelanggan">${U.opt(S.pelanggan.map((p) => [p.id, p.nama + (p.anggota ? ' (anggota)' : '')]), f.pelanggan, 'Umum (non-anggota)')}</select></label></div>
@@ -40,6 +42,19 @@ ${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
 <p id=ksisa class=c></p>
 <div class=bar><button class=p data-a="kasir.simpan">Simpan penjualan</button><button class=x data-a="kasir.batal">Kosongkan</button></div></div>`;
   };
+  // Menambah satu barang dari barcode (atau kode barang). Mengembalikan true bila berhasil.
+  const tambahScan = (kode) => {
+    const f = kasir(), b = cariBarang(kode);
+    if (!b) { U.toast('Barcode ' + kode + ' tidak dikenal. Daftarkan di Menu › Master.', true); return false; }
+    const harga = b.harga || 0;
+    if (!(harga > 0)) { U.toast(b.n + ': harga jual belum diisi di Master.', true); return false; }
+    const ada = f.item.find((x) => x.k === b.k && x.harga === harga);
+    if (ada) ada.q += 1; else f.item.push({ k: b.k, q: 1, harga });
+    U.toast(b.n + ' ×1', false);
+    return true;
+  };
+  A['kasir.scan'] = (el) => { const kode = el.value.trim(); if (!kode) return; tambahScan(kode); U.fokus = 'scan'; U.render(); };
+  A['kasir.kamera'] = () => POS.kamera.pindai((kode) => { if (U.pos() === 'Kasir') { tambahScan(kode); U.render(); } }, { terus: true });
   A['kasir.pilih'] = () => { const f = kasir(), b = cariBarang(f.k); if (b) { f.k = b.k; if (!f.harga) f.harga = b.harga || 0; U.render(); } };
   A['kasir.tambah'] = () => {
     const f = kasir(), b = cariBarang(f.k);
@@ -76,18 +91,23 @@ ${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
     const S = U.s(), f = F.beli;
     const tot = total(f.item, (x) => x.h);
     return `<h2>Pembelian dari pemasok</h2>${U.datalistBarang()}
+<div class=scan><label style="flex:1">Scan barcode barang (Enter)<input id=bscan autocomplete=off data-enter="beli.scan"></label>
+${POS.kamera.tersedia() ? '<button class=x data-a="beli.kamera">Kamera</button>' : ''}</div>
 <div class=card><div class=bar><label>Tanggal<input type=date value="${f.tgl}" data-f="beli.tgl"></label>
 <label>Pemasok<select data-f="beli.pemasok">${U.opt(S.pemasok.map((p) => [p.id, p.nama]), f.pemasok, '— pilih —')}</select></label>
 <label>No. faktur<input value="${esc(f.faktur)}" data-f="beli.faktur"></label>
 <label>Pembayaran<select data-f="beli.cara">${U.opt([['kredit', 'Kredit (utang usaha)'], ['tunai', 'Tunai'], ['bank', 'Bank']], f.cara)}</select></label></div>
 <div class=bar><label>Barang (kode / nama)<input list=dlb value="${esc(f.k)}" data-f="beli.k" style="width:220px"></label>
 <label>Jumlah<input class="n s" value="${f.q}" data-f="beli.q" data-t=num></label>
-<label>Harga beli satuan<input class=n value="${f.h}" data-f="beli.h" data-t=num></label>
+<label>Harga beli satuan<input id=beli-h class=n value="${f.h}" data-f="beli.h" data-t=num></label>
 <button class=x data-a="beli.tambah">+ Tambah</button></div>
 ${tabelItem(f.item, 'Harga beli', 'beli.hapus', (x) => x.h)}
 <p>Total <span class=tot>${rp(tot)}</span></p>
 <div class=bar><button class=p data-a="beli.simpan">Simpan pembelian</button></div></div>`;
   };
+  const pilihScanBeli = (kode) => { const b = cariBarang(kode); if (!b) return U.toast('Barcode ' + kode + ' tidak dikenal. Daftarkan di Menu › Master.', true); F.beli.k = b.k; F.beli.h = F.beli.h || b.hargaBeli || ''; U.fokus = 'beli-h'; U.render(); };
+  A['beli.scan'] = (el) => { const kode = el.value.trim(); if (kode) pilihScanBeli(kode); };
+  A['beli.kamera'] = () => POS.kamera.pindai((kode) => { if (U.pos() === 'Pembelian') pilihScanBeli(kode); });
   A['beli.tambah'] = () => {
     const f = F.beli, b = cariBarang(f.k);
     if (!b) return U.toast('Barang tidak ditemukan di Master.', true);
