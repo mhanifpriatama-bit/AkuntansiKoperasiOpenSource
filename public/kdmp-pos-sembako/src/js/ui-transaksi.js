@@ -28,7 +28,7 @@
 ${POS.kamera.tersedia() ? '<button class=x data-a="kasir.kamera">Kamera</button>' : ''}</div>
 <div class=card><div class=bar>
 <label>Tanggal<input type=date value="${f.tgl}" data-f="kasir.tgl"></label>
-<label>Pelanggan<select data-f="kasir.pelanggan">${U.opt(S.pelanggan.map((p) => [p.id, p.nama + (p.anggota ? ' (anggota)' : '')]), f.pelanggan, 'Umum (non-anggota)')}</select></label></div>
+<label>Pelanggan / anggota <span class=c>(ketik nama, kosongkan untuk Umum)</span>${U.inputOrang('pelanggan', f.pelanggan, 'kasir.pelanggan', { info: 'kinfo', kosong: 'Umum — ketik huruf nama anggota' })}<span id=kinfo class=c>${U.infoPelanggan(f.pelanggan)}</span></label></div>
 <div class=bar><label>Barang (kode / nama)<input list=dlb value="${esc(f.k)}" data-f="kasir.k" data-r="kasir.pilih" style="width:220px"></label>
 <label>Jumlah<input class="n s" value="${f.q}" data-f="kasir.q" data-t=num></label>
 <label>Harga satuan<input class=n value="${f.harga}" data-f="kasir.harga" data-t=num></label>
@@ -94,7 +94,7 @@ ${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
 <div class=scan><label style="flex:1">Scan barcode barang (Enter)<input id=bscan autocomplete=off data-enter="beli.scan"></label>
 ${POS.kamera.tersedia() ? '<button class=x data-a="beli.kamera">Kamera</button>' : ''}</div>
 <div class=card><div class=bar><label>Tanggal<input type=date value="${f.tgl}" data-f="beli.tgl"></label>
-<label>Pemasok<select data-f="beli.pemasok">${U.opt(S.pemasok.map((p) => [p.id, p.nama]), f.pemasok, '— pilih —')}</select></label>
+<label>Pemasok${U.inputOrang('pemasok', f.pemasok, 'beli.pemasok', { kosong: 'ketik huruf nama pemasok' })}</label>
 <label>No. faktur<input value="${esc(f.faktur)}" data-f="beli.faktur"></label>
 <label>Pembayaran<select data-f="beli.cara">${U.opt([['kredit', 'Kredit (utang usaha)'], ['tunai', 'Tunai'], ['bank', 'Bank']], f.cara)}</select></label></div>
 <div class=bar><label>Barang (kode / nama)<input list=dlb value="${esc(f.k)}" data-f="beli.k" style="width:220px"></label>
@@ -185,11 +185,11 @@ ${asal ? `<table><tr><th>Barang</th><th class=n>Dibeli/dijual</th><th class=n>Ma
     return `<h2>Piutang pelanggan &amp; utang pemasok</h2><div class=grid2>
 <div class=card><h3>Piutang pelanggan</h3><table><tr><th>Pelanggan</th><th class=n>Saldo</th></tr>${S.pelanggan.map((p) => `<tr><td>${esc(p.nama)}</td><td class=n>${rp(H.piutang[p.id] || 0)}</td></tr>`).join('') || '<tr><td colspan=2 class=c>Belum ada pelanggan</td></tr>'}<tr><th>Jumlah</th><th class=n>${rp(totP)}</th></tr></table>
 <h3>Terima pelunasan</h3><div class=bar><label>Tanggal<input type=date value="${f.tgl}" data-f="bayar.tgl"></label>
-<label>Pelanggan<select data-f="bayar.pelanggan">${U.opt(S.pelanggan.map((p) => [p.id, p.nama + ' — ' + rp(H.piutang[p.id] || 0)]), f.pelanggan, '— pilih —')}</select></label></div>
+<label>Pelanggan${U.inputOrang('pelanggan', f.pelanggan, 'bayar.pelanggan', { kosong: 'ketik huruf nama', label: (p) => 'piutang ' + rp(H.piutang[p.id] || 0) })}</label></div>
 <div class=bar><label>Tunai<input class=n value="${f.tunai || ''}" data-f="bayar.tunai" data-t=num></label><label>Bank<input class=n value="${f.bank || ''}" data-f="bayar.bank" data-t=num></label><button class=p data-a="bayar.terima">Simpan</button></div></div>
 <div class=card><h3>Utang pemasok</h3><table><tr><th>Pemasok</th><th class=n>Saldo</th></tr>${S.pemasok.map((p) => `<tr><td>${esc(p.nama)}</td><td class=n>${rp(H.utang[p.id] || 0)}</td></tr>`).join('') || '<tr><td colspan=2 class=c>Belum ada pemasok</td></tr>'}<tr><th>Jumlah</th><th class=n>${rp(totU)}</th></tr></table>
 <h3>Bayar utang</h3><div class=bar><label>Tanggal<input type=date value="${f.tglB}" data-f="bayar.tglB"></label>
-<label>Pemasok<select data-f="bayar.pemasokId">${U.opt(S.pemasok.map((p) => [p.id, p.nama + ' — ' + rp(H.utang[p.id] || 0)]), f.pemasokId, '— pilih —')}</select></label></div>
+<label>Pemasok${U.inputOrang('pemasok', f.pemasokId, 'bayar.pemasokId', { kosong: 'ketik huruf nama', label: (p) => 'utang ' + rp(H.utang[p.id] || 0) })}</label></div>
 <div class=bar><label>Jumlah<input class=n value="${f.jumlah || ''}" data-f="bayar.jumlah" data-t=num></label><label>Dari<select data-f="bayar.dari">${U.opt([['tunai', 'Kas tunai'], ['bank', 'Bank']], f.dari)}</select></label><button class=p data-a="bayar.bayar">Simpan</button></div></div></div>
 <p class=c>Saldo awal piutang/utang per pihak diisi di tab Master. Jumlahnya harus sama dengan saldo Piutang/Utang di akuntansiApp (lihat saldo referensi di tab Ekspor/Impor).</p>`;
   };

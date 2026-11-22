@@ -85,6 +85,33 @@
     o[p[p.length - 1]] = nilai;
   }
 
+  U.setJalur = setJalur;
+  const infoAnggota = (p) => (p ? (p.anggota ? 'Anggota' : 'Non-anggota') : 'Umum (non-anggota)');
+  U.infoPelanggan = (id) => infoAnggota(U.s().pelanggan.find((x) => x.id === id));
+  /** Kolom ketik dengan saran (datalist) untuk memilih pelanggan/anggota atau pemasok. Nilai tersimpan = id. */
+  U.inputOrang = (jenis, id, jalur, o) => {
+    o = o || {};
+    const daftar = jenis === 'pelanggan' ? S.pelanggan : S.pemasok;
+    const nama = id ? ((daftar.find((x) => x.id === id) || {}).nama || '') : '';
+    const label = o.label || ((x) => (jenis === 'pelanggan' ? (x.anggota ? 'Anggota' : 'Non-anggota') : ''));
+    return `<input list="dl${jenis}" value="${U.esc(nama)}" data-f="${jalur}" data-r="orang.pilih" data-j="${jenis}"${o.info ? ' data-info="' + o.info + '"' : ''} autocomplete="off" placeholder="${U.esc(o.kosong || 'ketik nama…')}" style="min-width:200px"><datalist id="dl${jenis}">${daftar.map((x) => `<option value="${U.esc(x.nama)}" label="${U.esc(label(x))}">`).join('')}</datalist>`;
+  };
+  /** Mengubah teks ketikan menjadi id: nama persis, atau satu-satunya nama yang memuat teks itu. Kosong = tidak dipilih. */
+  A['orang.pilih'] = (el) => {
+    const daftar = el.dataset.j === 'pelanggan' ? S.pelanggan : S.pemasok;
+    const t = el.value.trim().toLowerCase();
+    let hasil = null;
+    if (t) {
+      hasil = daftar.find((x) => x.nama.toLowerCase() === t);
+      if (!hasil) { const m = daftar.filter((x) => x.nama.toLowerCase().includes(t)); if (m.length === 1) hasil = m[0]; }
+      if (!hasil) toast('"' + el.value.trim() + '" tidak ada di daftar ' + (el.dataset.j === 'pelanggan' ? 'pelanggan' : 'pemasok') + '. Tambahkan di Menu › Master.', true);
+    }
+    setJalur(el.dataset.f, hasil ? hasil.id : '');
+    el.value = hasil ? hasil.nama : '';
+    const info = el.dataset.info && document.getElementById(el.dataset.info);
+    if (info) info.textContent = el.dataset.j === 'pelanggan' ? infoAnggota(hasil) : '';
+  };
+
   document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-a]');
     if (!el) return;

@@ -48,6 +48,7 @@ ${S.pemasok.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.s.${i
     const v = el.type === 'checkbox' ? el.checked : el.dataset.t === 'num' ? U.ubahBilangan(el.value) : el.value.trim();
     if (kolom === 'k' && S.barang.some((b, x) => x !== +i && b.k === v)) { U.toast('Kode barang sudah dipakai.', true); return U.render(); }
     if (kolom === 'k' && baris.k && pakai(S, 'x', (t) => (t.item || []).some((x) => x.k === baris.k))) { U.toast('Kode tidak bisa diganti: barang sudah dipakai di transaksi.', true); return U.render(); }
+    if (kolom === 'nama' && j !== 'b' && daftar.some((x, n) => n !== +i && x.nama.trim().toLowerCase() === v.toLowerCase())) { U.toast('Nama sudah dipakai; beri nama yang berbeda agar mudah dicari.', true); return U.render(); }
     if (kolom === 'barcode' && v && S.barang.some((b, x) => x !== +i && b.barcode === v)) { U.toast('Barcode itu sudah dipakai barang lain.', true); return U.render(); }
     baris[kolom] = v; simpan();
   };

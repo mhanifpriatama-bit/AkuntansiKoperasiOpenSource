@@ -83,14 +83,23 @@ const K = globalThis.KDMP;
     await ok(tab('Pembelian'));
     await js(`(function(){var e=document.getElementById('bscan');e.value='8999999000011';e.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))})()`);
     as.strictEqual(await js(`POS.F.beli.k`), 'BRS-5KG', 'scan barcode di Pembelian');
-    await ok(set('[data-f="beli.tgl"]', '2027-01-05')); await ok(set('[data-f="beli.pemasok"]', await js(`POS.S.pemasok[0].id`)));
+    await ok(set('[data-f="beli.tgl"]', '2027-01-05')); await ok(set('[data-f="beli.pemasok"]', 'umum'));
+    as.strictEqual(await js(`POS.F.beli.pemasok`), await js(`POS.S.pemasok[0].id`), 'ketik sebagian nama pemasok');
     await ok(set('[data-f="beli.faktur"]', '0123')); await ok(set('[data-f="beli.k"]', 'BRS-5KG')); await ok(set('[data-f="beli.q"]', '30')); await ok(set('[data-f="beli.h"]', '66000'));
     await ok(klik('beli.tambah')); await ok(klik('beli.simpan'));
     as.strictEqual(await js(`POS.S.tx.length`), 1, await toast());
 
     // Penjualan 1: anggota, campuran tunai+bank+kredit
     await ok(tab('Kasir'));
-    await ok(set('[data-f="kasir.tgl"]', '2027-01-05')); await ok(set('[data-f="kasir.pelanggan"]', await js(`POS.S.pelanggan[0].id`)));
+    await ok(set('[data-f="kasir.tgl"]', '2027-01-05')); 
+    as.ok((await js(`document.querySelectorAll('#dlpelanggan option').length`)) === 2, 'saran pelanggan di datalist');
+    await ok(set('[data-f="kasir.pelanggan"]', 'sri'));
+    as.strictEqual(await js(`document.querySelector('[data-f="kasir.pelanggan"]').value`), 'Bu Sri', 'ketik huruf -> nama lengkap');
+    as.strictEqual(await js(`POS.F.kasir.pelanggan`), await js(`POS.S.pelanggan[0].id`));
+    as.strictEqual(await js(`document.getElementById('kinfo').textContent`), 'Anggota');
+    await ok(set('[data-f="kasir.pelanggan"]', 'zzz')); as.ok((await toast()).includes('tidak ada di daftar'), await toast());
+    as.strictEqual(await js(`POS.F.kasir.pelanggan`), '');
+    await ok(set('[data-f="kasir.pelanggan"]', 'Bu Sri'));
     await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '10')); await ok(klik('kasir.tambah'));
     as.ok((await js(teks('#ktot'))).includes('700.000'), 'total kasir: ' + await js(teks('#ktot')));
     await ok(set('[data-f="kasir.tunai"]', '400000')); await ok(set('[data-f="kasir.bank"]', '100000')); await ok(set('[data-f="kasir.kredit"]', '200000'));
@@ -125,7 +134,7 @@ const K = globalThis.KDMP;
     await ok(set('[data-f="retur.qJ.BRS-5KG"]', '1')); await ok(klik('retur.simpanJUAL'));
     as.strictEqual(await js(`POS.S.tx.length`), 4, await toast());
     await ok(tab('Piutang & Utang'));
-    await ok(set('[data-f="bayar.tgl"]', '2027-01-07')); await ok(set('[data-f="bayar.pelanggan"]', await js(`POS.S.pelanggan[0].id`))); await ok(set('[data-f="bayar.tunai"]', '300000')); await ok(klik('bayar.terima'));
+    await ok(set('[data-f="bayar.tgl"]', '2027-01-07')); await ok(set('[data-f="bayar.pelanggan"]', 'Bu Sri')); await ok(set('[data-f="bayar.tunai"]', '300000')); await ok(klik('bayar.terima'));
     await ok(tab('Kas')); await ok(set('[data-f="kas.tgl"]', '2027-01-10')); await ok(set('[data-f="kas.jumlah"]', '1000000')); await ok(klik('kas.setor'));
     as.strictEqual(await js(`POS.S.tx.length`), 6, await toast());
     // Opname
