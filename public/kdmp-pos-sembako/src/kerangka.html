@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KDMP POS Sembako</title>
+<!--@css css/pos.css-->
+</head>
+<body>
+<header><h1>KDMP POS Sembako</h1><span id="info"></span><span class="st" id="st"></span></header>
+<nav id="nav"></nav>
+<main id="isi"></main>
+<!--@js js/mesin.js-->
+<!--@js js/kontrak.js-->
+<!--@js js/simpan.js-->
+<!--@js js/ui-dasar.js-->
+<!--@js js/ui-transaksi.js-->
+<!--@js js/ui-pertukaran.js-->
+<script>
+window.addEventListener('error', function (e) { var m = document.getElementById('isi'); if (m) m.insertAdjacentHTML('afterbegin', '<div class="galat">Galat: ' + String(e.message).replace(/</g, '&lt;') + '</div>'); });
+POS.mulai();
+</script>
+</body>
+</html>
