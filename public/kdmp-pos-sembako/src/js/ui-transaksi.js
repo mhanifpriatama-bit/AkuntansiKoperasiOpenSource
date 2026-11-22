@@ -11,7 +11,7 @@
     const t = String(teks || '').trim().toLowerCase();
     if (!t) return null;
     const S = U.s();
-    return S.barang.find((b) => b.barcode && String(b.barcode).toLowerCase() === t) || S.barang.find((b) => b.k.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase().includes(t));
+    return S.barang.find((b) => b.barcode && String(b.barcode).toLowerCase() === t) || S.barang.find((b) => b.k.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase().includes(t)) || S.barang.find((b) => b.k.toLowerCase().startsWith(t));
   };
   const tabelItem = (items, kolomHarga, hapusAksi, harga) => items.length
     ? `<table><tr><th>Barang</th><th class=n>Jumlah</th><th class=n>${kolomHarga}</th><th class=n>Jumlah Rp</th><th></th></tr>${items.map((x, i) => `<tr><td>${esc(x.k)} <span class=c>${esc((U.barang(x.k) || {}).n)}</span></td><td class=n>${qty(x.q)}</td><td class=n>${rp(harga(x))}</td><td class=n>${rp(POS.mesin.bulat(x.q * harga(x)))}</td><td><button class=k data-a="${hapusAksi}" data-i="${i}">hapus</button></td></tr>`).join('')}</table>`

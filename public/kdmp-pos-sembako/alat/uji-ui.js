@@ -93,6 +93,7 @@ const K = globalThis.KDMP;
     await ok(tab('Kasir'));
     await ok(set('[data-f="kasir.tgl"]', '2027-01-05')); 
     as.ok((await js(`document.querySelectorAll('#dlpelanggan option').length`)) === 2, 'saran pelanggan di datalist');
+    as.strictEqual(await js(`[].map.call(document.querySelectorAll('#dlpelanggan option'),function(o){return o.value+'|'+o.hasAttribute('label')}).join(',')`), 'Bu Sri|false,Pak Budi|false', 'saran hanya berisi nama, tanpa label');
     await ok(set('[data-f="kasir.pelanggan"]', 'sri'));
     as.strictEqual(await js(`document.querySelector('[data-f="kasir.pelanggan"]').value`), 'Bu Sri', 'ketik huruf -> nama lengkap');
     as.strictEqual(await js(`POS.F.kasir.pelanggan`), await js(`POS.S.pelanggan[0].id`));
@@ -109,6 +110,12 @@ const K = globalThis.KDMP;
     // Penjualan 2: umum, tunai pas
     await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '20')); await ok(klik('kasir.tambah')); await ok(klik('kasir.pas')); await ok(klik('kasir.simpan'));
     as.strictEqual(await js(`POS.S.tx.length`), 3, await toast());
+    // Saran barang berisi nama (tanpa label); nama, kode, dan barcode sama-sama dikenali
+    as.strictEqual(await js(`[].map.call(document.querySelectorAll('#dlb option'),function(o){return o.value+'|'+o.hasAttribute('label')}).join(',')`), 'Beras Premium 5 kg|false');
+    await ok(set('[data-f="kasir.k"]', 'Beras Premium 5 kg')); await ok(klik('kasir.tambah')); as.strictEqual(await js(`POS.F.kasir.item.length`), 1);
+    await ok(klik('kasir.batal'));
+    await ok(set('[data-f="kasir.k"]', 'brs')); await ok(klik('kasir.tambah')); as.strictEqual(await js(`POS.F.kasir.item.length`), 1, 'awalan kode dikenali');
+    await ok(klik('kasir.batal'));
     // Barcode di Kasir: tiap scan menambah 1; barcode tak dikenal ditolak; fokus kembali ke kolom scan
     const scan = (c) => js(`(function(){var e=document.getElementById('scan');e.value=${JSON.stringify(c)};e.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));return 'ok'})()`);
     await ok(scan('8999999000011')); await ok(scan('8999999000011'));

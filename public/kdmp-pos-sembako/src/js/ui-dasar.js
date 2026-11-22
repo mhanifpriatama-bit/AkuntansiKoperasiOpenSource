@@ -21,7 +21,7 @@
   U.namaPelanggan = (id) => (S.pelanggan.find((p) => p.id === id) || { nama: 'Umum' }).nama;
   U.namaPemasok = (id) => (S.pemasok.find((p) => p.id === id) || { nama: '-' }).nama;
   U.barang = (k) => S.barang.find((b) => b.k === k);
-  U.datalistBarang = () => '<datalist id=dlb>' + S.barang.map((b) => `<option value="${U.esc(b.k)}" label="${U.esc(b.n)}">`).join('') + '</datalist>';
+  U.datalistBarang = () => '<datalist id=dlb>' + S.barang.filter((b) => b.n).map((b) => `<option value="${U.esc(b.n)}"></option>`).join('') + '</datalist>';
   U.akunCoa = (awalan) => ((S.tpl && S.tpl.coa) || []).filter((a) => a[0].startsWith(awalan)).map((a) => [a[0], a[0] + ' ' + a[1]]);
 
   const toast = (t, galat) => {
@@ -88,13 +88,13 @@
   U.setJalur = setJalur;
   const infoAnggota = (p) => (p ? (p.anggota ? 'Anggota' : 'Non-anggota') : 'Umum (non-anggota)');
   U.infoPelanggan = (id) => infoAnggota(U.s().pelanggan.find((x) => x.id === id));
-  /** Kolom ketik dengan saran (datalist) untuk memilih pelanggan/anggota atau pemasok. Nilai tersimpan = id. */
+  /** Kolom ketik dengan saran (datalist) untuk memilih pelanggan/anggota atau pemasok. Nilai tersimpan = id.
+   *  Saran sengaja hanya berisi nama (tanpa atribut label): sebagian peramban menampilkan label sebagai ganti nama. */
   U.inputOrang = (jenis, id, jalur, o) => {
     o = o || {};
     const daftar = jenis === 'pelanggan' ? S.pelanggan : S.pemasok;
     const nama = id ? ((daftar.find((x) => x.id === id) || {}).nama || '') : '';
-    const label = o.label || ((x) => (jenis === 'pelanggan' ? (x.anggota ? 'Anggota' : 'Non-anggota') : ''));
-    return `<input list="dl${jenis}" value="${U.esc(nama)}" data-f="${jalur}" data-r="orang.pilih" data-j="${jenis}"${o.info ? ' data-info="' + o.info + '"' : ''} autocomplete="off" placeholder="${U.esc(o.kosong || 'ketik nama…')}" style="min-width:200px"><datalist id="dl${jenis}">${daftar.map((x) => `<option value="${U.esc(x.nama)}" label="${U.esc(label(x))}">`).join('')}</datalist>`;
+    return `<input list="dl${jenis}" value="${U.esc(nama)}" data-f="${jalur}" data-r="orang.pilih" data-j="${jenis}"${o.info ? ' data-info="' + o.info + '"' : ''} autocomplete="off" placeholder="${U.esc(o.kosong || 'ketik nama…')}" style="min-width:200px"><datalist id="dl${jenis}">${daftar.map((x) => `<option value="${U.esc(x.nama)}"></option>`).join('')}</datalist>`;
   };
   /** Mengubah teks ketikan menjadi id: nama persis, atau satu-satunya nama yang memuat teks itu. Kosong = tidak dipilih. */
   A['orang.pilih'] = (el) => {
