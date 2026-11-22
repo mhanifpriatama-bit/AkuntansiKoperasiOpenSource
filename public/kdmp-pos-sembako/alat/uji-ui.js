@@ -123,8 +123,22 @@ const K = globalThis.KDMP;
     await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '1')); await ok(klik('kasir.tambah'));
     await ok(set('[data-f="kasir.kredit"]', '70000')); await ok(klik('kasir.simpan'));
     as.ok((await toast()).includes('pelanggan'), 'kredit tanpa pelanggan: ' + await toast());
-    await ok(klik('kasir.batal')); await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '999')); await ok(klik('kasir.tambah')); await ok(klik('kasir.pas')); await ok(klik('kasir.simpan'));
-    as.ok((await toast()).includes('Stok minus'), 'stok minus: ' + await toast());
+    await ok(klik('kasir.batal')); await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '999')); await ok(klik('kasir.tambah'));
+    as.ok((await toast()).includes('tinggal'), 'melebihi stok harus ditolak masuk keranjang: ' + await toast());
+    as.strictEqual(await js(`POS.F.kasir.item.length`), 0, 'tidak boleh masuk keranjang');
+    as.ok((await js(teks('#kpw'))).includes('tinggal'), 'peringatan tampil di halaman Kasir');
+    // Stok 0: ditolak lewat tombol dan lewat scan
+    await js(`POS.S.barang.push({k:'NOL',n:'Barang Kosong',akun:'1.1.4.02',harga:1000,barcode:'111'}); POS.u.render(); 1`);
+    await ok(set('[data-f="kasir.k"]', 'NOL')); await ok(set('[data-f="kasir.q"]', '1')); await ok(klik('kasir.tambah'));
+    as.ok((await toast()).includes('habis'), 'stok 0: ' + await toast());
+    as.ok((await js(teks('#kpw'))).includes('habis (0)'), 'peringatan stok 0 tampil: ' + await js(teks('#kpw')));
+    as.strictEqual(await js(`POS.F.kasir.item.length`), 0);
+    await ok(scan('111')); as.strictEqual(await js(`POS.F.kasir.item.length`), 0); as.ok((await js(teks('#kpw'))).includes('habis'));
+    await js(`POS.S.barang.pop(); POS.u.render(); 1`);
+    // Barang bernstok tetap bisa masuk keranjang dan peringatan hilang
+    await ok(set('[data-f="kasir.k"]', 'BRS-5KG')); await ok(set('[data-f="kasir.q"]', '1')); await ok(klik('kasir.tambah'));
+    as.strictEqual(await js(`POS.F.kasir.item.length`), 1); as.strictEqual(await js(`!!document.getElementById('kpw')`), false);
+    await ok(klik('kasir.batal'));
     as.strictEqual(await js(`POS.S.tx.length`), 3);
     await ok(klik('kasir.batal'));
 

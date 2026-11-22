@@ -278,7 +278,10 @@
       if (t.jenis === 'BELI' && t.cara === 'kredit') utang[t.pemasok] = (utang[t.pemasok] || 0) + jumlahItem(t.item, (x) => bulat(x.q * x.h));
       if (t.jenis === 'BAYAR') utang[t.pemasok] = (utang[t.pemasok] || 0) - t.jumlah;
     });
-    return { mutasi, jurnal, galat, stok: F.per, nomorBeli, nomorRbeli, hppJual, saldoPada, piutang, utang, tx };
+    // Stok yang masih bisa dijual pada tanggal tgl: terendah dari stok pada tgl dan pada tiap tanggal transaksi sesudahnya
+    const tanggalMutasi = [...new Set(M.map((r) => r.d))];
+    const stokTersedia = (k, tgl) => Math.min.apply(null, [tgl].concat(tanggalMutasi.filter((d) => d > tgl)).map((d) => (fifo(M, d).per[k] || { q: 0 }).q));
+    return { mutasi, jurnal, galat, stok: F.per, stokTersedia, nomorBeli, nomorRbeli, hppJual, saldoPada, piutang, utang, tx };
   }
 
   function namaAkun(S, kode) { const a = (S.tpl.coa || []).find((x) => x[0] === kode); return a ? a[1] : ''; }

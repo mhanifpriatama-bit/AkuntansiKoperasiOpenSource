@@ -32,8 +32,9 @@ ${POS.kamera.tersedia() ? '<button class=x data-a="kasir.kamera">Kamera</button>
 <div class=bar><label>Barang (kode / nama)<input list=dlb value="${esc(f.k)}" data-f="kasir.k" data-r="kasir.pilih" style="width:220px"></label>
 <label>Jumlah<input class="n s" value="${f.q}" data-f="kasir.q" data-t=num></label>
 <label>Harga satuan<input class=n value="${f.harga}" data-f="kasir.harga" data-t=num></label>
-<button class=x data-a="kasir.tambah">+ Tambah</button></div>
-${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
+<button class=x data-a="kasir.tambah">Masuk keranjang</button></div>
+${f.peringatan ? `<div class=galat id=kpw><b>Tidak masuk keranjang:</b> ${esc(f.peringatan)}</div>` : ''}
+<h3>Keranjang</h3>${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
 <p>Total <span class=tot id=ktot>${rp(tot)}</span></p>
 <div class=bar><label>Tunai<input class=n value="${f.tunai || ''}" data-f="kasir.tunai" data-t=num data-r="kasir.sisa"></label>
 <label>Non-tunai (bank/QRIS)<input class=n value="${f.bank || ''}" data-f="kasir.bank" data-t=num data-r="kasir.sisa"></label>
@@ -42,19 +43,31 @@ ${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
 <p id=ksisa class=c></p>
 <div class=bar><button class=p data-a="kasir.simpan">Simpan penjualan</button><button class=x data-a="kasir.batal">Kosongkan</button></div></div>`;
   };
+  // Stok harus cukup untuk isi keranjang + tambahan; stok 0 atau kurang = tidak masuk keranjang, muncul peringatan.
+  const stokCukup = (b, tambah) => {
+    const f = kasir(), tersedia = U.hasil().stokTersedia(b.k, f.tgl);
+    const dikeranjang = f.item.filter((x) => x.k === b.k).reduce((s, x) => s + x.q, 0);
+    let pesan = '';
+    if (tersedia <= 1e-9) pesan = 'Stok ' + b.n + ' habis (0).';
+    else if (dikeranjang + tambah > tersedia + 1e-9) pesan = 'Stok ' + b.n + ' tinggal ' + qty(tersedia) + (dikeranjang ? ', di keranjang sudah ' + qty(dikeranjang) : '') + '.';
+    f.peringatan = pesan;
+    if (pesan) { U.toast(pesan, true); return false; }
+    return true;
+  };
   // Menambah satu barang dari barcode (atau kode barang). Mengembalikan true bila berhasil.
   const tambahScan = (kode) => {
     const f = kasir(), b = cariBarang(kode);
     if (!b) { U.toast('Barcode ' + kode + ' tidak dikenal. Daftarkan di Menu › Master.', true); return false; }
     const harga = b.harga || 0;
     if (!(harga > 0)) { U.toast(b.n + ': harga jual belum diisi di Master.', true); return false; }
+    if (!stokCukup(b, 1)) return false;
     const ada = f.item.find((x) => x.k === b.k && x.harga === harga);
     if (ada) ada.q += 1; else f.item.push({ k: b.k, q: 1, harga });
     U.toast(b.n + ' ×1', false);
     return true;
   };
-  A['kasir.scan'] = (el) => { const kode = el.value.trim(); if (!kode) return; tambahScan(kode); U.fokus = 'scan'; U.render(); };
-  A['kasir.kamera'] = () => POS.kamera.pindai((kode) => { if (U.pos() === 'Kasir') { tambahScan(kode); U.render(); } }, { terus: true });
+  A['kasir.scan'] = (el) => { const kode = el.value.trim(); if (!kode) return; if (tambahScan(kode)) kasir().peringatan = ''; U.fokus = 'scan'; U.render(); };
+  A['kasir.kamera'] = () => POS.kamera.pindai((kode) => { if (U.pos() === 'Kasir') { if (tambahScan(kode)) kasir().peringatan = ''; U.render(); } }, { terus: true });
   A['kasir.pilih'] = () => { const f = kasir(), b = cariBarang(f.k); if (b) { f.k = b.k; if (!f.harga) f.harga = b.harga || 0; U.render(); } };
   A['kasir.tambah'] = () => {
     const f = kasir(), b = cariBarang(f.k);
@@ -62,9 +75,10 @@ ${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
     if (!(f.q > 0)) return U.toast('Jumlah harus lebih dari 0.', true);
     const harga = f.harga || b.harga || 0;
     if (!(harga > 0)) return U.toast('Isi harga satuan (atau isi harga jual di Master).', true);
+    if (!stokCukup(b, f.q)) return U.render();
     const ada = f.item.find((x) => x.k === b.k && x.harga === harga);
     if (ada) ada.q += f.q; else f.item.push({ k: b.k, q: f.q, harga });
-    f.k = ''; f.q = 1; f.harga = '';
+    f.k = ''; f.q = 1; f.harga = ''; f.peringatan = '';
     U.render();
   };
   A['kasir.hapus'] = (el) => { kasir().item.splice(+el.dataset.i, 1); U.render(); };
@@ -74,7 +88,7 @@ ${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
     const e = document.getElementById('ksisa');
     if (e) { e.textContent = s === 0 ? 'Pembayaran pas.' : s > 0 ? 'Kurang ' + rp(s) : 'Lebih ' + rp(-s) + ' (kembalian tidak dicatat; isi tunai sebesar total).'; e.className = s === 0 ? 'ok' : 'no'; }
   };
-  A['kasir.batal'] = () => { Object.assign(kasir(), { item: [], tunai: 0, bank: 0, kredit: 0, k: '', q: 1, harga: '' }); U.render(); };
+  A['kasir.batal'] = () => { Object.assign(kasir(), { item: [], tunai: 0, bank: 0, kredit: 0, k: '', q: 1, harga: '', peringatan: '' }); U.render(); };
   A['kasir.simpan'] = () => {
     const f = kasir(), tot = total(f.item, (x) => x.harga);
     if (!f.item.length) return U.toast('Belum ada barang.', true);
