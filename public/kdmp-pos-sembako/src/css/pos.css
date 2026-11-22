@@ -1,0 +1,27 @@
+:root{--m:#C8102E;--g:#1F3864;--b:#d9dde5;--bg:#f5f6f8;--ok:#1a7f37;--no:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.4 system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:#1c1f26}
+header{background:var(--g);color:#fff;padding:8px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+header h1{font-size:16px;margin:0}header .st{margin-left:auto;font-size:12px;opacity:.85}
+nav{display:flex;flex-wrap:wrap;gap:4px;padding:8px 10px;background:#fff;border-bottom:1px solid var(--b)}
+nav button{border:1px solid var(--b);background:#fff;padding:7px 12px;border-radius:6px;cursor:pointer;font:inherit}
+nav button.on{background:var(--m);border-color:var(--m);color:#fff}
+main{padding:12px;max-width:1100px;margin:0 auto}
+h2{margin:6px 0 10px;font-size:17px}h3{margin:14px 0 6px;font-size:15px}
+.card{background:#fff;border:1px solid var(--b);border-radius:8px;padding:12px;margin-bottom:12px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin:6px 0}
+label{display:flex;flex-direction:column;font-size:12px;color:#555;gap:2px}
+input,select,button{font:inherit}
+input,select{padding:7px 8px;border:1px solid var(--b);border-radius:6px;min-width:0}
+input.n{text-align:right;width:120px}input.s{width:80px}
+button.p{background:var(--m);color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+button.x{background:#fff;border:1px solid var(--b);border-radius:6px;padding:7px 12px;cursor:pointer}
+button.k{background:none;border:0;color:var(--no);cursor:pointer;padding:2px 6px}
+table{border-collapse:collapse;width:100%;background:#fff}
+th,td{border:1px solid var(--b);padding:5px 8px;text-align:left;vertical-align:middle}
+th{background:#eef0f4;font-size:12px}td.n,th.n{text-align:right}
+.tot{font-size:20px;font-weight:600}.c{color:#667}.ok{color:var(--ok)}.no{color:var(--no)}
+.galat{background:#fdecea;border:1px solid #f3b5ae;padding:8px 12px;border-radius:6px;margin:8px 0}
+.info{background:#eaf3ff;border:1px solid #b6d4fe;padding:8px 12px;border-radius:6px;margin:8px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+@media(max-width:600px){main{padding:8px}input.n{width:96px}}
