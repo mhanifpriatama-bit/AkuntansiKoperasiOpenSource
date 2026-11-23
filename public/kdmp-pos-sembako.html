@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KDMP POS Sembako</title>
+<style>
+:root{--m:#C8102E;--g:#1F3864;--b:#d9dde5;--bg:#f5f6f8;--ok:#1a7f37;--no:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.4 system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:#1c1f26}
+header{background:var(--g);color:#fff;padding:8px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+header h1{font-size:16px;margin:0}header .st{margin-left:auto;font-size:12px;opacity:.85}
+main{padding:12px;max-width:1100px;margin:0 auto}
+h2{margin:6px 0 10px;font-size:17px}h3{margin:14px 0 6px;font-size:15px}
+.card{background:#fff;border:1px solid var(--b);border-radius:8px;padding:12px;margin-bottom:12px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin:6px 0}
+label{display:flex;flex-direction:column;font-size:12px;color:#555;gap:2px}
+input,select,button{font:inherit}
+input,select{padding:7px 8px;border:1px solid var(--b);border-radius:6px;min-width:0}
+input.n{text-align:right;width:120px}input.s{width:80px}
+button.p{background:var(--m);color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+button.x{background:#fff;border:1px solid var(--b);border-radius:6px;padding:7px 12px;cursor:pointer}
+button.k{background:none;border:0;color:var(--no);cursor:pointer;padding:2px 6px}
+table{border-collapse:collapse;width:100%;background:#fff}
+th,td{border:1px solid var(--b);padding:5px 8px;text-align:left;vertical-align:middle}
+th{background:#eef0f4;font-size:12px}td.n,th.n{text-align:right}
+.tot{font-size:20px;font-weight:600}.c{color:#667}.ok{color:var(--ok)}.no{color:var(--no)}
+.galat{background:#fdecea;border:1px solid #f3b5ae;padding:8px 12px;border-radius:6px;margin:8px 0}
+.info{background:#eaf3ff;border:1px solid #b6d4fe;padding:8px 12px;border-radius:6px;margin:8px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+@media(max-width:600px){main{padding:8px}input.n{width:96px}}
+
+header{position:relative}
+.mn{position:relative}
+#tglslot input{padding:5px 8px;border:0;border-radius:6px;font-size:14px}
+#menu{background:#fff;color:var(--g);border:0;border-radius:6px;padding:6px 12px;font-weight:600;cursor:pointer}
+#menupanel{position:absolute;left:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--b);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.2);min-width:220px;z-index:20;display:flex;flex-direction:column;padding:4px}
+#menupanel[hidden]{display:none}
+#menupanel button{border:0;background:none;text-align:left;padding:11px 14px;font:inherit;color:#1c1f26;border-radius:6px;cursor:pointer}
+#menupanel button:hover{background:#eef0f4}#menupanel button.on{background:var(--m);color:#fff}
+.scan{display:flex;gap:8px;align-items:end;flex-wrap:wrap;background:#fff7e6;border:1px solid #f3d9a4;border-radius:8px;padding:8px 10px;margin-bottom:8px}
+.scan input{flex:1;min-width:200px;font-size:16px}
+#kam{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff}
+#sug{position:fixed;z-index:12;background:#fff;border:1px solid var(--b);border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.2);max-height:260px;overflow:auto}
+#sug[hidden]{display:none}#sug div{padding:7px 10px;cursor:pointer;display:flex;justify-content:space-between;gap:14px}
+#sug div.on,#sug div:hover{background:var(--m);color:#fff}#sug .c{color:inherit;opacity:.7}
+.kgrid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+@media(max-width:900px){.kgrid{grid-template-columns:1fr}}
+.struk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.4;background:#fff;border:1px dashed #aaa;padding:10px}
+.struk .sh{text-align:center;font-weight:700;margin-bottom:6px}.struk .sl,.struk .sr{display:flex;justify-content:space-between;gap:8px}
+.struk hr{border:0;border-top:1px dashed #888;margin:6px 0}.struk table{border:0}.struk th,.struk td{border:0;padding:1px 3px;background:none;font-size:12px}
+#mdl .box.lebar{max-width:680px}#mdl table.bt td{vertical-align:top}#mdl table.bt td:first-child{white-space:nowrap;font-weight:600}
+@media print{body>header,.kiri,.kanan .card>:not(#struk),#toast,#mdl,#sug{display:none!important}.kgrid{display:block}.kanan .card{border:0;padding:0}main{padding:0}.struk{border:0}}
+#kam video{max-width:92vw;max-height:60vh;border-radius:8px;background:#000}
+#mdl{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:8;display:flex;align-items:center;justify-content:center;padding:12px}
+#mdl .box{background:#fff;border-radius:10px;padding:16px;width:100%;max-width:460px;max-height:92vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#mdl h2{margin:0 0 10px}#mdl .fm{display:flex;flex-direction:column;gap:10px}#mdl .fm input,#mdl .fm select{width:100%}#mdl .fm p{margin:0}
+
+</style>
+</head>
+<body>
+<header><h1>Aplikasi Kasir KDMP</h1><div class="mn"><button id="menu" data-a="menu" aria-haspopup="true" aria-expanded="false">&#9776; Menu</button><div id="menupanel" hidden></div></div><span id="tglslot"></span><span id="info"></span><span class="st" id="st"></span></header>
+<main id="isi"></main>
+<script>
+/*
+ * Mesin POS: mengubah daftar transaksi menjadi mutasi stok (FIFO) dan jurnal harian sesuai kontrak v1.1.
+ * Murni logika, tanpa DOM. Masukan: state {tpl, barang, pelanggan, pemasok, tx}. Keluaran: hitung(state).
+ *
+ * Transaksi (semua punya id, tgl ISO, jenis):
+ *   JUAL      {pelanggan?, item:[{k,q,harga}], tunai, bank, kredit}
+ *   PELUNASAN {pelanggan, tunai, bank}
+ *   BELI      {pemasok, faktur, item:[{k,q,h}], cara:'tunai'|'bank'|'kredit'}
+ *   BAYAR     {pemasok, jumlah, dari:'tunai'|'bank'}
+ *   RJUAL     {ref (id JUAL), pelanggan?, item:[{k,q}], cara:'tunai'|'bank'|'piutang'}
+ *   RBELI     {ref (id BELI), item:[{k,q}], cara:'tunai'|'bank'|'utang'}
+ *   OPNAME    {item:[{k,fisik}]}
+ *   SETOR     {jumlah}
+ */
+(function (POS) {
+  'use strict';
+  const EPS = 1e-9;
+  const bulat = (x) => Math.round(x + (x < 0 ? -1e-9 : 1e-9));
+  const KOM = {
+    anggota: 'Penerimaan Kas dari Pelayanan kepada Anggota',
+    non: 'Penerimaan Kas dari Non Anggota',
+    beli: 'Pembelian Harga Pokok Barang'
+  };
+  const PERINGKAT = { 'Saldo Awal': 0, Masuk: 1, Keluar: 2 };
+  const tglNo = (d) => d.replace(/-/g, '');
+
+  /** FIFO murni (sama dengan akuntansiApp). m: [{d,no,k,j,q,h,lot}], batas: ISO inklusif (opsional). */
+  function fifo(m, batas) {
+    const urut = m.map((t, i) => ({ t, i })).filter((x) => !batas || x.t.d <= batas)
+      .sort((a, b) => (a.t.d < b.t.d ? -1 : a.t.d > b.t.d ? 1 : PERINGKAT[a.t.j] - PERINGKAT[b.t.j] || a.i - b.i));
+    const per = {}; // k -> {q, lapisan:[{id,q,h}]}
+    const biaya = new Map();
+    const minus = new Set();
+    urut.forEach(({ t }) => {
+      const r = per[t.k] || (per[t.k] = { q: 0, lapisan: [] });
+      if (t.j === 'Keluar') {
+        let sisa = t.q, nilai = 0;
+        const ambil = (l) => { const x = Math.min(sisa, l.q); if (x > 0) { nilai += x * l.h; l.q -= x; sisa -= x; } };
+        if (t.lot) r.lapisan.filter((l) => l.id === t.lot).forEach(ambil);
+        r.lapisan.forEach(ambil);
+        r.lapisan = r.lapisan.filter((l) => l.q > EPS);
+        if (sisa > EPS) minus.add(t.k);
+        r.q -= t.q;
+        biaya.set(t, bulat(nilai));
+      } else {
+        r.q += t.q;
+        if (t.q > 0) r.lapisan.push({ id: t.no || '', q: t.q, h: t.h });
+      }
+    });
+    return { per, biaya, minus };
+  }
+
+  const urutTx = (tx) => tx.slice().sort((a, b) => (a.tgl < b.tgl ? -1 : a.tgl > b.tgl ? 1 : a.urut - b.urut));
+  const jumlahItem = (items, f) => items.reduce((s, x) => s + f(x), 0);
+  const totalJual = (t) => jumlahItem(t.item, (x) => bulat(x.q * x.harga));
+
+  /** Status anggota pelanggan; transaksi tanpa pelanggan = non-anggota. */
+  const anggota = (S, id) => { const p = S.pelanggan.find((x) => x.id === id); return !!(p && p.anggota); };
+  const akunBarang = (S, k) => { const b = S.barang.find((x) => x.k === k); return (b && b.akun) || ''; };
+
+  /**
+   * @returns {{mutasi:Array, jurnal:Array, galat:Array, stok:Object, nomorBeli:Object, hppJual:Object, saldo:Object, piutang:Object, utang:Object}}
+   */
+  function hitung(S) {
+    const pem = S.tpl.pemetaan;
+    const galat = [];
+    const tx = urutTx(S.tx);
+    const kasAkun = (cara) => (cara === 'bank' ? pem.bank : pem.kasTunai);
+    const utangAkun = (id) => { const p = S.pemasok.find((x) => x.id === id); return (p && p.akun) || pem.utangUsaha; };
+
+    // Nomor dokumen BELI/RBELI: -nnn per hari per jenis menurut urutan input
+    const nomorBeli = {}, nomorRbeli = {};
+    const cacah = {};
+    tx.forEach((t) => {
+      if (t.jenis !== 'BELI' && t.jenis !== 'RBELI') return;
+      const kunci = t.jenis + t.tgl;
+      cacah[kunci] = (cacah[kunci] || 0) + 1;
+      const no = 'POS-' + tglNo(t.tgl) + '-' + t.jenis + '-' + String(cacah[kunci]).padStart(3, '0');
+      (t.jenis === 'BELI' ? nomorBeli : nomorRbeli)[t.id] = no;
+    });
+
+    // Mutasi dasar: stok awal, pembelian, penjualan, retur pembelian
+    const M = [];
+    (S.tpl.stokAwal || []).forEach((s, i) => M.push({ d: s.tgl, no: s.lot || 'SA-' + (i + 1), k: s.k, j: 'Saldo Awal', q: +s.q, h: +s.h, ket: '' }));
+    const baris = (d, no, k, j, q, h, ket, lot, ref) => { const r = { d, no, k, j, q, h, ket: ket || '' }; if (lot) r.lot = lot; r._ref = ref; return r; };
+    tx.forEach((t) => {
+      if (t.jenis === 'BELI') t.item.forEach((x) => M.push(baris(t.tgl, nomorBeli[t.id], x.k, 'Masuk', x.q, x.h, 'Faktur ' + (t.faktur || ''), null, t)));
+    });
+    const perHari = (jenis, f) => {
+      const grup = {};
+      tx.filter((t) => t.jenis === jenis).forEach((t) => t.item.forEach((x) => { const g = (grup[t.tgl + '|' + x.k] = grup[t.tgl + '|' + x.k] || { d: t.tgl, k: x.k, q: 0, h: 0, n: 0 }); f(g, x, t); }));
+      return Object.values(grup);
+    };
+    perHari('JUAL', (g, x) => { g.q += x.q; }).forEach((g) => M.push(baris(g.d, 'POS-' + tglNo(g.d) + '-JUAL', g.k, 'Keluar', g.q, 0, 'Penjualan harian')));
+    tx.forEach((t) => {
+      if (t.jenis !== 'RBELI') return;
+      const asal = tx.find((x) => x.id === t.ref);
+      t.item.forEach((x) => M.push(baris(t.tgl, nomorRbeli[t.id], x.k, 'Keluar', x.q, 0, 'Retur pembelian', asal ? nomorBeli[asal.id] : '', t)));
+    });
+    const F1 = fifo(M);
+    const hppJual = {}; // 'tgl|k' -> HPP per satuan penjualan hari itu
+    M.forEach((r) => { if (r.j === 'Keluar' && r.no.endsWith('-JUAL')) hppJual[r.d + '|' + r.k] = F1.biaya.get(r) / r.q; });
+
+    // Retur penjualan: Masuk pada HPP per satuan penjualan asal
+    const rj = {};
+    tx.filter((t) => t.jenis === 'RJUAL').forEach((t) => {
+      const asal = tx.find((x) => x.id === t.ref);
+      t.item.forEach((x) => {
+        const h = asal ? hppJual[asal.tgl + '|' + x.k] : undefined;
+        if (h === undefined) { galat.push('Retur penjualan ' + t.tgl + ': barang ' + x.k + ' tidak ada pada penjualan asal.'); return; }
+        const g = (rj[t.tgl + '|' + x.k] = rj[t.tgl + '|' + x.k] || { d: t.tgl, k: x.k, q: 0, nilai: 0 });
+        g.q += x.q; g.nilai += x.q * h; x._hpp = h;
+      });
+    });
+    Object.values(rj).forEach((g) => M.push(baris(g.d, 'POS-' + tglNo(g.d) + '-RJUAL', g.k, 'Masuk', g.q, g.nilai / g.q, 'Retur penjualan')));
+    const F2 = fifo(M);
+
+    // Opname: selisih terhadap stok sistem akhir hari itu
+    const opname = [];
+    tx.filter((t) => t.jenis === 'OPNAME').forEach((t) => t.item.forEach((x) => {
+      const f = fifo(M.concat(opname), t.tgl).per[x.k] || { q: 0, lapisan: [] };
+      const sel = Math.round((x.fisik - f.q) * 1e6) / 1e6;
+      x._sistem = f.q; x._selisih = sel;
+      if (Math.abs(sel) < EPS) return;
+      if (sel < 0) opname.push(baris(t.tgl, 'POS-' + tglNo(t.tgl) + '-OPNAME', x.k, 'Keluar', -sel, 0, 'Selisih opname'));
+      else {
+        const akhir = f.lapisan.length ? f.lapisan[f.lapisan.length - 1].h : (S.barang.find((b) => b.k === x.k) || {}).hargaBeli;
+        if (!(akhir > 0)) { galat.push('Opname ' + t.tgl + ': harga beli barang ' + x.k + ' belum ada, tidak bisa menilai selisih lebih.'); return; }
+        opname.push(baris(t.tgl, 'POS-' + tglNo(t.tgl) + '-OPNAME', x.k, 'Masuk', sel, akhir, 'Selisih opname'));
+      }
+    }));
+    // Gabungkan baris opname per hari per barang
+    const gabung = {};
+    opname.forEach((r) => { const kk = r.d + '|' + r.k + '|' + r.j; if (gabung[kk]) { gabung[kk].h = (gabung[kk].h * gabung[kk].q + r.h * r.q) / (gabung[kk].q + r.q); gabung[kk].q += r.q; } else gabung[kk] = r; });
+    Object.values(gabung).forEach((r) => M.push(r));
+    const F = fifo(M);
+    F.minus.forEach((k) => galat.push('Stok minus pada barang ' + k + ': penjualan/retur/opname melebihi stok.'));
+
+    // Nilai akhir tiap mutasi dan keluaran mutasiStok
+    const mutasi = M.filter((r) => r.j !== 'Saldo Awal').map((r) => {
+      const nilai = r.j === 'Keluar' ? F.biaya.get(r) : bulat(r.q * r.h);
+      const o = { d: r.d, no: r.no, k: r.k, j: r.j, q: r.q, h: r.j === 'Keluar' ? Math.round((nilai / r.q) * 100) / 100 : Math.round(r.h * 100) / 100, nilai, ket: r.ket };
+      if (r.lot) o.lot = r.lot;
+      return o;
+    });
+    // Peta nilai Keluar/Masuk per (hari, jenis, barang) untuk jurnal
+    const nilaiPer = {};
+    mutasi.forEach((r) => { const jenis = r.no.replace(/^POS-\d{8}-/, '').replace(/-\d+$/, ''); const kk = r.d + '|' + jenis + '|' + r.k + '|' + r.j; nilaiPer[kk] = (nilaiPer[kk] || 0) + r.nilai; });
+    const nilaiHari = (d, jenis, j) => Object.keys(nilaiPer).filter((kk) => kk.startsWith(d + '|' + jenis + '|') && kk.endsWith('|' + j)).map((kk) => ({ k: kk.split('|')[2], nilai: nilaiPer[kk] }));
+
+    // Jurnal
+    const jurnal = [];
+    const J = (d, no, akun, db, kr, ket, kom) => {
+      if (!db && !kr) return;
+      const r = { d, no, ak: akun + ' ' + namaAkun(S, akun), db: db || 0, kr: kr || 0, ket };
+      if (kom) r.kom = kom;
+      jurnal.push(r);
+    };
+    const perAkunPersediaan = (daftar) => { const a = {}; daftar.forEach((x) => { const ak = akunBarang(S, x.k) || '(akun belum diisi)'; a[ak] = (a[ak] || 0) + x.nilai; }); return Object.keys(a).sort().map((ak) => [ak, a[ak]]); };
+    const hari = (jenis) => [...new Set(tx.filter((t) => t.jenis === jenis).map((t) => t.tgl))];
+
+    hari('JUAL').forEach((d) => {
+      const no = 'POS-' + tglNo(d) + '-JUAL';
+      const ts = tx.filter((t) => t.jenis === 'JUAL' && t.tgl === d);
+      const kas = {}; let piutang = 0, total = 0;
+      ts.forEach((t) => {
+        const tot = totalJual(t); total += tot;
+        const ang = anggota(S, t.pelanggan);
+        const dibayar = (t.tunai || 0) + (t.bank || 0) + (t.kredit || 0);
+        if (dibayar !== tot) galat.push('Penjualan ' + d + ': pembayaran ' + dibayar + ' tidak sama dengan total ' + tot + '.');
+        [['tunai', t.tunai], ['bank', t.bank]].forEach(([c, v]) => { if (v) { const kk = c + '|' + (ang ? 'a' : 'n'); kas[kk] = (kas[kk] || 0) + v; } });
+        piutang += t.kredit || 0;
+      });
+      ['tunai|a', 'tunai|n', 'bank|a', 'bank|n'].forEach((kk) => { if (kas[kk]) { const [c, a] = kk.split('|'); J(d, no, kasAkun(c), kas[kk], 0, 'Penjualan ' + (c === 'bank' ? 'non-tunai' : 'tunai') + (a === 'a' ? ' anggota' : ' non-anggota'), a === 'a' ? KOM.anggota : KOM.non); } });
+      J(d, no, pem.piutang, piutang, 0, 'Penjualan kredit');
+      J(d, no, pem.penjualan, 0, total, 'Penjualan harian');
+      const per = perAkunPersediaan(nilaiHari(d, 'JUAL', 'Keluar'));
+      J(d, no, pem.hpp, per.reduce((s, x) => s + x[1], 0), 0, 'HPP penjualan harian');
+      per.forEach(([ak, v]) => J(d, no, ak, 0, v, 'HPP penjualan harian'));
+    });
+
+    hari('PELUNASAN').forEach((d) => {
+      const no = 'POS-' + tglNo(d) + '-PELUNASAN';
+      const kas = {}; let total = 0;
+      tx.filter((t) => t.jenis === 'PELUNASAN' && t.tgl === d).forEach((t) => {
+        const ang = anggota(S, t.pelanggan);
+        [['tunai', t.tunai], ['bank', t.bank]].forEach(([c, v]) => { if (v) { const kk = c + '|' + (ang ? 'a' : 'n'); kas[kk] = (kas[kk] || 0) + v; total += v; } });
+      });
+      ['tunai|a', 'tunai|n', 'bank|a', 'bank|n'].forEach((kk) => { if (kas[kk]) { const [c, a] = kk.split('|'); J(d, no, kasAkun(c), kas[kk], 0, 'Pelunasan piutang' + (a === 'a' ? ' anggota' : ' non-anggota'), a === 'a' ? KOM.anggota : KOM.non); } });
+      J(d, no, pem.piutang, 0, total, 'Pelunasan piutang');
+    });
+
+    tx.filter((t) => t.jenis === 'BELI').forEach((t) => {
+      const no = nomorBeli[t.id];
+      const tot = jumlahItem(t.item, (x) => bulat(x.q * x.h));
+      const per = perAkunPersediaan(t.item.map((x) => ({ k: x.k, nilai: bulat(x.q * x.h) })));
+      per.forEach(([ak, v]) => J(t.tgl, no, ak, v, 0, 'Pembelian faktur ' + (t.faktur || '')));
+      if (t.cara === 'kredit') J(t.tgl, no, utangAkun(t.pemasok), 0, tot, 'Pembelian faktur ' + (t.faktur || ''));
+      else J(t.tgl, no, kasAkun(t.cara), 0, tot, 'Pembelian faktur ' + (t.faktur || ''));
+    });
+
+    hari('BAYAR').forEach((d) => {
+      const no = 'POS-' + tglNo(d) + '-BAYAR';
+      const utang = {}, kas = {};
+      tx.filter((t) => t.jenis === 'BAYAR' && t.tgl === d).forEach((t) => { const a = utangAkun(t.pemasok); utang[a] = (utang[a] || 0) + t.jumlah; kas[t.dari] = (kas[t.dari] || 0) + t.jumlah; });
+      Object.keys(utang).sort().forEach((a) => J(d, no, a, utang[a], 0, 'Pembayaran utang pemasok'));
+      Object.keys(kas).sort().forEach((c) => J(d, no, kasAkun(c), 0, kas[c], 'Pembayaran utang pemasok'));
+    });
+
+    hari('RJUAL').forEach((d) => {
+      const no = 'POS-' + tglNo(d) + '-RJUAL';
+      const kas = {}; let piutang = 0, total = 0;
+      tx.filter((t) => t.jenis === 'RJUAL' && t.tgl === d).forEach((t) => {
+        const asal = tx.find((x) => x.id === t.ref);
+        const nilai = jumlahItem(t.item, (x) => { const j = asal && asal.item.find((y) => y.k === x.k); return bulat(x.q * (j ? j.harga : 0)); });
+        total += nilai;
+        if (t.cara === 'piutang') piutang += nilai;
+        else { const kk = t.cara + '|' + (anggota(S, asal && asal.pelanggan) ? 'a' : 'n'); kas[kk] = (kas[kk] || 0) + nilai; }
+      });
+      J(d, no, pem.penjualan, total, 0, 'Retur penjualan');
+      const per = perAkunPersediaan(nilaiHari(d, 'RJUAL', 'Masuk'));
+      per.forEach(([ak, v]) => J(d, no, ak, v, 0, 'Barang retur kembali ke stok'));
+      ['tunai|a', 'tunai|n', 'bank|a', 'bank|n'].forEach((kk) => { if (kas[kk]) { const [c, a] = kk.split('|'); J(d, no, kasAkun(c), 0, kas[kk], 'Pengembalian dana retur', a === 'a' ? KOM.anggota : KOM.non); } });
+      J(d, no, pem.piutang, 0, piutang, 'Retur penjualan kredit');
+      J(d, no, pem.hpp, 0, per.reduce((s, x) => s + x[1], 0), 'HPP retur penjualan');
+    });
+
+    tx.filter((t) => t.jenis === 'RBELI').forEach((t) => {
+      const no = nomorRbeli[t.id];
+      const per = perAkunPersediaan(nilaiHari(t.tgl, 'RBELI', 'Keluar').filter((x) => t.item.some((y) => y.k === x.k)).map((x) => ({ k: x.k, nilai: mutasi.filter((m) => m.no === no && m.k === x.k).reduce((s, m) => s + m.nilai, 0) })));
+      const tot = per.reduce((s, x) => s + x[1], 0);
+      if (t.cara === 'utang') { const asal = tx.find((x) => x.id === t.ref); J(t.tgl, no, utangAkun(asal && asal.pemasok), tot, 0, 'Retur pembelian'); }
+      else J(t.tgl, no, kasAkun(t.cara), tot, 0, 'Retur pembelian', KOM.beli);
+      per.forEach(([ak, v]) => J(t.tgl, no, ak, 0, v, 'Retur pembelian'));
+    });
+
+    hari('OPNAME').forEach((d) => {
+      const no = 'POS-' + tglNo(d) + '-OPNAME';
+      const kurang = perAkunPersediaan(nilaiHari(d, 'OPNAME', 'Keluar')), lebih = perAkunPersediaan(nilaiHari(d, 'OPNAME', 'Masuk'));
+      const tk = kurang.reduce((s, x) => s + x[1], 0), tl = lebih.reduce((s, x) => s + x[1], 0);
+      J(d, no, pem.selisihOpnameKurang, tk, 0, 'Selisih stok kurang');
+      lebih.forEach(([ak, v]) => J(d, no, ak, v, 0, 'Selisih stok lebih'));
+      kurang.forEach(([ak, v]) => J(d, no, ak, 0, v, 'Selisih stok kurang'));
+      J(d, no, pem.selisihOpnameLebih, 0, tl, 'Selisih stok lebih');
+    });
+
+    hari('SETOR').forEach((d) => {
+      const no = 'POS-' + tglNo(d) + '-SETOR';
+      const tot = tx.filter((t) => t.jenis === 'SETOR' && t.tgl === d).reduce((s, t) => s + t.jumlah, 0);
+      J(d, no, pem.bank, tot, 0, 'Setoran kas ke bank');
+      J(d, no, pem.kasTunai, 0, tot, 'Setoran kas ke bank');
+    });
+
+    // Pemeriksaan keseimbangan tiap No Bukti
+    const per = {};
+    jurnal.forEach((r) => { const s = (per[r.no] = per[r.no] || { db: 0, kr: 0 }); s.db += r.db; s.kr += r.kr; });
+    Object.keys(per).forEach((no) => { if (per[no].db !== per[no].kr) galat.push('Jurnal ' + no + ' tidak seimbang (' + per[no].db + ' vs ' + per[no].kr + ').'); });
+
+    // Saldo akun (menurut sifat normal) dari saldo referensi template + jurnal; piutang/utang per pihak
+    const coaNormal = {};
+    (S.tpl.coa || []).forEach((a) => { coaNormal[a[0]] = a[2]; });
+    const saldoPada = (sampai) => {
+      const s = Object.assign({}, S.tpl.saldoReferensi || {});
+      jurnal.forEach((r) => {
+        if (sampai && r.d > sampai) return;
+        const kode = r.ak.split(' ')[0];
+        if (!/^(1\.1\.1\.|1\.1\.2\.|1\.1\.4\.|2\.1\.3\.)/.test(kode)) return;
+        s[kode] = (s[kode] || 0) + (coaNormal[kode] === 'Kredit' ? r.kr - r.db : r.db - r.kr);
+      });
+      return s;
+    };
+    const piutang = {}, utang = {};
+    S.pelanggan.forEach((p) => { piutang[p.id] = p.saldoAwal || 0; });
+    S.pemasok.forEach((p) => { utang[p.id] = p.saldoAwal || 0; });
+    tx.forEach((t) => {
+      if (t.jenis === 'JUAL' && t.pelanggan) piutang[t.pelanggan] = (piutang[t.pelanggan] || 0) + (t.kredit || 0);
+      if (t.jenis === 'PELUNASAN') piutang[t.pelanggan] = (piutang[t.pelanggan] || 0) - (t.tunai || 0) - (t.bank || 0);
+      if (t.jenis === 'BELI' && t.cara === 'kredit') utang[t.pemasok] = (utang[t.pemasok] || 0) + jumlahItem(t.item, (x) => bulat(x.q * x.h));
+      if (t.jenis === 'BAYAR') utang[t.pemasok] = (utang[t.pemasok] || 0) - t.jumlah;
+    });
+    // Stok yang masih bisa dijual pada tanggal tgl: terendah dari stok pada tgl dan pada tiap tanggal transaksi sesudahnya
+    const tanggalMutasi = [...new Set(M.map((r) => r.d))];
+    const stokTersedia = (k, tgl) => Math.min.apply(null, [tgl].concat(tanggalMutasi.filter((d) => d > tgl)).map((d) => (fifo(M, d).per[k] || { q: 0 }).q));
+    return { mutasi, jurnal, galat, stok: F.per, stokTersedia, nomorBeli, nomorRbeli, hppJual, saldoPada, piutang, utang, tx };
+  }
+
+  function namaAkun(S, kode) { const a = (S.tpl.coa || []).find((x) => x[0] === kode); return a ? a[1] : ''; }
+
+  POS.mesin = { hitung, fifo, KOM, bulat, totalJual };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+/*
+ * Kontrak pertukaran dengan akuntansiApp (spesifikasi v1.1): baca template, bangun berkas data POS (JSON) beserta total kontrol.
+ */
+(function (POS) {
+  'use strict';
+
+  /** SHA-256 heksadesimal dari JSON.stringify([jurnal, mutasiStok, barangBaru]) dengan urutan kunci tetap. Harus sama dengan akuntansiApp. */
+  async function hitungChecksum(jurnal, mutasi, barangBaru) {
+    const J = jurnal.map((r) => ({ d: r.d, no: r.no, ak: r.ak, db: r.db, kr: r.kr, ket: r.ket, kom: r.kom }));
+    const M = mutasi.map((r) => ({ d: r.d, no: r.no, k: r.k, j: r.j, q: r.q, h: r.h, nilai: r.nilai, ket: r.ket, lot: r.lot }));
+    const B = barangBaru.map((r) => ({ k: r.k, n: r.n, akun: r.akun }));
+    const h = await globalThis.crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify([J, M, B])));
+    return Array.from(new Uint8Array(h)).map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  /** Memeriksa berkas template; mengembalikan teks galat atau null. */
+  function periksaTemplat(t) {
+    if (!t || typeof t !== 'object' || t.app !== 'kdmp-pos-template') return 'Bukan berkas template POS (app harus kdmp-pos-template).';
+    if (t.versi !== 1) return 'Versi template ' + t.versi + ' tidak didukung.';
+    if (!t.idTemplat || !t.unit || !t.periode || !Array.isArray(t.coa) || !t.pemetaan) return 'Template tidak lengkap.';
+    return null;
+  }
+
+  /** Barang yang dibuat di POS dan belum ada di template. */
+  const barangBaru = (S) => S.barang.filter((b) => b.k && !(S.tpl.barang || []).some((x) => x.k === b.k)).map((b) => ({ k: b.k, n: b.n, akun: b.akun }));
+
+  /**
+   * @param {object} S state, @param {object} H hasil POS.mesin.hitung(S)
+   * @param {{dari:string, sampai:string, idBatch:string, now:string}} o
+   */
+  async function bangunData(S, H, o) {
+    const dalam = (r) => r.d >= o.dari && r.d <= o.sampai;
+    const jurnal = H.jurnal.filter(dalam).map((r) => { const x = { d: r.d, no: r.no, ak: r.ak, db: r.db, kr: r.kr, ket: r.ket }; if (r.kom) x.kom = r.kom; return x; });
+    const mutasi = H.mutasi.filter(dalam).map((r) => { const x = { d: r.d, no: r.no, k: r.k, j: r.j, q: r.q, h: r.h, nilai: r.nilai, ket: r.ket }; if (r.lot) x.lot = r.lot; return x; });
+    const baru = barangBaru(S);
+    const saldo = H.saldoPada(o.sampai), saldoAkhir = {};
+    Object.keys(saldo).sort().forEach((k) => { saldoAkhir[k] = Math.round(saldo[k]); });
+    return {
+      app: 'kdmp-pos-data', versi: 1, idBatch: o.idBatch, idTemplat: S.tpl.idTemplat, unit: S.tpl.unit, dibuat: o.now,
+      periode: { dari: o.dari, sampai: o.sampai }, jurnal, mutasiStok: mutasi, barangBaru: baru,
+      kontrol: {
+        jumlahJurnal: jurnal.length, jumlahMutasi: mutasi.length,
+        totalDebit: jurnal.reduce((s, r) => s + r.db, 0), totalKredit: jurnal.reduce((s, r) => s + r.kr, 0),
+        saldoAkhir, checksum: await hitungChecksum(jurnal, mutasi, baru)
+      }
+    };
+  }
+
+  POS.kontrak = { hitungChecksum, periksaTemplat, barangBaru, bangunData };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+/*
+ * Penyimpanan lokal: satu rekaman state di IndexedDB (database kdmp_pos_sembako), tertunda 300 ms setelah perubahan.
+ * Tanpa enkripsi: POS dipakai di perangkat kasir; backup JSON bisa diunduh dari tab Ekspor/Impor.
+ */
+(function (POS) {
+  'use strict';
+  const NAMA = 'kdmp_pos_sembako';
+  let db = null, timer = null;
+
+  const buka = () => new Promise((ok, gagal) => {
+    const r = indexedDB.open(NAMA, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('s');
+    r.onsuccess = () => ok(r.result);
+    r.onerror = () => gagal(r.error);
+  });
+  const tx = (mode) => db.transaction('s', mode).objectStore('s');
+  const req = (r) => new Promise((ok, gagal) => { r.onsuccess = () => ok(r.result); r.onerror = () => gagal(r.error); });
+
+  const kosong = () => ({ tpl: null, barang: [], pelanggan: [], pemasok: [], tx: [], seq: 0, versi: 1 });
+
+  async function muat() {
+    try { db = await buka(); } catch (e) { db = null; return kosong(); }
+    return (await req(tx('readonly').get('state'))) || kosong();
+  }
+  async function simpanSekarang(S) {
+    clearTimeout(timer);
+    if (db) await req(tx('readwrite').put(JSON.parse(JSON.stringify(S)), 'state'));
+    POS.status && POS.status('Tersimpan ' + new Date().toLocaleTimeString('id-ID'));
+  }
+  function jadwalkan(S) {
+    POS.status && POS.status('Menyimpan…');
+    clearTimeout(timer);
+    timer = setTimeout(() => simpanSekarang(S), 300);
+  }
+  async function hapusSemua() { if (db) await req(tx('readwrite').delete('state')); }
+
+  POS.simpan = { muat, simpanSekarang, jadwalkan, kosong, hapusSemua, tersedia: () => !!db };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+/*
+ * Pemindai barcode lewat kamera (API BarcodeDetector + getUserMedia). Hanya ada di peramban yang mendukung (mis. Chrome Android/desktop)
+ * dan umumnya butuh halaman https atau localhost; bila tidak tersedia, pemindai fisik (keyboard wedge) tetap bekerja di kolom Scan.
+ */
+(function (POS) {
+  'use strict';
+  const FORMAT = ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39', 'itf', 'qr_code'];
+  const tersedia = () => !!(globalThis.BarcodeDetector && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+
+  const bunyi = () => {
+    try {
+      const c = new (globalThis.AudioContext || globalThis.webkitAudioContext)(), o = c.createOscillator();
+      o.frequency.value = 880; o.connect(c.destination); o.start(); setTimeout(() => { o.stop(); c.close(); }, 90);
+    } catch (e) { /* bunyi opsional */ }
+  };
+
+  /**
+   * @param {(kode:string)=>void} bila  dipanggil tiap kode terbaca
+   * @param {{terus?:boolean}} opsi  terus=true: kamera tetap terbuka (mode kasir); kode yang sama diabaikan 1,5 detik
+   */
+  async function pindai(bila, opsi) {
+    if (!tersedia()) { POS.u.toast('Kamera/pemindai tidak tersedia di peramban ini. Pakai pemindai fisik atau ketik kodenya.', true); return; }
+    let aliran;
+    try { aliran = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }); } catch (e) { POS.u.toast('Kamera tidak bisa dibuka: ' + (e.message || e.name), true); return; }
+    const kotak = document.createElement('div');
+    kotak.id = 'kam';
+    kotak.innerHTML = '<video autoplay playsinline muted></video><div id="kamst">Arahkan kamera ke barcode…</div><button class="x" id="kamtutup">Tutup</button>';
+    document.body.appendChild(kotak);
+    const video = kotak.querySelector('video');
+    video.srcObject = aliran;
+    const det = new globalThis.BarcodeDetector({ formats: FORMAT });
+    let terakhir = '', waktu = 0, mati = false;
+    const tutup = () => { mati = true; clearInterval(t); aliran.getTracks().forEach((x) => x.stop()); kotak.remove(); };
+    kotak.querySelector('#kamtutup').onclick = tutup;
+    const t = setInterval(async () => {
+      if (mati || video.readyState < 2) return;
+      try {
+        const hasil = await det.detect(video);
+        if (!hasil.length) return;
+        const kode = hasil[0].rawValue, kini = Date.now();
+        if (kode === terakhir && kini - waktu < 1500) return;
+        terakhir = kode; waktu = kini; bunyi();
+        kotak.querySelector('#kamst').textContent = 'Terbaca: ' + kode;
+        bila(kode);
+        if (!(opsi && opsi.terus)) tutup();
+      } catch (e) { /* bingkai gagal dibaca: coba lagi */ }
+    }, 250);
+  }
+
+  POS.kamera = { tersedia, pindai };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+/*
+ * Antarmuka POS: dasar (state, penanganan peristiwa, router tab) dan helper bersama.
+ * Peristiwa: klik pada [data-a="nama"] memanggil POS.A[nama](el); perubahan pada [data-f="jalur"] menyimpan nilai ke POS.F.
+ */
+(function (POS) {
+  'use strict';
+  const A = (POS.A = {});   // aksi klik
+  const F = (POS.F = {});   // keadaan formulir per tab
+  const R = (POS.R = {});   // render per tab
+  const U = (POS.u = {});
+  let S = null;
+
+  U.esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  U.rp = (x) => (x < 0 ? '-' : '') + 'Rp ' + Math.abs(Math.round(x || 0)).toLocaleString('id-ID');
+  U.qty = (x) => (Math.round((x || 0) * 1000) / 1000).toLocaleString('id-ID');
+  U.hariIni = () => new Date().toLocaleDateString('sv-SE');
+  U.tglId = (d) => { const [y, m, t] = d.split('-'); return t + '/' + m + '/' + y; };
+  U.s = () => S;
+  U.hasil = () => POS.mesin.hitung(S);
+  U.opt = (daftar, pilih, kosong) => (kosong != null ? `<option value="">${U.esc(kosong)}</option>` : '') + daftar.map(([v, l]) => `<option value="${U.esc(v)}"${String(v) === String(pilih) ? ' selected' : ''}>${U.esc(l)}</option>`).join('');
+  U.namaPelanggan = (id) => (S.pelanggan.find((p) => p.id === id) || { nama: 'Umum' }).nama;
+  U.namaPemasok = (id) => (S.pemasok.find((p) => p.id === id) || { nama: '-' }).nama;
+  U.barang = (k) => S.barang.find((b) => b.k === k);
+  U.datalistBarang = () => '<datalist id=dlb>' + S.barang.filter((b) => b.n).map((b) => `<option value="${U.esc(b.n)}"></option>`).join('') + '</datalist>';
+  U.akunCoa = (awalan) => ((S.tpl && S.tpl.coa) || []).filter((a) => a[0].startsWith(awalan)).map((a) => [a[0], a[0] + ' ' + a[1]]);
+
+  const toast = (t, galat) => {
+    let e = document.getElementById('toast');
+    if (!e) { e = document.createElement('div'); e.id = 'toast'; e.style.cssText = 'position:fixed;bottom:14px;left:50%;transform:translateX(-50%);padding:9px 16px;border-radius:8px;color:#fff;z-index:9;max-width:90vw'; document.body.appendChild(e); }
+    e.style.background = galat ? '#b42318' : '#1a7f37'; e.textContent = t; e.style.display = 'block';
+    clearTimeout(toast.t); toast.t = setTimeout(() => { e.style.display = 'none'; }, galat ? 6000 : 2200);
+  };
+  U.toast = toast;
+  POS.status = (t) => { const e = document.getElementById('st'); if (e) e.textContent = t; };
+
+  /** Menambahkan transaksi; ditolak (dikembalikan) bila menimbulkan galat pada mesin (stok minus, jurnal tak seimbang, dst). */
+  U.simpanTx = (t) => {
+    t.id = 't' + (++S.seq); t.urut = S.seq;
+    S.tx.push(t);
+    const h = U.hasil();
+    if (h.galat.length) { S.tx.pop(); S.seq--; toast(h.galat.slice(0, 3).join(' '), true); return false; }
+    POS.simpan.jadwalkan(S);
+    return true;
+  };
+  U.hapusTx = (id) => {
+    const i = S.tx.findIndex((t) => t.id === id);
+    if (i < 0) return false;
+    const [t] = S.tx.splice(i, 1);
+    const adaRujukan = S.tx.some((x) => x.ref === id);
+    const h = U.hasil();
+    if (adaRujukan || h.galat.length) { S.tx.splice(i, 0, t); toast(adaRujukan ? 'Transaksi ini dirujuk transaksi lain (retur); hapus returnya dulu.' : 'Tidak bisa dihapus: ' + h.galat[0], true); return false; }
+    POS.simpan.jadwalkan(S);
+    return true;
+  };
+  U.perlu = () => { if (S.tpl) return ''; return '<div class=info>Belum ada template. Buka <b>Menu › Ekspor/Impor</b> dan impor template dari akuntansiApp dulu. <button class=x data-a="tab" data-t="Ekspor/Impor">Buka Ekspor/Impor</button></div>'; };
+  // Angka gaya Indonesia: "1.500" = 1500 (titik ribuan), "2,5" = 2,5, "2.5" = 2,5 (titik diikuti bukan tiga angka)
+  U.ubahBilangan = (v) => {
+    let t = String(v).trim();
+    if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+    else if (/^\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');
+    const n = Number(t); return isNaN(n) ? 0 : n;
+  };
+
+  const TAB = ['Kasir', 'Pembelian', 'Retur', 'Piutang & Utang', 'Stok & Opname', 'Kas', 'Master', 'Riwayat', 'Ekspor/Impor'];
+  let tab = null;
+
+  function render() {
+    const panel = document.getElementById('menupanel');
+    panel.innerHTML = TAB.map((t) => `<button data-a="tab" data-t="${U.esc(t)}" class="${t === tab ? 'on' : ''}">${U.esc(t)}</button>`).join('');
+    panel.hidden = true;
+    document.getElementById('menu').setAttribute('aria-expanded', 'false');
+    const info = S.tpl ? `${U.esc(S.tpl.unit)} · periode ${S.tpl.periode.tahun}-${String(S.tpl.periode.bulan).padStart(2, '0')}` : 'Belum ada template';
+    document.getElementById('info').textContent = info;
+    const tg = document.getElementById('tglslot');
+    if (tg) tg.innerHTML = (tab === 'Kasir' && S.tpl && F.kasir) ? '<input type="date" value="' + U.esc(F.kasir.tgl) + '" data-f="kasir.tgl" data-r="kasir.tglUbah" aria-label="Tanggal transaksi">'
+      : (tab === 'Pembelian' && S.tpl && F.beli) ? '<b style="margin-right:8px">KDMP Sinduadi</b><input type="date" value="' + U.esc(F.beli.tgl) + '" data-f="beli.tgl" aria-label="Tanggal pembelian">' : '';
+    document.getElementById('isi').innerHTML = R[tab] ? R[tab]() : '';
+    if (U.fokus) { const e = document.getElementById(U.fokus); U.fokus = null; if (e) e.focus(); }
+  }
+  U.render = render;
+  U.pergi = (t) => { tab = t; if (t === 'Kasir') U.fokus = 'kbarang'; else if (t === 'Pembelian') U.fokus = 'bfaktur'; render(); window.scrollTo(0, 0); };
+  U.pos = () => tab;
+
+  function setJalur(jalur, nilai) {
+    const p = jalur.split('.');
+    let o = F;
+    for (let i = 0; i < p.length - 1; i++) { if (o[p[i]] == null) o[p[i]] = {}; o = o[p[i]]; }
+    o[p[p.length - 1]] = nilai;
+  }
+
+  U.setJalur = setJalur;
+  const infoAnggota = (p) => (p ? (p.anggota ? 'Anggota' : 'Non-anggota') : 'Umum (non-anggota)');
+  U.infoPelanggan = (id) => infoAnggota(U.s().pelanggan.find((x) => x.id === id));
+  /** Kolom ketik dengan saran (datalist) untuk memilih pelanggan/anggota atau pemasok. Nilai tersimpan = id.
+   *  Saran sengaja hanya berisi nama (tanpa atribut label): sebagian peramban menampilkan label sebagai ganti nama. */
+  U.inputOrang = (jenis, id, jalur, o) => {
+    o = o || {};
+    const daftar = jenis === 'pelanggan' ? S.pelanggan : S.pemasok;
+    const nama = id ? ((daftar.find((x) => x.id === id) || {}).nama || '') : '';
+    return `<input${o.id ? ' id="' + o.id + '"' : ''}${o.enter ? ' data-enter="' + o.enter + '"' : ''} ${o.sug ? 'data-sug="' + jenis + '"' : 'list="dl' + jenis + '"'} value="${U.esc(nama || (o.baru && jenis === 'pelanggan' ? 'Umum' : ''))}" data-f="${jalur}" data-r="orang.pilih" data-j="${jenis}"${o.info ? ' data-info="' + o.info + '"' : ''}${o.baru ? ' data-baru="1"' : ''} autocomplete="off" placeholder="${U.esc(o.kosong || 'ketik nama…')}" style="min-width:200px">${o.sug ? '' : `<datalist id="dl${jenis}">${daftar.map((x) => `<option value="${U.esc(x.nama)}"></option>`).join('')}</datalist>`}`;
+  };
+  /** Mengubah teks ketikan menjadi id: nama persis, atau satu-satunya nama yang memuat teks itu. Kosong = tidak dipilih. */
+  A['orang.pilih'] = (el) => {
+    const pel = el.dataset.j === 'pelanggan';
+    const daftar = pel ? S.pelanggan : S.pemasok;
+    let t = el.value.trim().toLowerCase();
+    if (el.dataset.baru && pel && t === 'umum') t = '';
+    let hasil = null, baru = '';
+    if (t) {
+      hasil = daftar.find((x) => x.nama.toLowerCase() === t);
+      if (!hasil) { const m = daftar.filter((x) => x.nama.toLowerCase().includes(t)); if (m.length === 1) hasil = m[0]; }
+      if (!hasil) {
+        if (el.dataset.baru && !daftar.some((x) => x.nama.toLowerCase().includes(t))) baru = el.value.trim();
+        else toast('"' + el.value.trim() + '" tidak ada di daftar ' + (el.dataset.j === 'pelanggan' ? 'pelanggan' : 'pemasok') + '. Tambahkan di Menu › Master.', true);
+      }
+    }
+    setJalur(el.dataset.f, hasil ? hasil.id : '');
+    el.value = hasil ? hasil.nama : (el.dataset.baru && pel ? 'Umum' : '');
+    const info = el.dataset.info && document.getElementById(el.dataset.info);
+    if (info) info.textContent = el.dataset.j === 'pelanggan' ? infoAnggota(hasil) : '';
+    if (U.perbaruiStruk) U.perbaruiStruk();
+    if (baru) { if (pel) { if (U.popupPembeli) U.popupPembeli(baru); } else if (U.popupPemasok) U.popupPemasok(baru); }
+  };
+
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-a]');
+    if (!el) return;
+    const f = A[el.dataset.a];
+    if (!f) return;
+    const r = f(el, e);
+    if (r && r.catch) r.catch((x) => toast(String((x && x.message) || x), true));
+  });
+  document.addEventListener('change', (e) => {
+    const el = e.target.closest('[data-f]');
+    if (el) {
+      const v = el.type === 'checkbox' ? el.checked : el.dataset.t === 'num' ? U.ubahBilangan(el.value) : el.value;
+      setJalur(el.dataset.f, v);
+      if (el.dataset.r) { const g = A[el.dataset.r]; if (g) g(el, e); }
+      return;
+    }
+    const b = e.target.closest('[data-b]'); // berkas
+    if (b && A[b.dataset.b]) { const r = A[b.dataset.b](b, e); if (r && r.catch) r.catch((x) => toast(String((x && x.message) || x), true)); }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const el = e.target.closest && e.target.closest('[data-enter]');
+    if (!el) return;
+    e.preventDefault();
+    const r = A[el.dataset.enter](el, e);
+    if (r && r.catch) r.catch((x) => toast(String((x && x.message) || x), true));
+  });
+  A.tab = (el) => U.pergi(el.dataset.t);
+  A.menu = () => { const p = document.getElementById('menupanel'); p.hidden = !p.hidden; document.getElementById('menu').setAttribute('aria-expanded', String(!p.hidden)); };
+  document.addEventListener('click', (e) => { const p = document.getElementById('menupanel'); if (p && !p.hidden && !e.target.closest('#menupanel') && !e.target.closest('#menu')) p.hidden = true; });
+
+  POS.mulai = async function () {
+    S = await POS.simpan.muat();
+    POS.S = S;
+    F.kasir = { tgl: U.hariIni(), pelanggan: '', k: '', q: 1, harga: '', item: [], tunai: 0, bank: 0, kredit: 0 };
+    F.beli = { tgl: U.hariIni(), pemasok: '', faktur: '', k: '', q: 1, h: '', item: [], cara: 'tunai' };
+    F.retur = { tglJ: U.hariIni(), refJ: '', caraJ: 'tunai', qJ: {}, tglB: U.hariIni(), refB: '', caraB: 'utang', qB: {} };
+    F.bayar = { tgl: U.hariIni(), pelanggan: '', tunai: 0, bank: 0, pemasokId: '', jumlah: 0, dari: 'tunai', tglB: U.hariIni() };
+    F.opname = { tgl: U.hariIni(), fisik: {} };
+    F.kas = { tgl: U.hariIni(), jumlah: 0 };
+    F.ekspor = { dari: '', sampai: '' };
+    tab = 'Kasir';
+    U.fokus = 'kbarang';
+    render();
+    if (!POS.simpan.tersedia()) toast('IndexedDB tidak tersedia: data hanya di memori. Unduh backup secara rutin.', true);
+  };
+  POS.ganti = (baru) => { S = baru; POS.S = S; };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+/*
+ * Tab transaksi: Kasir (penjualan), Pembelian, Retur, Piutang & Utang, Stok & Opname, Kas.
+ */
+(function (POS) {
+  'use strict';
+  const { A, F, R, u: U } = POS;
+  const { esc, rp, qty } = U;
+  const kasir = () => F.kasir;
+
+  const cariBarang = (teks) => {
+    const t = String(teks || '').trim().toLowerCase();
+    if (!t) return null;
+    const S = U.s();
+    return S.barang.find((b) => (b.k + ' ' + b.n).toLowerCase() === t) || S.barang.find((b) => b.barcode && String(b.barcode).toLowerCase() === t) || S.barang.find((b) => b.k.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase() === t) || S.barang.find((b) => b.n.toLowerCase().includes(t)) || S.barang.find((b) => b.k.toLowerCase().startsWith(t));
+  };
+  const labelBarang = (k) => { const b = U.barang(k); return b ? (b.n || b.k) : (k || ''); };
+  const tabelItem = (items, kolomHarga, hapusAksi, harga) => items.length
+    ? `<table><tr><th>Barang</th><th class=n>Jumlah</th><th class=n>${kolomHarga}</th><th class=n>Jumlah Rp</th><th></th></tr>${items.map((x, i) => `<tr><td>${esc(x.k)} <span class=c>${esc((U.barang(x.k) || {}).n)}</span></td><td class=n>${qty(x.q)}</td><td class=n>${rp(harga(x))}</td><td class=n>${rp(POS.mesin.bulat(x.q * harga(x)))}</td><td><button class=k data-a="${hapusAksi}" data-i="${i}">hapus</button></td></tr>`).join('')}</table>`
+    : '<p class=c>Belum ada barang.</p>';
+  const total = (items, harga) => items.reduce((s, x) => s + POS.mesin.bulat(x.q * harga(x)), 0);
+
+  // ---------- Kasir
+  R['Kasir'] = () => {
+    if (!U.s().tpl) return U.perlu();
+    const f = kasir();
+    const tot = total(f.item, (x) => x.harga);
+    return `<div class=kgrid><div class=kiri><h2>Kasir — penjualan <button class=x data-a="kasir.bantuan" title="Bantuan kasir" aria-label="Bantuan kasir" style="padding:1px 9px;border-radius:50%;font-weight:700">?</button></h2>
+<div class=card><div class=bar><label>Barang (nama / kode / barcode)<input id=kbarang data-sug=barang value="${esc(labelBarang(f.k))}" data-f="kasir.k" data-r="kasir.pilih" data-enter="kasir.enterBarang" autocomplete=off placeholder="scan barcode atau ketik nama" style="width:260px"></label>
+<label>Jumlah<input id=kjumlah class="n s" value="${f.q}" data-f="kasir.q" data-t=num data-enter="kasir.enterJumlah" autocomplete=off></label>
+<label>Harga satuan<input id=kharga class=n value="${f.harga || ''}" data-f="kasir.harga" data-t=num data-r="kasir.hargaUbah" data-enter="kasir.enterHarga" autocomplete=off></label>
+<button class=x data-a="kasir.tambah">Masuk keranjang</button>${POS.kamera.tersedia() ? '<button class=x data-a="kasir.kamera">Kamera</button>' : ''}</div>
+${f.peringatan ? `<div class=galat id=kpw><b>Tidak masuk keranjang:</b> ${esc(f.peringatan)}</div>` : ''}
+<h3>Keranjang</h3>${tabelItem(f.item, 'Harga', 'kasir.hapus', (x) => x.harga)}
+<p>Total <span class=tot id=ktot>${rp(tot)}</span></p>
+<div class=bar><label>Tunai<input class=n value="${f.tunai || ''}" data-pay="tunai" inputmode=decimal autocomplete=off></label>
+<label>Non-tunai (bank/QRIS)<input class=n value="${f.bank || ''}" data-pay="bank" inputmode=decimal autocomplete=off></label>
+<label>Kredit (piutang)<input class=n value="${f.kredit || ''}" data-pay="kredit" inputmode=decimal autocomplete=off></label>
+<button class=x data-a="kasir.pas">Tunai pas</button></div>
+<p id=ksisa class=c></p>
+<div class=bar><label>Pembeli <span class=c>(Enter = simpan penjualan)</span>${U.inputOrang('pelanggan', f.pelanggan, 'kasir.pelanggan', { baru: true, kosong: 'ketik nama pembeli', id: 'kpembeli', enter: 'kasir.enterPembeli', sug: true })}</label></div>
+<div class=bar><button class=p data-a="kasir.simpan">Simpan penjualan</button><button class=x data-a="kasir.batal">Kosongkan</button></div></div></div>
+<div class=kanan>${panelStruk()}</div></div>`;
+  };
+  // Stok harus cukup untuk isi keranjang + tambahan; stok 0 atau kurang = tidak masuk keranjang, muncul peringatan.
+  const stokCukup = (b, tambah, popup) => {
+    const f = kasir(), tersedia = U.hasil().stokTersedia(b.k, f.tgl);
+    const dikeranjang = f.item.filter((x) => x.k === b.k).reduce((s, x) => s + x.q, 0);
+    let pesan = '';
+    if (tersedia <= 1e-9) pesan = 'Stok ' + b.n + ' habis (0).';
+    else if (dikeranjang + tambah > tersedia + 1e-9) pesan = 'Stok ' + b.n + ' tinggal ' + qty(tersedia) + (dikeranjang ? ', di keranjang sudah ' + qty(dikeranjang) : '') + '.';
+    f.peringatan = pesan;
+    if (pesan) { U.toast(pesan, true); if (popup && tersedia <= 1e-9) popupBeli(b, false); return false; }
+    return true;
+  };
+  // Menambah satu barang dari barcode (atau kode barang). Mengembalikan true bila berhasil.
+  const tambahScan = (kode, popup) => {
+    const f = kasir(), b = cariBarang(kode);
+    if (!b) { U.toast('Barcode ' + kode + ' tidak dikenal. Daftarkan di Menu › Master.', true); return false; }
+    const harga = b.harga || 0;
+    if (!(harga > 0)) { U.toast(b.n + ': harga jual belum diisi di Master.', true); return false; }
+    if (!stokCukup(b, 1, popup)) return false;
+    const ada = f.item.find((x) => x.k === b.k && x.harga === harga);
+    if (ada) ada.q += 1; else f.item.push({ k: b.k, q: 1, harga });
+    U.toast(b.n + ' ×1', false);
+    return true;
+  };
+  A['kasir.scan'] = (el) => { const kode = el.value.trim(); if (!kode) return; if (tambahScan(kode, true)) kasir().peringatan = ''; if (!document.getElementById('mdl')) U.fokus = 'scan'; U.render(); };
+  A['kasir.kamera'] = () => POS.kamera.pindai((kode) => { if (U.pos() === 'Kasir') { if (tambahScan(kode)) kasir().peringatan = ''; U.render(); } }, { terus: true });
+  const $ = (id) => document.getElementById(id);
+  // Menyamakan state dengan isi kolom barang/jumlah/harga (Enter bisa datang sebelum event change)
+  const sinkron = () => {
+    const f = kasir(), k = $('kbarang'), q = $('kjumlah'), h = $('kharga');
+    if (k && k.value.trim() !== labelBarang(f.k)) f.k = k.value.trim();
+    if (q) f.q = U.ubahBilangan(q.value);
+    if (h) { const n = h.value.trim() === '' ? '' : U.ubahBilangan(h.value); if (n !== f.harga && !(n === '' && !f.harga)) { f.harga = n; f.hargaAuto = false; } }
+  };
+  // Mencari barang dari isian (nama/kode/barcode); harga jual dari Master terisi otomatis. Tidak ada = popup master produk.
+  const resolusi = () => {
+    const f = kasir(), teks = String(f.k || '').trim();
+    if (!teks) return null;
+    const b = cariBarang(teks);
+    if (!b) { popupBarang(teks); return null; }
+    f.k = b.k;
+    if (!f.harga || f.hargaAuto) { f.harga = b.harga || 0; f.hargaAuto = true; }
+    if ($('kbarang')) $('kbarang').value = labelBarang(f.k);
+    if ($('kharga')) $('kharga').value = f.harga || '';
+    return b;
+  };
+  A['kasir.pilih'] = () => { resolusi(); };
+  A['kasir.hargaUbah'] = () => { kasir().hargaAuto = false; };
+  // Enter: bila barang, jumlah, dan harga sudah terisi langsung masuk keranjang; yang kurang diisi dulu
+  const lanjutTambah = () => {
+    const f = kasir(); sinkron();
+    if (!String(f.k || '').trim()) { if ($('kbarang')) $('kbarang').focus(); return; }
+    if (!resolusi()) return;
+    if (!(f.q > 0)) { const e = $('kjumlah'); if (e) { e.focus(); e.select(); } return U.toast('Isi jumlah.', true); }
+    if (!(f.harga > 0)) { const e = $('kharga'); if (e) e.focus(); return U.toast('Isi harga satuan (atau isi harga jual di Master).', true); }
+    A['kasir.tambah']();
+  };
+  A['kasir.enterBarang'] = () => {
+    const f = kasir(); sinkron();
+    if (String(f.k || '').trim()) return lanjutTambah();
+    if (!f.item.length) return U.toast('Belum ada barang.', true);
+    const t = document.querySelector('input[data-pay=tunai]'); if (t) t.focus();
+  };
+  A['kasir.enterJumlah'] = lanjutTambah;
+  A['kasir.enterHarga'] = lanjutTambah;
+  A['kasir.tambah'] = () => {
+    sinkron();
+    const f = kasir(), b = cariBarang(f.k);
+    if (!b && String(f.k || '').trim()) return popupBarang(String(f.k).trim());
+    if (!b) return U.toast('Barang tidak ditemukan di Master.', true);
+    if (!(f.q > 0)) return U.toast('Jumlah harus lebih dari 0.', true);
+    const harga = f.harga || b.harga || 0;
+    if (!(harga > 0)) return U.toast('Isi harga satuan (atau isi harga jual di Master).', true);
+    if (!stokCukup(b, f.q, true)) { if (!$('mdl')) U.fokus = 'kbarang'; return U.render(); }
+    const ada = f.item.find((x) => x.k === b.k && x.harga === harga);
+    if (ada) ada.q += f.q; else f.item.push({ k: b.k, q: f.q, harga });
+    f.k = ''; f.q = 1; f.harga = ''; f.hargaAuto = false; f.peringatan = '';
+    U.fokus = 'kbarang';
+    U.render();
+  };
+  A['kasir.hapus'] = (el) => { kasir().item.splice(+el.dataset.i, 1); U.render(); };
+  A['kasir.pas'] = () => { const f = kasir(); f.tunai = total(f.item, (x) => x.harga); f.bank = 0; f.kredit = 0; U.render(); };
+  A['kasir.sisa'] = () => {
+    const f = kasir(), tot = total(f.item, (x) => x.harga), s = tot - (f.tunai || 0) - (f.bank || 0) - (f.kredit || 0);
+    const e = document.getElementById('ksisa');
+    if (e) { e.textContent = s === 0 ? 'Pembayaran pas.' : s > 0 ? 'Kurang ' + rp(s) : 'Kembalian ' + rp(-s); e.className = s <= 0 ? 'ok' : 'no'; }
+  };
+  // Kolom pembayaran: Tab/klik ke kolom kosong menampilkan sisa tagihan; Enter = dipilih (disimpan); keluar tanpa Enter = dikosongkan lagi.
+  // Angka yang diketik sendiri tersimpan saat keluar dari kolom.
+  const kolomBayar = (e) => (e.target && e.target.matches && e.target.matches('input[data-pay]')) ? e.target : null;
+  const sisaBayar = (kecuali) => {
+    let s = total(kasir().item, (x) => x.harga);
+    document.querySelectorAll('input[data-pay]').forEach((x) => { if (x !== kecuali) s -= U.ubahBilangan(x.value); });
+    return s;
+  };
+  const tampilSisa = () => {
+    perbaruiStruk();
+    const s = sisaBayar(null), e = document.getElementById('ksisa');
+    if (e) { e.textContent = s === 0 ? 'Pembayaran pas.' : s > 0 ? 'Kurang ' + rp(s) : 'Kembalian ' + rp(-s); e.className = s <= 0 ? 'ok' : 'no'; }
+  };
+  document.addEventListener('focusin', (e) => {
+    const el = kolomBayar(e); if (!el) return;
+    if (el.value.trim() === '') { const s = sisaBayar(el); if (s > 0) { el.value = String(s); el.dataset.tmp = '1'; } }
+    el.select(); tampilSisa();
+  });
+  document.addEventListener('input', (e) => { const el = kolomBayar(e); if (el) { el.dataset.tmp = ''; tampilSisa(); } });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const el = kolomBayar(e); if (!el) return;
+    e.preventDefault(); el.dataset.tmp = ''; kasir()[el.dataset.pay] = U.ubahBilangan(el.value); tampilSisa(); const pb = document.getElementById('kpembeli'); if (pb) { pb.focus(); pb.select(); }
+  });
+  document.addEventListener('focusout', (e) => {
+    const el = kolomBayar(e); if (!el) return;
+    if (el.dataset.tmp === '1') { el.value = ''; el.dataset.tmp = ''; kasir()[el.dataset.pay] = 0; } else kasir()[el.dataset.pay] = U.ubahBilangan(el.value);
+    tampilSisa();
+  });
+  A['kasir.batal'] = () => { Object.assign(kasir(), { item: [], tunai: 0, bank: 0, kredit: 0, k: '', q: 1, harga: '', peringatan: '' }); U.fokus = 'kbarang'; U.render(); };
+  A['kasir.simpanOk'] = () => {
+    tutupModal();
+    const f = kasir(), tot = total(f.item, (x) => x.harga);
+    if (!f.item.length) return U.toast('Belum ada barang.', true);
+    const lebih = lebihBayar(f, tot); if (typeof lebih === 'string') return U.toast(lebih, true);
+    if (f.kredit > 0 && !f.pelanggan) return U.toast('Penjualan kredit butuh pelanggan terdaftar (bukan Umum).', true);
+    if (U.simpanTx({ tgl: f.tgl, jenis: 'JUAL', pelanggan: f.pelanggan || null, item: f.item.map((x) => ({ ...x })), tunai: (f.tunai || 0) - lebih, bank: f.bank || 0, kredit: f.kredit || 0, diterima: f.tunai || 0, kembali: lebih, nomor: nomorBerikut(f.tgl), petugas: U.s().petugas || '' })) {
+      f.strukId = U.s().tx[U.s().tx.length - 1].id;
+      Object.assign(f, { item: [], tunai: 0, bank: 0, kredit: 0, pelanggan: '' }); U.toast('Penjualan ' + rp(tot) + ' tersimpan'); U.fokus = 'kbarang'; U.render();
+    }
+  };
+
+  // ---------- Popup untuk tab Kasir: pembeli baru, master produk baru, pembelian produk baru
+  const hapusModal = () => { const e = document.getElementById('mdl'); if (e) e.remove(); };
+  const tutupModal = () => { hapusModal(); if (U.pos() === 'Kasir') { const k = document.getElementById('kbarang'); if (k) k.focus(); } };
+  const bukaModal = (judul, isi, simpan, batal, siap, labelSimpan, labelBatal) => {
+    hapusModal();
+    const e = document.createElement('div');
+    e.id = 'mdl';
+    e.innerHTML = `<div class=box role=dialog aria-modal=true><h2>${esc(judul)}</h2><div class=fm>${isi}</div><div class=bar style="margin-top:14px"><button class=p data-a="${simpan}">${esc(labelSimpan || 'Simpan')}</button>${batal ? `<button class=x data-a="${batal}">${esc(labelBatal || 'Batal')}</button>` : ''}</div></div>`;
+    document.body.appendChild(e);
+    if (siap) siap(e);
+    const fokusPertama = () => { const f = e.querySelector('input,select') || e.querySelector('button.p'); if (f && document.body.contains(f)) f.focus(); };
+    fokusPertama(); setTimeout(fokusPertama, 0); // diulang: fokus bawaan peramban setelah Tab bisa menimpa
+  };
+  const isi = (id) => document.getElementById(id).value;
+  const angka = (id) => U.ubahBilangan(isi(id));
+
+  // 1) Pembeli baru (nama tidak ada di daftar pelanggan)
+  U.popupPembeli = (nama) => bukaModal('Pembeli baru',
+    `<p class=c>Pembeli ini belum terdaftar. Lengkapi datanya.</p>
+<label>Nama pembeli<input id=mp-nama value="${esc(nama)}" autocomplete=off data-enter="pembeli.simpan"></label>
+<label>Status<select id=mp-ang><option value=n>Bukan anggota</option><option value=a>Anggota</option></select></label>
+<label>Nomor anggota<input id=mp-no autocomplete=off disabled placeholder="isi bila anggota" data-enter="pembeli.simpan"></label>`,
+    'pembeli.simpan', 'pembeli.batal', (e) => {
+      const s = e.querySelector('#mp-ang'), n = e.querySelector('#mp-no');
+      s.onchange = () => { n.disabled = s.value !== 'a'; if (n.disabled) n.value = ''; else n.focus(); };
+    });
+  A['kasir.simpan'] = () => {
+    const f = kasir(), tot = total(f.item, (x) => x.harga);
+    if (!f.item.length) return U.toast('Belum ada barang.', true);
+    const lebih = lebihBayar(f, tot); if (typeof lebih === 'string') return U.toast(lebih, true);
+    if (f.kredit > 0 && !f.pelanggan) return U.toast('Penjualan kredit butuh pelanggan terdaftar (bukan Umum).', true);
+    bukaModal('Simpan penjualan?',
+      `<p>${U.tglId(f.tgl)} · Pembeli: <b>${esc(U.namaPelanggan(f.pelanggan))}</b> · ${f.item.length} barang</p><p class=tot>${rp(tot)}</p>
+<p class=c>Tunai ${rp(f.tunai || 0)} · Non-tunai ${rp(f.bank || 0)} · Kredit ${rp(f.kredit || 0)}${lebih ? ' · <b>Kembalian ' + rp(lebih) + '</b>' : ''}</p><p>Lanjut menyimpan, atau kembali ke posisi belum simpan?</p>`,
+      'kasir.simpanOk', 'kasir.simpanBatal', null, 'Lanjut simpan', 'Kembali');
+  };
+  A['kasir.simpanBatal'] = () => tutupModal();
+  A['kasir.enterPembeli'] = (el) => {
+    A['orang.pilih'](el);               // pastikan nama diproses dulu (nama baru = popup pembeli)
+    if (document.getElementById('mdl')) return;
+    A['kasir.simpan']();
+  };
+  A['pembeli.batal'] = () => { tutupModal(); const e = document.getElementById('kpembeli'); if (e) { e.focus(); e.select(); } };
+  A['pembeli.simpan'] = () => {
+    const S = U.s(), nama = isi('mp-nama').trim(), ang = isi('mp-ang') === 'a', no = ang ? isi('mp-no').trim() : '';
+    if (!nama) return U.toast('Isi nama pembeli.', true);
+    if (S.pelanggan.some((x) => x.nama.trim().toLowerCase() === nama.toLowerCase())) return U.toast('Nama sudah dipakai; beri nama yang berbeda.', true);
+    if (no && S.pelanggan.some((x) => x.noAnggota && String(x.noAnggota).toLowerCase() === no.toLowerCase())) return U.toast('Nomor anggota itu sudah dipakai pembeli lain.', true);
+    S.seq++;
+    const p = { id: 'p' + S.seq, nama, anggota: ang, noAnggota: no, saldoAwal: 0 };
+    S.pelanggan.push(p);
+    POS.simpan.jadwalkan(S);
+    kasir().pelanggan = p.id;
+    tutupModal(); U.toast('Pembeli ' + nama + ' tersimpan'); U.fokus = 'kpembeli'; U.render();
+  };
+
+  // 2) Master produk baru (barang tidak ada di Master)
+  let barangMode = 'kasir';
+  const popupBarang = (teks, mode) => {
+    barangMode = mode || 'kasir';
+    const S = U.s(), akun = U.akunCoa('1.1.4.'), bc = /^\d{6,}$/.test(teks);
+    let n = S.barang.length + 1; while (S.barang.some((b) => b.k === 'BRG-' + n)) n++;
+    bukaModal('Produk baru: input master produk',
+      `<p class=c>Barang &quot;${esc(teks)}&quot; belum ada di Master. Lengkapi data produk${barangMode === 'beli' ? '.' : ', lalu lanjut ke pembelian.'}</p>
+<label>Kode barang<input id=mb-k value="BRG-${n}" autocomplete=off data-enter="barang.simpan"></label>
+<label>Nama barang<input id=mb-n value="${esc(bc ? '' : teks)}" autocomplete=off data-enter="barang.simpan"></label>
+<label>Barcode (opsional)<input id=mb-bc value="${esc(bc ? teks : '')}" autocomplete=off placeholder="scan / ketik" data-enter="barang.simpan"></label>
+<label>Akun persediaan<select id=mb-akun>${U.opt(akun, akun.length === 1 ? akun[0][0] : '', '— pilih —')}</select></label>
+<label>Harga jual<input id=mb-h class=n inputmode=decimal autocomplete=off data-enter="barang.simpan"></label>`,
+      'barang.simpan', 'barang.batal');
+  };
+  A['barang.batal'] = () => { tutupModal(); if (barangMode === 'beli') { const e = $('bbarang'); if (e) { e.focus(); e.select(); } } };
+  A['barang.simpan'] = () => {
+    const S = U.s(), k = isi('mb-k').trim(), n = isi('mb-n').trim(), bc = isi('mb-bc').trim(), akun = isi('mb-akun'), harga = angka('mb-h');
+    if (!k) return U.toast('Isi kode barang.', true);
+    if (S.barang.some((b) => b.k.toLowerCase() === k.toLowerCase())) return U.toast('Kode barang sudah dipakai.', true);
+    if (!n) return U.toast('Isi nama barang.', true);
+    if (S.barang.some((b) => (b.n || '').trim().toLowerCase() === n.toLowerCase())) return U.toast('Nama barang sudah ada di Master.', true);
+    if (bc && S.barang.some((b) => b.barcode === bc)) return U.toast('Barcode itu sudah dipakai barang lain.', true);
+    if (!akun) return U.toast('Pilih akun persediaan.', true);
+    if (!(harga > 0)) return U.toast('Isi harga jual.', true);
+    const b = { k, n, akun, harga, hargaBeli: 0 };
+    if (bc) b.barcode = bc;
+    S.barang.push(b);
+    POS.simpan.jadwalkan(S);
+    tutupModal();
+    if (barangMode === 'beli') { F.beli.k = b.k; F.beli.h = ''; F.beli.hAuto = false; U.fokus = 'bqty'; U.render(); }
+    else popupBeli(b);
+  };
+
+  // 3) Pembelian produk baru: format sama dengan menu Pembelian (faktur, pemasok, pembayaran; lalu barang, jumlah, harga beli)
+  let barangBaru = null;
+  let barangBaruFlag = true;
+  let draftBeli = null, pemasokDariModal = false;
+  const popupBeli = (b, baru = true, d) => {
+    d = d || {};
+    barangBaru = b; barangBaruFlag = baru;
+    bukaModal('Pembelian: ' + b.n,
+      `<label>No. faktur <span class=c>(boleh kosong)</span><input id=mbl-fak value="${esc(d.fak || '')}" autocomplete=off data-enter="belimodal.enterFaktur"></label>
+<label>Pemasok${U.inputOrang('pemasok', F.beli.pemasok, 'beli.pemasok', { baru: true, kosong: 'ketik huruf nama pemasok', id: 'mbl-pem', enter: 'belimodal.enterPemasok', sug: true })}</label>
+<label>Pembayaran<select id=mbl-cara data-enter="belimodal.enterCara">${U.opt([['tunai', 'Tunai'], ['kredit', 'Kredit (utang usaha)'], ['bank', 'Bank']], d.cara || F.beli.cara)}</select></label>
+<label>Barang<input value="${esc(b.n)}" disabled></label>
+<label>QTY<input id=mbl-q class=n inputmode=decimal value="${esc(d.q || '1')}" autocomplete=off data-enter="belimodal.enterQty"></label>
+<label>Harga beli<input id=mbl-h class=n inputmode=decimal value="${esc(d.h != null ? d.h : (b.hargaBeli || ''))}" autocomplete=off data-enter="belimodal.simpan"></label>
+<label>Tanggal<input type=date id=mbl-tgl value="${esc(d.tgl || kasir().tgl)}"></label>`,
+      'belimodal.simpan', 'belimodal.batal');
+  };
+  const fokusId = (id) => { const e = $(id); if (e) { e.focus(); if (e.select) e.select(); } };
+  A['belimodal.enterFaktur'] = () => fokusId('mbl-pem');
+  A['belimodal.enterPemasok'] = (el) => {
+    A['orang.pilih'](el);
+    if (!$('mbl-pem')) return; // popup pemasok baru terbuka
+    if (!F.beli.pemasok) return U.toast('Isi pemasok (ketik huruf nama).', true);
+    fokusId('mbl-cara');
+  };
+  A['belimodal.enterCara'] = () => fokusId('mbl-q');
+  A['belimodal.enterQty'] = () => fokusId('mbl-h');
+  A['belimodal.batal'] = () => { const b = barangBaru; tutupModal(); if (b) U.toast(barangBaruFlag ? 'Barang ' + b.n + ' tersimpan di Master, tetapi belum ada pembelian/stok.' : 'Pembelian ' + b.n + ' dibatalkan.'); };
+  A['belimodal.simpan'] = () => {
+    const b = barangBaru, tgl = isi('mbl-tgl'), pem = F.beli.pemasok, q = angka('mbl-q'), h = angka('mbl-h');
+    if (!b) return tutupModal();
+    if (!pem) return U.toast('Pilih pemasok (ketik huruf nama).', true);
+    if (!tgl) return U.toast('Isi tanggal pembelian.', true);
+    if (!(q > 0) || !(h > 0)) return U.toast('Isi jumlah dan harga beli.', true);
+    if (U.simpanTx({ tgl, jenis: 'BELI', pemasok: pem, faktur: isi('mbl-fak').trim(), item: [{ k: b.k, q, h }], cara: isi('mbl-cara') })) {
+      b.hargaBeli = h;
+      POS.simpan.jadwalkan(U.s());
+      const f = kasir();
+      f.k = b.k; if (!f.harga) f.harga = b.harga || 0; f.peringatan = '';
+      barangBaru = null;
+      tutupModal(); U.toast('Pembelian ' + b.n + ' tersimpan'); U.fokus = 'kbarang'; U.render();
+    }
+  };
+
+  // 4) Pemasok baru (nama tidak ada di daftar pemasok): dari menu Pembelian atau dari popup pembelian
+  U.popupPemasok = (nama) => {
+    const S = U.s(), akun = U.akunCoa('2.1.3.');
+    pemasokDariModal = !!$('mbl-pem');
+    if (pemasokDariModal) draftBeli = { tgl: isi('mbl-tgl'), fak: isi('mbl-fak'), q: isi('mbl-q'), h: isi('mbl-h'), cara: isi('mbl-cara') };
+    bukaModal('Pemasok baru',
+      `<p class=c>Pemasok ini belum terdaftar. Lengkapi datanya.</p>
+<label>Nama pemasok<input id=mps-nama value="${esc(nama)}" autocomplete=off data-enter="pemasok.simpan"></label>
+<label>Akun utang usaha<select id=mps-akun>${U.opt(akun, S.tpl.pemetaan.utangUsaha)}</select></label>`,
+      'pemasok.simpan', 'pemasok.batal');
+  };
+  const selesaiPemasok = () => {
+    if (pemasokDariModal) { pemasokDariModal = false; popupBeli(barangBaru, barangBaruFlag, draftBeli); fokusId(F.beli.pemasok ? 'mbl-cara' : 'mbl-pem'); }
+    else { tutupModal(); U.fokus = F.beli.pemasok ? 'bcara' : 'bpemasok'; U.render(); }
+  };
+  A['pemasok.batal'] = () => selesaiPemasok();
+  A['pemasok.simpan'] = () => {
+    const S = U.s(), nama = isi('mps-nama').trim(), akun = isi('mps-akun') || S.tpl.pemetaan.utangUsaha;
+    if (!nama) return U.toast('Isi nama pemasok.', true);
+    if (S.pemasok.some((x) => x.nama.trim().toLowerCase() === nama.toLowerCase())) return U.toast('Nama pemasok sudah dipakai; beri nama yang berbeda.', true);
+    S.seq++;
+    const p = { id: 's' + S.seq, nama, akun, saldoAwal: 0 };
+    S.pemasok.push(p);
+    POS.simpan.jadwalkan(S);
+    F.beli.pemasok = p.id;
+    U.toast('Pemasok ' + nama + ' tersimpan');
+    selesaiPemasok();
+  };
+
+  // ---------- Struk (bersebelahan dengan kasir)
+  const NAMA_GERAI = 'Gerai Sembako KDMP Sinduadi';
+  const nomorBerikut = (tgl) => {
+    const pre = 'STR-' + tgl.replace(/-/g, '') + '-';
+    let mx = 0;
+    U.s().tx.forEach((t) => { if (t.jenis === 'JUAL' && t.nomor && t.nomor.startsWith(pre)) mx = Math.max(mx, parseInt(t.nomor.slice(pre.length), 10) || 0); });
+    return pre + String(mx + 1).padStart(3, '0');
+  };
+  // Pembayaran: kurang = galat; lebih hanya boleh dari tunai (kembalian). Mengembalikan jumlah kembalian atau teks galat.
+  const lebihBayar = (f, tot) => {
+    const t = f.tunai || 0, b = f.bank || 0, k = f.kredit || 0, sum = t + b + k;
+    if (sum < tot) return 'Pembayaran kurang ' + rp(tot - sum) + '.';
+    const lebih = sum - tot;
+    if (lebih > 0 && k > 0) return 'Kembalian tidak bisa bersamaan dengan kredit.';
+    if (lebih > t) return 'Kelebihan bayar hanya boleh dari tunai (kembalian).';
+    return lebih;
+  };
+  const nilaiPay = (c) => { const e = document.querySelector('input[data-pay=' + c + ']'); return e ? U.ubahBilangan(e.value) : (kasir()[c] || 0); };
+  const dataStruk = () => {
+    const S = U.s(), f = kasir();
+    if (!f.item.length && f.strukId) {
+      const t = S.tx.find((x) => x.id === f.strukId);
+      if (t) return { tersimpan: true, nomor: t.nomor || '-', tgl: t.tgl, pembeli: U.namaPelanggan(t.pelanggan), item: t.item, total: POS.mesin.totalJual(t), dibayar: (t.diterima != null ? t.diterima : t.tunai || 0) + (t.bank || 0), hutang: t.kredit || 0, kembali: t.kembali || 0, petugas: t.petugas || '' };
+    }
+    const tot = total(f.item, (x) => x.harga), t = nilaiPay('tunai'), b = nilaiPay('bank'), k = nilaiPay('kredit');
+    const lebih = (t + b + k > tot && k === 0) ? Math.min(t + b + k - tot, t) : 0;
+    return { tersimpan: false, nomor: nomorBerikut(f.tgl), tgl: f.tgl, pembeli: U.namaPelanggan(f.pelanggan), item: f.item, total: tot, dibayar: t + b, hutang: k, kembali: lebih, petugas: S.petugas || '' };
+  };
+  const htmlStruk = (d) => `<div class=struk>
+<div class=sh>${esc(NAMA_GERAI)}</div>
+<div class=sl><span>Nomor : ${esc(d.nomor)}</span><span>Tgl : ${U.tglId(d.tgl)}</span></div>
+<div>Pembeli : ${esc(d.pembeli)}</div><hr>
+<table><tr><th>QTY</th><th>Kode</th><th class=n>@Harga</th><th class=n>Jumlah</th></tr>${d.item.map((x) => `<tr><td>${qty(x.q)}</td><td>${esc(x.k)}</td><td class=n>${rp(x.harga)}</td><td class=n>${rp(POS.mesin.bulat(x.q * x.harga))}</td></tr>`).join('')}</table><hr>
+<div class=sr><b>Total</b><b>${rp(d.total)}</b></div>
+<div class=sr><span>Dibayar</span><span>${rp(d.dibayar)}</span></div>${d.hutang ? `<div class=sr><span>Hutang</span><span>${rp(d.hutang)}</span></div>` : ''}
+<div class=sr><span>Kembalian</span><span>${rp(d.kembali)}</span></div><hr>
+<div>Petugas : ${esc(d.petugas)}</div></div>`;
+  const panelStruk = () => {
+    const d = dataStruk();
+    return `<div class=card><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h3 style="margin:0">Struk</h3><span class=c id=strukst>${d.tersimpan ? 'Struk terakhir (tersimpan)' : 'Draft — belum disimpan'}</span></div>
+<label style="margin:8px 0">Petugas<input id=kpetugas value="${esc(U.s().petugas || '')}" data-f="kasir.petugas" data-r="kasir.petugas" autocomplete=off></label>
+<div id=struk>${htmlStruk(d)}</div><div class=bar style="margin-top:8px"><button class=x data-a="kasir.cetak">Cetak struk</button></div></div>`;
+  };
+  const perbaruiStruk = () => {
+    const e = $('struk'); if (!e) return;
+    const d = dataStruk(); e.innerHTML = htmlStruk(d);
+    const st = $('strukst'); if (st) st.textContent = d.tersimpan ? 'Struk terakhir (tersimpan)' : 'Draft — belum disimpan';
+  };
+  U.perbaruiStruk = perbaruiStruk;
+  A['kasir.petugas'] = (el) => {
+    const S = U.s(), f = kasir(); S.petugas = el.value.trim();
+    const t = !f.item.length && f.strukId && S.tx.find((x) => x.id === f.strukId); if (t) t.petugas = S.petugas; // struk yang sedang tampil ikut
+    POS.simpan.jadwalkan(S); perbaruiStruk();
+  };
+  A['kasir.tglUbah'] = () => perbaruiStruk();
+  A['kasir.cetak'] = () => window.print();
+
+  // ---------- Bantuan kasir
+  A['kasir.bantuan'] = () => bukaModal('Bantuan kasir', `<h3 style="margin:0">Manual keyboard</h3>
+<table class=bt>
+<tr><td>[Tab]</td><td>Dari Barang pindah ke Jumlah, lalu Harga satuan.</td></tr>
+<tr><td>[Tab]</td><td>Dari Tunai pindah ke Non-tunai, lalu Kredit.</td></tr>
+<tr><td>[Enter]</td><td>Di Barang yang terisi: masuk keranjang (jumlah dan harga satuan sudah terisi), fokus kembali ke Barang. Di Barang yang kosong: pindah ke pembayaran Tunai.</td></tr>
+<tr><td>[Enter]</td><td>Dari kolom pembayaran pindah ke nama Pembeli (default Umum).</td></tr>
+<tr><td>[Enter]</td><td>Dari nama Pembeli: Simpan penjualan (muncul dialog; Enter lagi = Lanjut simpan).</td></tr>
+<tr><td>[↑] [↓]</td><td>Setelah mengetik huruf di Barang atau Pembeli: pilih saran, lalu [Enter] untuk memilih.</td></tr>
+<tr><td>[↑] [↓]</td><td>Saat fokus di Tunai: pilih nominal bulat 10.000, 20.000, 50.000, 100.000. Jika lebih dari total, selisihnya menjadi uang kembalian dan muncul di struk.</td></tr>
+</table>
+<h3 style="margin:14px 0 0">Manual barcode</h3>
+<p class=c style="margin:0">Barang discan langsung ke kolom Barang. Perintah di bawah adalah barcode (mis. Code 128) yang berisi teks berikut; saat discan bekerja seperti tombol keyboard.</p>
+<table class=bt>
+<tr><td>CMD-TAB</td><td>Seperti [Tab].</td></tr>
+<tr><td>CMD-ENTER</td><td>Seperti [Enter].</td></tr>
+<tr><td>CMD-ATAS</td><td>Seperti panah atas [↑].</td></tr>
+<tr><td>CMD-BAWAH</td><td>Seperti panah bawah [↓].</td></tr>
+</table>`, 'kasir.bantuanTutup', null, (e) => e.firstChild.classList.add('lebar'), 'Tutup');
+  A['kasir.bantuanTutup'] = () => tutupModal();
+
+  // ---------- Saran (dropdown) untuk Barang & Pembeli; dipilih dengan panah
+  const sug = { el: null, items: [], idx: -1 };
+  const daftarSaran = (el) => {
+    const S = U.s();
+    let t = el.value.trim().toLowerCase();
+    if (el.dataset.sug === 'pemasok') return S.pemasok.filter((p) => !t || p.nama.toLowerCase().includes(t)).slice(0, 8).map((p) => ({ v: p.nama, c: 'Pemasok' }));
+    if (el.dataset.sug === 'barang' || el.dataset.sug === 'barangbeli') {
+      if (/^\d{6,}$/.test(t)) return [];
+      return S.barang.filter((b) => b.n && (!t || b.n.toLowerCase().includes(t) || b.k.toLowerCase().includes(t))).slice(0, 8).map((b) => ({ v: b.n, c: b.k }));
+    }
+    if (t === 'umum') t = '';
+    return S.pelanggan.filter((p) => !t || p.nama.toLowerCase().includes(t) || String(p.noAnggota || '').toLowerCase().includes(t)).slice(0, 8).map((p) => ({ v: p.nama, c: p.anggota ? 'Anggota' + (p.noAnggota ? ' ' + p.noAnggota : '') : 'Non-anggota' }));
+  };
+  const kotakSaran = () => {
+    let d = $('sug');
+    if (!d) { d = document.createElement('div'); d.id = 'sug'; d.hidden = true; d.addEventListener('mousedown', (e) => { e.preventDefault(); const r = e.target.closest('[data-i]'); if (r) pilihSaran(+r.dataset.i); }); document.body.appendChild(d); }
+    return d;
+  };
+  const tutupSaran = () => { const d = $('sug'); if (d) d.hidden = true; sug.el = null; sug.items = []; sug.idx = -1; };
+  const gambarSaran = () => {
+    const d = kotakSaran(), r = sug.el.getBoundingClientRect();
+    d.style.left = r.left + 'px'; d.style.top = r.bottom + 'px'; d.style.minWidth = r.width + 'px';
+    d.innerHTML = sug.items.map((x, i) => `<div data-i="${i}" class="${i === sug.idx ? 'on' : ''}">${esc(x.v)} <span class=c>${esc(x.c)}</span></div>`).join('');
+    d.hidden = !sug.items.length;
+  };
+  const bukaSaran = (el) => { sug.el = el; sug.items = daftarSaran(el); sug.idx = -1; gambarSaran(); };
+  const pilihSaran = (i) => {
+    const el = sug.el, x = sug.items[i]; tutupSaran();
+    if (!el || !x) return;
+    el.value = x.v;
+    if (el.dataset.sug === 'barang') { sinkron(); resolusi(); } else if (el.dataset.sug === 'barangbeli') { sinkBeli(); resolBeli(); } else A['orang.pilih'](el);
+    el.focus();
+  };
+
+  // ---------- Papan ketik & barcode perintah (CMD-TAB, CMD-ENTER, CMD-ATAS, CMD-BAWAH)
+  const NOMINAL = [10000, 20000, 50000, 100000];
+  const RE_CMD = /CMD[-_ :]?(TAB|ENTER|ATAS|BAWAH)\s*$/i;
+  const FOKUS = 'input:not([disabled]):not([type=hidden]),select:not([disabled]),button:not([disabled]),textarea:not([disabled])';
+  let abaikanEnter = 0, buf = '', bufT = 0;
+  const berikutnya = (el) => {
+    const daftar = [...($('mdl') || document).querySelectorAll(FOKUS)].filter((x) => x.getClientRects().length);
+    return daftar[(daftar.indexOf(el) + 1) % daftar.length];
+  };
+  const jalankanCmd = (c, el) => {
+    if (c === 'TAB') {
+      el.dispatchEvent(new Event('change', { bubbles: true })); tutupSaran();
+      const n = berikutnya(el); if (n) n.focus();
+    } else {
+      const ev = new KeyboardEvent('keydown', { key: c === 'ENTER' ? 'Enter' : c === 'ATAS' ? 'ArrowUp' : 'ArrowDown', bubbles: true, cancelable: true });
+      el.dispatchEvent(ev);
+      if (c === 'ENTER' && !ev.defaultPrevented && el.tagName === 'BUTTON') el.click();
+    }
+    abaikanEnter = Date.now() + 400; // pemindai biasanya menambah Enter di ujung barcode
+  };
+  document.addEventListener('input', (e) => {
+    const el = e.target;
+    if (!el || el.tagName !== 'INPUT') return;
+    const m = RE_CMD.exec(el.value);
+    if (m) { e.stopImmediatePropagation(); el.value = el.value.slice(0, m.index); jalankanCmd(m[1].toUpperCase(), el); return; }
+    if (el.dataset.sug) bukaSaran(el);
+  }, true);
+  document.addEventListener('keydown', (e) => {
+    const el = e.target;
+    if (e.key === 'Enter' && Date.now() < abaikanEnter) { abaikanEnter = 0; e.preventDefault(); e.stopImmediatePropagation(); return; }
+    // barcode perintah saat fokus bukan di kolom ketik (mis. tombol): kenali dari ketikan cepat
+    if (e.key.length === 1 && el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
+      const kini = Date.now(); if (kini - bufT > 150) buf = ''; bufT = kini; buf += e.key;
+      const m = RE_CMD.exec(buf);
+      if (m) { buf = ''; e.preventDefault(); jalankanCmd(m[1].toUpperCase(), el); return; }
+    }
+    if (!el.dataset) return;
+    const panah = e.key === 'ArrowDown' || e.key === 'ArrowUp';
+    if (panah && el.dataset.pay === 'tunai') { // pilih nominal bulat
+      e.preventDefault();
+      const cur = U.ubahBilangan(el.value) || 0;
+      const n = e.key === 'ArrowDown' ? NOMINAL.find((x) => x > cur) : NOMINAL.slice().reverse().find((x) => x < cur);
+      if (n) { el.value = String(n); el.dataset.tmp = ''; tampilSisa(); }
+      return;
+    }
+    if (el.dataset.sug) {
+      const buka = sug.el === el && !$('sug').hidden;
+      if (panah) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        if (!buka) { bukaSaran(el); sug.idx = sug.items.length ? 0 : -1; gambarSaran(); return; }
+        sug.idx = e.key === 'ArrowDown' ? Math.min(sug.items.length - 1, sug.idx + 1) : Math.max(0, sug.idx - 1);
+        gambarSaran(); return;
+      }
+      if (e.key === 'Enter' && buka && sug.idx >= 0) { e.preventDefault(); e.stopImmediatePropagation(); pilihSaran(sug.idx); return; }
+      if (e.key === 'Escape') tutupSaran();
+    }
+  }, true);
+  document.addEventListener('focusout', (e) => { if (e.target.dataset && e.target.dataset.sug) tutupSaran(); });
+  document.addEventListener('focusin', (e) => { if (e.target.id === 'kpembeli') e.target.select(); });
+
+  // ---------- Pembelian
+  R['Pembelian'] = () => {
+    if (!U.s().tpl) return U.perlu();
+    const f = F.beli;
+    const tot = total(f.item, (x) => x.h);
+    return `<h2>Pembelian dari pemasok</h2>
+<div class=card><div class=bar><label>No. faktur <span class=c>(boleh kosong)</span><input id=bfaktur value="${esc(f.faktur)}" data-f="beli.faktur" data-enter="beli.enterFaktur" autocomplete=off></label>
+<label>Pemasok${U.inputOrang('pemasok', f.pemasok, 'beli.pemasok', { baru: true, kosong: 'ketik huruf nama pemasok', id: 'bpemasok', enter: 'beli.enterPemasok', sug: true })}</label>
+<label>Pembayaran<select id=bcara data-f="beli.cara" data-enter="beli.enterCara">${U.opt([['tunai', 'Tunai'], ['kredit', 'Kredit (utang usaha)'], ['bank', 'Bank']], f.cara)}</select></label></div>
+<div class=bar><label>Barang (nama / kode / barcode)<input id=bbarang data-sug=barangbeli value="${esc(labelBarang(f.k))}" data-f="beli.k" data-r="beli.pilih" data-enter="beli.enterBarang" autocomplete=off placeholder="scan barcode atau ketik nama" style="width:260px"></label>
+<label>QTY<input id=bqty class="n s" value="${f.q}" data-f="beli.q" data-t=num data-enter="beli.enterQty" autocomplete=off></label>
+<label>Harga beli<input id=beli-h class=n value="${f.h}" data-f="beli.h" data-t=num data-r="beli.hargaUbah" data-enter="beli.enterHarga" autocomplete=off></label>
+<button class=x data-a="beli.tambah">Masuk Daftar</button>${POS.kamera.tersedia() ? '<button class=x data-a="beli.kamera">Kamera</button>' : ''}</div>
+${tabelItem(f.item, 'Harga beli', 'beli.hapus', (x) => x.h)}
+<p>Total <span class=tot>${rp(tot)}</span></p>
+<div class=bar><button class=p id=beli-simpan data-a="beli.simpan">Simpan pembelian</button></div></div>`;
+  };
+  // Menyamakan state dengan isian barang/QTY/harga (Enter bisa datang sebelum event change)
+  const sinkBeli = () => {
+    const f = F.beli, k = $('bbarang'), q = $('bqty'), h = $('beli-h');
+    if (k && k.value.trim() !== labelBarang(f.k)) f.k = k.value.trim();
+    if (q) f.q = U.ubahBilangan(q.value);
+    if (h) { const n = h.value.trim() === '' ? '' : U.ubahBilangan(h.value); if (n !== f.h && !(n === '' && !f.h)) { f.h = n; f.hAuto = false; } }
+  };
+  // Mencari barang dari isian (nama/kode/barcode); harga beli terakhir dari Master terisi otomatis. Tidak ada = popup tambah barang baru.
+  const resolBeli = () => {
+    const f = F.beli, teks = String(f.k || '').trim();
+    if (!teks) return null;
+    const b = cariBarang(teks);
+    if (!b) { popupBarang(teks, 'beli'); return null; }
+    f.k = b.k;
+    if (!f.h || f.hAuto) { f.h = b.hargaBeli || ''; f.hAuto = true; }
+    if ($('bbarang')) $('bbarang').value = labelBarang(f.k);
+    if ($('beli-h')) $('beli-h').value = f.h || '';
+    return b;
+  };
+  const fokusBeli = (id) => { const e = $(id); if (e) { e.focus(); if (e.select) e.select(); } };
+  A['beli.pilih'] = () => { resolBeli(); };
+  A['beli.hargaUbah'] = () => { F.beli.hAuto = false; };
+  A['beli.enterFaktur'] = (el) => { F.beli.faktur = el.value.trim(); fokusBeli('bpemasok'); };
+  A['beli.enterPemasok'] = (el) => {
+    A['orang.pilih'](el);
+    if ($('mdl')) return; // popup pemasok baru terbuka
+    if (!F.beli.pemasok) return U.toast('Isi pemasok (ketik huruf nama).', true);
+    fokusBeli('bcara');
+  };
+  A['beli.enterCara'] = (el) => { F.beli.cara = el.value; fokusBeli('bbarang'); };
+  A['beli.enterBarang'] = () => {
+    const f = F.beli; sinkBeli();
+    if (!String(f.k || '').trim()) { if (f.item.length) return fokusBeli('beli-simpan'); return U.toast('Belum ada barang.', true); }
+    if (!resolBeli()) return;
+    fokusBeli('bqty');
+  };
+  A['beli.enterQty'] = () => {
+    sinkBeli();
+    if (!(F.beli.q > 0)) return U.toast('Isi QTY.', true);
+    fokusBeli('beli-h');
+  };
+  A['beli.enterHarga'] = () => A['beli.tambah']();
+  const pilihScanBeli = (kode) => {
+    const b = cariBarang(kode), f = F.beli;
+    if (!b) return U.toast('Barcode ' + kode + ' tidak dikenal. Daftarkan di Menu › Master.', true);
+    f.k = b.k; if (!f.h || f.hAuto) { f.h = b.hargaBeli || ''; f.hAuto = true; }
+    U.fokus = 'bqty'; U.render();
+  };
+  A['beli.kamera'] = () => POS.kamera.pindai((kode) => { if (U.pos() === 'Pembelian') pilihScanBeli(kode); });
+  A['beli.tambah'] = () => {
+    sinkBeli();
+    const f = F.beli, teks = String(f.k || '').trim();
+    if (!teks) return U.toast('Isi barang.', true);
+    const b = cariBarang(teks);
+    if (!b) return popupBarang(teks, 'beli');
+    if (!(f.q > 0)) { fokusBeli('bqty'); return U.toast('Isi QTY.', true); }
+    if (!(f.h > 0)) { fokusBeli('beli-h'); return U.toast('Isi harga beli.', true); }
+    const ada = f.item.find((x) => x.k === b.k);
+    if (ada) { const n = ada.q * ada.h + f.q * f.h; ada.q += f.q; ada.h = n / ada.q; } else f.item.push({ k: b.k, q: f.q, h: f.h });
+    f.k = ''; f.q = 1; f.h = ''; f.hAuto = false;
+    U.fokus = 'bbarang';
+    U.render();
+  };
+  A['beli.hapus'] = (el) => { F.beli.item.splice(+el.dataset.i, 1); U.render(); };
+  A['beli.simpan'] = () => {
+    const f = F.beli, fk = $('bfaktur'); if (fk) f.faktur = fk.value.trim();
+    if (!f.tgl) return U.toast('Isi tanggal pembelian.', true);
+    if (!f.item.length) return U.toast('Belum ada barang.', true);
+    if (!f.pemasok) return U.toast('Pilih pemasok (ketik huruf nama; bila belum ada akan muncul isian pemasok baru).', true);
+    if (U.simpanTx({ tgl: f.tgl, jenis: 'BELI', pemasok: f.pemasok, faktur: f.faktur, item: f.item.map((x) => ({ ...x })), cara: f.cara })) {
+      f.item.forEach((x) => { const b = U.barang(x.k); if (b) b.hargaBeli = x.h; });
+      Object.assign(f, { item: [], faktur: '' }); U.toast('Pembelian tersimpan'); U.fokus = 'bfaktur'; U.render();
+    }
+  };
+
+  // ---------- Retur
+  const dikembalikan = (jenis, ref, k) => U.s().tx.filter((t) => t.jenis === jenis && t.ref === ref).reduce((s, t) => s + t.item.filter((x) => x.k === k).reduce((a, x) => a + x.q, 0), 0);
+  const labelTx = (t) => U.tglId(t.tgl) + ' · ' + (t.jenis === 'JUAL' ? U.namaPelanggan(t.pelanggan) + ' · ' + rp(POS.mesin.totalJual(t)) : U.namaPemasok(t.pemasok) + ' · faktur ' + (t.faktur || '-') + ' · ' + rp(total(t.item, (x) => x.h)));
+  const blokRetur = (judul, jenis, tgl, ref, cara, q, caraOpsi, kunci) => {
+    const S = U.s();
+    const daftar = S.tx.filter((t) => t.jenis === jenis).slice().reverse();
+    const asal = S.tx.find((t) => t.id === ref);
+    const baris = asal ? asal.item.map((x) => { const sisa = x.q - dikembalikan(jenis === 'JUAL' ? 'RJUAL' : 'RBELI', asal.id, x.k); return `<tr><td>${esc(x.k)} <span class=c>${esc((U.barang(x.k) || {}).n)}</span></td><td class=n>${qty(x.q)}</td><td class=n>${qty(sisa)}</td><td><input class="n s" value="${q[x.k] || ''}" data-f="retur.${kunci}.${x.k.replace(/\./g, '_')}" data-t=num></td></tr>`; }).join('') : '';
+    return `<div class=card><h3>${judul}</h3><div class=bar><label>Tanggal retur<input type=date value="${tgl}" data-f="retur.${jenis === 'JUAL' ? 'tglJ' : 'tglB'}"></label>
+<label>Transaksi asal<select data-f="retur.${jenis === 'JUAL' ? 'refJ' : 'refB'}" data-r="retur.segar" style="max-width:420px">${U.opt(daftar.map((t) => [t.id, labelTx(t)]), ref, '— pilih —')}</select></label>
+<label>Pengembalian dana<select data-f="retur.${jenis === 'JUAL' ? 'caraJ' : 'caraB'}">${U.opt(caraOpsi, cara)}</select></label></div>
+${asal ? `<table><tr><th>Barang</th><th class=n>Dibeli/dijual</th><th class=n>Masih bisa diretur</th><th>Jumlah retur</th></tr>${baris}</table>` : '<p class=c>Pilih transaksi asal.</p>'}
+<div class=bar><button class=p data-a="retur.simpan${jenis}">Simpan retur</button></div></div>`;
+  };
+  R['Retur'] = () => {
+    if (!U.s().tpl) return U.perlu();
+    const f = F.retur;
+    return '<h2>Retur</h2>' + blokRetur('Retur penjualan (barang kembali ke stok)', 'JUAL', f.tglJ, f.refJ, f.caraJ, f.qJ, [['tunai', 'Tunai'], ['bank', 'Bank'], ['piutang', 'Kurangi piutang']], 'qJ')
+      + blokRetur('Retur pembelian (barang kembali ke pemasok)', 'BELI', f.tglB, f.refB, f.caraB, f.qB, [['utang', 'Kurangi utang'], ['tunai', 'Tunai'], ['bank', 'Bank']], 'qB');
+  };
+  A['retur.segar'] = () => { F.retur.qJ = {}; F.retur.qB = {}; U.render(); };
+  const simpanRetur = (jenis) => {
+    const f = F.retur, J = jenis === 'JUAL';
+    const ref = J ? f.refJ : f.refB, qs = J ? f.qJ : f.qB, S = U.s();
+    const asal = S.tx.find((t) => t.id === ref);
+    if (!asal) return U.toast('Pilih transaksi asal.', true);
+    const item = [];
+    for (const x of asal.item) {
+      const q = qs[x.k.replace(/\./g, '_')] || qs[x.k] || 0;
+      if (!(q > 0)) continue;
+      const sisa = x.q - dikembalikan(J ? 'RJUAL' : 'RBELI', asal.id, x.k);
+      if (q > sisa + 1e-9) return U.toast('Retur ' + x.k + ' melebihi sisa yang bisa diretur (' + qty(sisa) + ').', true);
+      item.push({ k: x.k, q });
+    }
+    if (!item.length) return U.toast('Isi jumlah retur.', true);
+    const cara = J ? f.caraJ : f.caraB;
+    if (J && cara === 'piutang' && !asal.pelanggan) return U.toast('Penjualan umum tidak punya piutang; pilih tunai atau bank.', true);
+    if (!J && cara === 'utang' && asal.cara !== 'kredit') return U.toast('Pembelian ini tidak kredit; pilih tunai atau bank.', true);
+    if (U.simpanTx({ tgl: J ? f.tglJ : f.tglB, jenis: J ? 'RJUAL' : 'RBELI', ref, pelanggan: asal.pelanggan || null, item, cara })) {
+      if (J) f.qJ = {}; else f.qB = {};
+      U.toast('Retur tersimpan'); U.render();
+    }
+  };
+  A['retur.simpanJUAL'] = () => simpanRetur('JUAL');
+  A['retur.simpanBELI'] = () => simpanRetur('BELI');
+
+  // ---------- Piutang & Utang
+  R['Piutang & Utang'] = () => {
+    if (!U.s().tpl) return U.perlu();
+    const S = U.s(), H = U.hasil(), f = F.bayar;
+    const totP = Object.values(H.piutang).reduce((s, v) => s + v, 0), totU = Object.values(H.utang).reduce((s, v) => s + v, 0);
+    const ref = S.tpl.saldoReferensi || {};
+    const selisih = (kode, v, nama) => { const r = Object.keys(ref).filter((k) => k.startsWith(kode)).reduce((s, k) => s + ref[k], 0); return Math.abs(r - 0) > 0 && false ? '' : ''; };
+    void selisih;
+    return `<h2>Piutang pelanggan &amp; utang pemasok</h2><div class=grid2>
+<div class=card><h3>Piutang pelanggan</h3><table><tr><th>Pelanggan</th><th class=n>Saldo</th></tr>${S.pelanggan.map((p) => `<tr><td>${esc(p.nama)}</td><td class=n>${rp(H.piutang[p.id] || 0)}</td></tr>`).join('') || '<tr><td colspan=2 class=c>Belum ada pelanggan</td></tr>'}<tr><th>Jumlah</th><th class=n>${rp(totP)}</th></tr></table>
+<h3>Terima pelunasan</h3><div class=bar><label>Tanggal<input type=date value="${f.tgl}" data-f="bayar.tgl"></label>
+<label>Pelanggan${U.inputOrang('pelanggan', f.pelanggan, 'bayar.pelanggan', { kosong: 'ketik huruf nama', label: (p) => 'piutang ' + rp(H.piutang[p.id] || 0) })}</label></div>
+<div class=bar><label>Tunai<input class=n value="${f.tunai || ''}" data-f="bayar.tunai" data-t=num></label><label>Bank<input class=n value="${f.bank || ''}" data-f="bayar.bank" data-t=num></label><button class=p data-a="bayar.terima">Simpan</button></div></div>
+<div class=card><h3>Utang pemasok</h3><table><tr><th>Pemasok</th><th class=n>Saldo</th></tr>${S.pemasok.map((p) => `<tr><td>${esc(p.nama)}</td><td class=n>${rp(H.utang[p.id] || 0)}</td></tr>`).join('') || '<tr><td colspan=2 class=c>Belum ada pemasok</td></tr>'}<tr><th>Jumlah</th><th class=n>${rp(totU)}</th></tr></table>
+<h3>Bayar utang</h3><div class=bar><label>Tanggal<input type=date value="${f.tglB}" data-f="bayar.tglB"></label>
+<label>Pemasok${U.inputOrang('pemasok', f.pemasokId, 'bayar.pemasokId', { kosong: 'ketik huruf nama', label: (p) => 'utang ' + rp(H.utang[p.id] || 0) })}</label></div>
+<div class=bar><label>Jumlah<input class=n value="${f.jumlah || ''}" data-f="bayar.jumlah" data-t=num></label><label>Dari<select data-f="bayar.dari">${U.opt([['tunai', 'Kas tunai'], ['bank', 'Bank']], f.dari)}</select></label><button class=p data-a="bayar.bayar">Simpan</button></div></div></div>
+<p class=c>Saldo awal piutang/utang per pihak diisi di tab Master. Jumlahnya harus sama dengan saldo Piutang/Utang di akuntansiApp (lihat saldo referensi di tab Ekspor/Impor).</p>`;
+  };
+  A['bayar.terima'] = () => {
+    const f = F.bayar;
+    if (!f.pelanggan) return U.toast('Pilih pelanggan.', true);
+    if (!((f.tunai || 0) + (f.bank || 0) > 0)) return U.toast('Isi jumlah.', true);
+    if (U.simpanTx({ tgl: f.tgl, jenis: 'PELUNASAN', pelanggan: f.pelanggan, tunai: f.tunai || 0, bank: f.bank || 0 })) { f.tunai = 0; f.bank = 0; U.toast('Pelunasan tersimpan'); U.render(); }
+  };
+  A['bayar.bayar'] = () => {
+    const f = F.bayar;
+    if (!f.pemasokId) return U.toast('Pilih pemasok.', true);
+    if (!(f.jumlah > 0)) return U.toast('Isi jumlah.', true);
+    if (U.simpanTx({ tgl: f.tglB, jenis: 'BAYAR', pemasok: f.pemasokId, jumlah: f.jumlah, dari: f.dari })) { f.jumlah = 0; U.toast('Pembayaran tersimpan'); U.render(); }
+  };
+
+  // ---------- Stok & Opname
+  R['Stok & Opname'] = () => {
+    if (!U.s().tpl) return U.perlu();
+    const S = U.s(), H = U.hasil(), f = F.opname;
+    let tn = 0;
+    const baris = S.barang.map((b) => {
+      const r = H.stok[b.k] || { q: 0, lapisan: [] };
+      const nilai = r.lapisan.reduce((s, l) => s + l.q * l.h, 0); tn += nilai;
+      return `<tr><td>${esc(b.k)}</td><td>${esc(b.n)}</td><td class=n>${qty(r.q)}</td><td class=n>${rp(nilai)}</td><td class=c>${r.lapisan.length} lapisan</td><td><input class="n s" value="${f.fisik[b.k.replace(/\./g, '_')] === undefined ? '' : f.fisik[b.k.replace(/\./g, '_')]}" data-f="opname.fisik.${b.k.replace(/\./g, '_')}" data-t=num></td></tr>`;
+    }).join('');
+    return `<h2>Stok (FIFO) &amp; opname</h2><div class=card><table><tr><th>Kode</th><th>Barang</th><th class=n>Stok sistem</th><th class=n>Nilai</th><th></th><th>Stok fisik</th></tr>${baris}<tr><th colspan=3>Nilai persediaan</th><th class=n>${rp(tn)}</th><th colspan=2></th></tr></table>
+<div class=bar><label>Tanggal opname<input type=date value="${f.tgl}" data-f="opname.tgl"></label><button class=p data-a="opname.simpan">Simpan opname (hanya barang yang diisi)</button></div>
+<p class=c>Selisih kurang dicatat sebagai beban selisih persediaan; selisih lebih dinilai pada harga lapisan terakhir.</p></div>`;
+  };
+  A['opname.simpan'] = () => {
+    const f = F.opname, S = U.s(), item = [];
+    S.barang.forEach((b) => { const v = f.fisik[b.k.replace(/\./g, '_')]; if (v !== undefined && v !== '') item.push({ k: b.k, fisik: v }); });
+    if (!item.length) return U.toast('Isi stok fisik minimal satu barang.', true);
+    if (U.simpanTx({ tgl: f.tgl, jenis: 'OPNAME', item })) { f.fisik = {}; U.toast('Opname tersimpan'); U.render(); }
+  };
+
+  // ---------- Kas
+  R['Kas'] = () => {
+    if (!U.s().tpl) return U.perlu();
+    const H = U.hasil(), s = H.saldoPada(), p = U.s().tpl.pemetaan, f = F.kas;
+    return `<h2>Kas &amp; setoran</h2><div class=card><table><tr><th>Akun</th><th class=n>Saldo menurut POS</th></tr><tr><td>${esc(p.kasTunai)} Kas tunai</td><td class=n>${rp(s[p.kasTunai] || 0)}</td></tr><tr><td>${esc(p.bank)} Bank</td><td class=n>${rp(s[p.bank] || 0)}</td></tr></table>
+<h3>Setor kas tunai ke bank</h3><div class=bar><label>Tanggal<input type=date value="${f.tgl}" data-f="kas.tgl"></label><label>Jumlah<input class=n value="${f.jumlah || ''}" data-f="kas.jumlah" data-t=num></label><button class=p data-a="kas.setor">Simpan setoran</button></div>
+<p class=c>Saldo dihitung dari saldo referensi template ditambah semua transaksi POS.</p></div>`;
+  };
+  A['kas.setor'] = () => {
+    const f = F.kas;
+    if (!(f.jumlah > 0)) return U.toast('Isi jumlah setoran.', true);
+    if (U.simpanTx({ tgl: f.tgl, jenis: 'SETOR', jumlah: f.jumlah })) { f.jumlah = 0; U.toast('Setoran tersimpan'); U.render(); }
+  };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+/*
+ * Tab Master (barang, pelanggan, pemasok), Riwayat, dan Ekspor/Impor (template, data POS, backup).
+ */
+(function (POS) {
+  'use strict';
+  const { A, F, R, u: U } = POS;
+  const { esc, rp, qty } = U;
+  const simpan = () => POS.simpan.jadwalkan(U.s());
+  const unduh = (nama, isi, tipe) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([isi], { type: tipe || 'application/json' }));
+    a.download = nama; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  };
+  const pakai = (S, jenis, f) => S.tx.some((t) => f(t));
+
+  // ---------- Master
+  R['Master'] = () => {
+    const S = U.s();
+    const akunP = U.akunCoa('1.1.4.'), akunU = U.akunCoa('2.1.3.');
+    const dariTpl = (k) => ((S.tpl && S.tpl.barang) || []).some((b) => b.k === k);
+    return `<h2>Master data</h2>
+<div class=card><h3>Barang</h3><table><tr><th>Kode</th><th>Nama</th><th>Barcode</th><th>Akun persediaan</th><th class=n>Harga jual</th><th class=n>Harga beli terakhir</th><th></th></tr>
+${S.barang.map((b, i) => `<tr><td>${dariTpl(b.k) ? esc(b.k) : `<input class=s style="width:110px" value="${esc(b.k)}" data-f="m.b.${i}.k" data-r="m.ubah">`}</td>
+<td><input value="${esc(b.n)}" data-f="m.b.${i}.n" data-r="m.ubah"></td>
+<td style="white-space:nowrap"><input style="width:130px" value="${esc(b.barcode || '')}" data-f="m.b.${i}.barcode" data-r="m.ubah" placeholder="scan / ketik">${POS.kamera.tersedia() ? ` <button class=x data-a="m.pindai" data-i="${i}">Pindai</button>` : ''}</td>
+<td><select data-f="m.b.${i}.akun" data-r="m.ubah">${U.opt(akunP, b.akun, '— pilih —')}</select></td>
+<td class=n><input class=n value="${b.harga || ''}" data-t=num data-f="m.b.${i}.harga" data-r="m.ubah"></td>
+<td class=n><input class=n value="${b.hargaBeli || ''}" data-t=num data-f="m.b.${i}.hargaBeli" data-r="m.ubah"></td>
+<td>${dariTpl(b.k) ? '' : `<button class=k data-a="m.hapusB" data-i="${i}">hapus</button>`}</td></tr>`).join('')}</table>
+<div class=bar><button class=x data-a="m.tambahB">+ Barang baru</button></div>
+<p class=c>Barcode hanya ada di POS (tidak dikirim ke akuntansiApp). Pemindai fisik cukup diarahkan ke kolom Barcode lalu scan. Barang dari template tidak bisa dihapus atau diganti kodenya. Barang baru dikirim ke akuntansiApp sebagai barangBaru — pastikan akun persediaannya terisi.</p></div>
+<div class=card><h3>Pelanggan</h3><table><tr><th>Nama</th><th>Anggota</th><th>Nomor anggota</th><th class=n>Saldo awal piutang</th><th></th></tr>
+${S.pelanggan.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.p.${i}.nama" data-r="m.ubah"></td><td><input type=checkbox ${p.anggota ? 'checked' : ''} data-f="m.p.${i}.anggota" data-r="m.ubah"></td>
+<td><input style="width:140px" value="${esc(p.noAnggota || '')}" data-f="m.p.${i}.noAnggota" data-r="m.ubah" placeholder="isi bila anggota"></td>
+<td class=n><input class=n value="${p.saldoAwal || ''}" data-t=num data-f="m.p.${i}.saldoAwal" data-r="m.ubah"></td><td><button class=k data-a="m.hapusP" data-i="${i}">hapus</button></td></tr>`).join('')}</table>
+<div class=bar><button class=x data-a="m.tambahP">+ Pelanggan</button></div>
+<p class=c>Status anggota menentukan komponen arus kas penerimaan (anggota atau non-anggota). Nomor anggota boleh dikosongkan dan bisa dicari di kolom Pembeli pada Kasir. Penjualan tanpa pelanggan dianggap non-anggota.</p></div>
+<div class=card><h3>Pemasok</h3><table><tr><th>Nama</th><th>Akun utang usaha</th><th class=n>Saldo awal utang</th><th></th></tr>
+${S.pemasok.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.s.${i}.nama" data-r="m.ubah"></td><td><select data-f="m.s.${i}.akun" data-r="m.ubah">${U.opt(akunU, p.akun, '— pilih —')}</select></td>
+<td class=n><input class=n value="${p.saldoAwal || ''}" data-t=num data-f="m.s.${i}.saldoAwal" data-r="m.ubah"></td><td><button class=k data-a="m.hapusS" data-i="${i}">hapus</button></td></tr>`).join('')}</table>
+<div class=bar><button class=x data-a="m.tambahS">+ Pemasok</button></div></div>`;
+  };
+  // Nilai tabel Master disimpan langsung ke state (F.m.<b|p|s>.<i>.<kolom> disalin ke S)
+  A['m.ubah'] = (el) => {
+    const [, j, i, kolom] = el.dataset.f.split('.');
+    const S = U.s(), daftar = j === 'b' ? S.barang : j === 'p' ? S.pelanggan : S.pemasok;
+    const baris = daftar[+i]; if (!baris) return;
+    const v = el.type === 'checkbox' ? el.checked : el.dataset.t === 'num' ? U.ubahBilangan(el.value) : el.value.trim();
+    if (kolom === 'k' && S.barang.some((b, x) => x !== +i && b.k === v)) { U.toast('Kode barang sudah dipakai.', true); return U.render(); }
+    if (kolom === 'k' && baris.k && pakai(S, 'x', (t) => (t.item || []).some((x) => x.k === baris.k))) { U.toast('Kode tidak bisa diganti: barang sudah dipakai di transaksi.', true); return U.render(); }
+    if (kolom === 'nama' && j !== 'b' && daftar.some((x, n) => n !== +i && x.nama.trim().toLowerCase() === v.toLowerCase())) { U.toast('Nama sudah dipakai; beri nama yang berbeda agar mudah dicari.', true); return U.render(); }
+    if (kolom === 'barcode' && v && S.barang.some((b, x) => x !== +i && b.barcode === v)) { U.toast('Barcode itu sudah dipakai barang lain.', true); return U.render(); }
+    if (kolom === 'noAnggota' && v && S.pelanggan.some((x, n) => n !== +i && x.noAnggota && String(x.noAnggota).toLowerCase() === v.toLowerCase())) { U.toast('Nomor anggota itu sudah dipakai pembeli lain.', true); return U.render(); }
+    baris[kolom] = v; simpan();
+  };
+  A['m.pindai'] = (el) => POS.kamera.pindai((kode) => {
+    const S = U.s(), i = +el.dataset.i;
+    if (S.barang.some((b, x) => x !== i && b.barcode === kode)) return U.toast('Barcode ' + kode + ' sudah dipakai barang lain.', true);
+    S.barang[i].barcode = kode; simpan(); if (U.pos() === 'Master') U.render();
+  });
+  const idBaru = (a) => { const S = U.s(); S.seq++; return a + S.seq; };
+  A['m.tambahB'] = () => { U.s().barang.push({ k: 'BRG-' + (U.s().barang.length + 1), n: '', akun: '', harga: 0, hargaBeli: 0 }); simpan(); U.render(); };
+  A['m.tambahP'] = () => { U.s().pelanggan.push({ id: idBaru('p'), nama: 'Pelanggan baru', anggota: false, saldoAwal: 0 }); simpan(); U.render(); };
+  A['m.tambahS'] = () => { const S = U.s(); S.pemasok.push({ id: idBaru('s'), nama: 'Pemasok baru', akun: S.tpl ? S.tpl.pemetaan.utangUsaha : '', saldoAwal: 0 }); simpan(); U.render(); };
+  A['m.hapusB'] = (el) => { const S = U.s(), b = S.barang[+el.dataset.i]; if (pakai(S, 'x', (t) => (t.item || []).some((x) => x.k === b.k))) return U.toast('Barang sudah dipakai di transaksi.', true); S.barang.splice(+el.dataset.i, 1); simpan(); U.render(); };
+  A['m.hapusP'] = (el) => { const S = U.s(), p = S.pelanggan[+el.dataset.i]; if (pakai(S, 'x', (t) => t.pelanggan === p.id)) return U.toast('Pelanggan sudah dipakai di transaksi.', true); S.pelanggan.splice(+el.dataset.i, 1); simpan(); U.render(); };
+  A['m.hapusS'] = (el) => { const S = U.s(), p = S.pemasok[+el.dataset.i]; if (pakai(S, 'x', (t) => t.pemasok === p.id)) return U.toast('Pemasok sudah dipakai di transaksi.', true); S.pemasok.splice(+el.dataset.i, 1); simpan(); U.render(); };
+
+  // ---------- Riwayat
+  const ringkas = (t) => {
+    const m = POS.mesin;
+    switch (t.jenis) {
+      case 'JUAL': return U.namaPelanggan(t.pelanggan) + ' · ' + t.item.length + ' barang · ' + rp(m.totalJual(t)) + (t.kredit ? ' (kredit ' + rp(t.kredit) + ')' : '');
+      case 'PELUNASAN': return U.namaPelanggan(t.pelanggan) + ' · ' + rp((t.tunai || 0) + (t.bank || 0));
+      case 'BELI': return U.namaPemasok(t.pemasok) + ' · faktur ' + (t.faktur || '-') + ' · ' + rp(t.item.reduce((s, x) => s + m.bulat(x.q * x.h), 0)) + ' · ' + t.cara;
+      case 'BAYAR': return U.namaPemasok(t.pemasok) + ' · ' + rp(t.jumlah) + ' dari ' + t.dari;
+      case 'RJUAL': case 'RBELI': return t.item.map((x) => x.k + ' ×' + qty(x.q)).join(', ') + ' · ' + t.cara;
+      case 'OPNAME': return t.item.map((x) => x.k + ' fisik ' + qty(x.fisik)).join(', ');
+      case 'SETOR': return rp(t.jumlah);
+      default: return '';
+    }
+  };
+  R['Riwayat'] = () => {
+    const S = U.s();
+    const daftar = S.tx.slice().sort((a, b) => (a.tgl < b.tgl ? 1 : a.tgl > b.tgl ? -1 : b.urut - a.urut));
+    return `<h2>Riwayat transaksi</h2><div class=card><table><tr><th>Tanggal</th><th>Jenis</th><th>Ringkasan</th><th></th></tr>${daftar.map((t) => `<tr><td>${U.tglId(t.tgl)}</td><td>${esc(t.jenis)}</td><td>${esc(ringkas(t))}</td><td><button class=k data-a="r.hapus" data-id="${esc(t.id)}">hapus</button></td></tr>`).join('') || '<tr><td colspan=4 class=c>Belum ada transaksi.</td></tr>'}</table></div>`;
+  };
+  A['r.hapus'] = (el) => { if (confirm('Hapus transaksi ini?')) { if (U.hapusTx(el.dataset.id)) { U.toast('Dihapus'); U.render(); } } };
+
+  // ---------- Ekspor / Impor
+  const bulanTpl = () => { const p = U.s().tpl.periode; const d = String(p.bulan).padStart(2, '0'); return [p.tahun + '-' + d + '-01', new Date(Date.UTC(p.tahun, p.bulan, 0)).toISOString().slice(0, 10)]; };
+  R['Ekspor/Impor'] = () => {
+    const S = U.s(), t = S.tpl;
+    let h = '<h2>Ekspor / Impor</h2>';
+    h += `<div class=card><h3>1. Template dari akuntansiApp</h3>${t ? `<p>Template aktif: unit <b>${esc(t.unit)}</b>, periode <b>${t.periode.tahun}-${String(t.periode.bulan).padStart(2, '0')}</b>, stok awal per ${U.tglId(t.posisiStok)} (${(t.stokAwal || []).length} lapisan), metode ${esc(t.metodeHpp)}. <span class=c>ID ${esc(t.idTemplat)}</span></p>` : '<p class=no>Belum ada template.</p>'}
+<label>Impor template (.json)<input type=file accept=.json data-b="x.templat"></label>
+<p class=c>Template baru untuk bulan berikutnya: transaksi sampai tanggal stok awal dianggap sudah masuk akuntansiApp dan dibuang dari POS.</p></div>`;
+    if (t) {
+      const f = F.ekspor, [d0, d1] = bulanTpl();
+      if (!f.dari) f.dari = d0; if (!f.sampai) f.sampai = d1;
+      const H = U.hasil();
+      const dalam = (r) => r.d >= f.dari && r.d <= f.sampai;
+      const J = H.jurnal.filter(dalam), M = H.mutasi.filter(dalam);
+      h += `<div class=card><h3>2. Data POS untuk akuntansiApp</h3><div class=bar><label>Dari<input type=date value="${f.dari}" data-f="ekspor.dari" data-r="x.segar"></label><label>Sampai<input type=date value="${f.sampai}" data-f="ekspor.sampai" data-r="x.segar"></label></div>
+<p>${J.length} baris jurnal, ${M.length} mutasi stok. Total debit ${rp(J.reduce((s, r) => s + r.db, 0))}, kredit ${rp(J.reduce((s, r) => s + r.kr, 0))}.</p>
+${H.galat.length ? `<div class=galat><b>Tidak bisa diekspor:</b><ul>${H.galat.map((g) => `<li>${esc(g)}</li>`).join('')}</ul></div>` : ''}
+<button class=p data-a="x.ekspor" ${H.galat.length || !J.length && !M.length ? 'disabled' : ''}>Unduh data POS (.json)</button>
+<p class=c>Impor di akuntansiApp: tab Data › Impor data POS. Aman diulang: baris POS- pada rentang yang sama diganti.</p></div>`;
+    }
+    h += `<div class=card><h3>3. Backup lokal POS</h3><div class=bar><button class=x data-a="x.backup">Unduh backup</button><label>Pulihkan dari backup<input type=file accept=.json data-b="x.pulih"></label><button class=k data-a="x.reset">Hapus semua data POS</button></div></div>`;
+    return h;
+  };
+  A['x.segar'] = () => U.render();
+  A['x.templat'] = async (el) => {
+    const berkas = el.files && el.files[0]; el.value = '';
+    if (!berkas) return;
+    let t;
+    try { t = JSON.parse(await berkas.text()); } catch (e) { return U.toast('Berkas bukan JSON yang valid.', true); }
+    const err = POS.kontrak.periksaTemplat(t);
+    if (err) return U.toast(err, true);
+    const S = U.s();
+    if (S.tpl && S.tpl.unit !== t.unit) return U.toast('Template untuk unit ' + t.unit + ', POS ini untuk ' + S.tpl.unit + '.', true);
+    const buang = S.tx.filter((x) => x.tgl <= t.posisiStok).length;
+    if (S.tpl && !confirm('Pakai template baru periode ' + t.periode.tahun + '-' + String(t.periode.bulan).padStart(2, '0') + '?\n' + buang + ' transaksi bertanggal sampai ' + t.posisiStok + ' akan dibuang dari POS (sudah tercermin di stok awal template).')) return;
+    S.tx = S.tx.filter((x) => x.tgl > t.posisiStok);
+    S.tpl = t;
+    t.barang.forEach((b) => { const a = S.barang.find((x) => x.k === b.k); if (a) { a.n = b.n; a.akun = b.akun; } else S.barang.push({ k: b.k, n: b.n, akun: b.akun, harga: 0, hargaBeli: 0 }); });
+    if (!S.pemasok.length) S.pemasok.push({ id: 's' + (++S.seq), nama: 'Pemasok umum', akun: t.pemetaan.utangUsaha, saldoAwal: 0 });
+    F.ekspor = { dari: '', sampai: '' };
+    simpan(); U.toast('Template diimpor'); U.render();
+  };
+  A['x.ekspor'] = async () => {
+    const S = U.s(), f = F.ekspor, H = U.hasil();
+    if (H.galat.length) return U.toast('Perbaiki galat dulu.', true);
+    if (f.dari > f.sampai) return U.toast('Rentang tanggal terbalik.', true);
+    const id = (crypto.randomUUID && crypto.randomUUID()) || String(Date.now());
+    const pos = await POS.kontrak.bangunData(S, H, { dari: f.dari, sampai: f.sampai, idBatch: id, now: new Date().toISOString() });
+    unduh('KDMP_POS_data_' + S.tpl.unit + '_' + f.dari + '_' + f.sampai + '.json', JSON.stringify(pos, null, 1));
+    U.toast('Data POS diunduh (' + pos.jurnal.length + ' jurnal, ' + pos.mutasiStok.length + ' mutasi)');
+  };
+  A['x.backup'] = () => unduh('KDMP_POS_backup_' + U.hariIni() + '.json', JSON.stringify(U.s()));
+  A['x.pulih'] = async (el) => {
+    const berkas = el.files && el.files[0]; el.value = '';
+    if (!berkas) return;
+    let d; try { d = JSON.parse(await berkas.text()); } catch (e) { return U.toast('Berkas bukan JSON yang valid.', true); }
+    if (!d || !Array.isArray(d.tx) || !Array.isArray(d.barang)) return U.toast('Bukan backup POS.', true);
+    if (!confirm('Ganti seluruh data POS saat ini dengan backup ini?')) return;
+    POS.ganti(Object.assign(POS.simpan.kosong(), d)); F.ekspor = { dari: '', sampai: '' };
+    simpan(); U.toast('Backup dipulihkan'); U.render();
+  };
+  A['x.reset'] = async () => {
+    if (!confirm('Hapus SEMUA data POS (transaksi, master, template) di perangkat ini?\nUnduh backup dulu bila perlu.')) return;
+    if (!confirm('Yakin? Tindakan ini tidak bisa dibatalkan.')) return;
+    POS.ganti(POS.simpan.kosong()); await POS.simpan.simpanSekarang(U.s()); F.ekspor = { dari: '', sampai: '' }; U.pergi('Ekspor/Impor');
+  };
+})(globalThis.POS = globalThis.POS || {});
+
+</script>
+<script>
+window.addEventListener('error', function (e) { var m = document.getElementById('isi'); if (m) m.insertAdjacentHTML('afterbegin', '<div class="galat">Galat: ' + String(e.message).replace(/</g, '&lt;') + '</div>'); });
+POS.mulai();
+</script>
+</body>
+</html>
