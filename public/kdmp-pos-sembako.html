@@ -100,9 +100,10 @@ header{position:relative}
       if (t.j === 'Keluar') {
         let sisa = t.q, nilai = 0;
         const ambil = (l) => { const x = Math.min(sisa, l.q); if (x > 0) { nilai += x * l.h; l.q -= x; sisa -= x; } };
-        if (t.lot) r.lapisan.filter((l) => l.id === t.lot).forEach(ambil);
-        r.lapisan.forEach(ambil);
-        r.lapisan = r.lapisan.filter((l) => l.q > EPS);
+        const lap = r.lapisan;
+        if (t.lot) for (let n = 0; n < lap.length && sisa > 0; n++) if (lap[n].id === t.lot) ambil(lap[n]);
+        for (let n = 0; n < lap.length && sisa > 0; n++) ambil(lap[n]); // berhenti begitu kebutuhan terpenuhi
+        if (sisa < t.q) r.lapisan = lap.filter((l) => l.q > EPS);
         if (sisa > EPS) minus.add(t.k);
         r.q -= t.q;
         biaya.set(t, bulat(nilai));
@@ -181,8 +182,12 @@ header{position:relative}
 
     // Opname: selisih terhadap stok sistem akhir hari itu
     const opname = [];
-    tx.filter((t) => t.jenis === 'OPNAME').forEach((t) => t.item.forEach((x) => {
-      const f = fifo(M.concat(opname), t.tgl).per[x.k] || { q: 0, lapisan: [] };
+    tx.filter((t) => t.jenis === 'OPNAME').forEach((t) => {
+      // Satu FIFO per dokumen opname (bukan per barang); barang yang muncul dua kali dihitung ulang agar urutannya tetap sama
+      const per0 = fifo(M.concat(opname), t.tgl).per, dipakai = new Set();
+      t.item.forEach((x) => {
+      const per = dipakai.has(x.k) ? fifo(M.concat(opname), t.tgl).per : per0; dipakai.add(x.k);
+      const f = per[x.k] || { q: 0, lapisan: [] };
       const sel = Math.round((x.fisik - f.q) * 1e6) / 1e6;
       x._sistem = f.q; x._selisih = sel;
       if (Math.abs(sel) < EPS) return;
@@ -192,7 +197,8 @@ header{position:relative}
         if (!(akhir > 0)) { galat.push('Opname ' + t.tgl + ': harga beli barang ' + x.k + ' belum ada, tidak bisa menilai selisih lebih.'); return; }
         opname.push(baris(t.tgl, 'POS-' + tglNo(t.tgl) + '-OPNAME', x.k, 'Masuk', sel, akhir, 'Selisih opname'));
       }
-    }));
+      });
+    });
     // Gabungkan baris opname per hari per barang
     const gabung = {};
     opname.forEach((r) => { const kk = r.d + '|' + r.k + '|' + r.j; if (gabung[kk]) { gabung[kk].h = (gabung[kk].h * gabung[kk].q + r.h * r.q) / (gabung[kk].q + r.q); gabung[kk].q += r.q; } else gabung[kk] = r; });
@@ -209,8 +215,13 @@ header{position:relative}
     });
     // Peta nilai Keluar/Masuk per (hari, jenis, barang) untuk jurnal
     const nilaiPer = {};
-    mutasi.forEach((r) => { const jenis = r.no.replace(/^POS-\d{8}-/, '').replace(/-\d+$/, ''); const kk = r.d + '|' + jenis + '|' + r.k + '|' + r.j; nilaiPer[kk] = (nilaiPer[kk] || 0) + r.nilai; });
-    const nilaiHari = (d, jenis, j) => Object.keys(nilaiPer).filter((kk) => kk.startsWith(d + '|' + jenis + '|') && kk.endsWith('|' + j)).map((kk) => ({ k: kk.split('|')[2], nilai: nilaiPer[kk] }));
+    const nilaiIdx = {}; // 'tgl|jenis|j' -> [kode barang] menurut urutan kemunculan (menggantikan penyaringan semua kunci tiap hari)
+    mutasi.forEach((r) => {
+      const jenis = r.no.replace(/^POS-\d{8}-/, '').replace(/-\d+$/, ''); const kk = r.d + '|' + jenis + '|' + r.k + '|' + r.j;
+      if (!(kk in nilaiPer)) { const ik = r.d + '|' + jenis + '|' + r.j; (nilaiIdx[ik] = nilaiIdx[ik] || []).push(r.k); }
+      nilaiPer[kk] = (nilaiPer[kk] || 0) + r.nilai;
+    });
+    const nilaiHari = (d, jenis, j) => (nilaiIdx[d + '|' + jenis + '|' + j] || []).map((k) => ({ k, nilai: nilaiPer[d + '|' + jenis + '|' + k + '|' + j] }));
 
     // Jurnal
     const jurnal = [];
@@ -341,10 +352,22 @@ header{position:relative}
       if (t.jenis === 'PELUNASAN') piutang[t.pelanggan] = (piutang[t.pelanggan] || 0) - (t.tunai || 0) - (t.bank || 0);
       if (t.jenis === 'BELI' && t.cara === 'kredit') utang[t.pemasok] = (utang[t.pemasok] || 0) + jumlahItem(t.item, (x) => bulat(x.q * x.h));
       if (t.jenis === 'BAYAR') utang[t.pemasok] = (utang[t.pemasok] || 0) - t.jumlah;
+      // Retur yang mengurangi piutang/utang harus ikut mengurangi saldo per pihak (sama dengan jurnalnya)
+      if (t.jenis === 'RJUAL' && t.cara === 'piutang') {
+        const asal = tx.find((x) => x.id === t.ref);
+        if (asal && asal.pelanggan) piutang[asal.pelanggan] = (piutang[asal.pelanggan] || 0) - jumlahItem(t.item, (x) => { const j = asal.item.find((y) => y.k === x.k); return bulat(x.q * (j ? j.harga : 0)); });
+      }
+      if (t.jenis === 'RBELI' && t.cara === 'utang') {
+        const asal = tx.find((x) => x.id === t.ref);
+        const no = nomorRbeli[t.id];
+        if (asal) utang[asal.pemasok] = (utang[asal.pemasok] || 0) - mutasi.filter((m) => m.no === no).reduce((s, m) => s + m.nilai, 0);
+      }
     });
     // Stok yang masih bisa dijual pada tanggal tgl: terendah dari stok pada tgl dan pada tiap tanggal transaksi sesudahnya
     const tanggalMutasi = [...new Set(M.map((r) => r.d))];
-    const stokTersedia = (k, tgl) => Math.min.apply(null, [tgl].concat(tanggalMutasi.filter((d) => d > tgl)).map((d) => (fifo(M, d).per[k] || { q: 0 }).q));
+    const stokPada = {}; // FIFO semua barang per tanggal, dihitung sekali lalu dipakai ulang tiap pemindaian
+    const stokTgl = (d) => stokPada[d] || (stokPada[d] = fifo(M, d).per);
+    const stokTersedia = (k, tgl) => Math.min.apply(null, [tgl].concat(tanggalMutasi.filter((d) => d > tgl)).map((d) => (stokTgl(d)[k] || { q: 0 }).q));
     return { mutasi, jurnal, galat, stok: F.per, stokTersedia, nomorBeli, nomorRbeli, hppJual, saldoPada, piutang, utang, tx };
   }
 
@@ -438,6 +461,7 @@ header{position:relative}
     POS.status && POS.status('Tersimpan ' + new Date().toLocaleTimeString('id-ID'));
   }
   function jadwalkan(S) {
+    POS.batal && POS.batal(); // data berubah: hasil hitung yang tersimpan sementara tidak berlaku lagi
     POS.status && POS.status('Menyimpan…');
     clearTimeout(timer);
     timer = setTimeout(() => simpanSekarang(S), 300);
@@ -521,7 +545,10 @@ header{position:relative}
   U.hariIni = () => new Date().toLocaleDateString('sv-SE');
   U.tglId = (d) => { const [y, m, t] = d.split('-'); return t + '/' + m + '/' + y; };
   U.s = () => S;
-  U.hasil = () => POS.mesin.hitung(S);
+  // Hasil hitung disimpan sementara; dibuang tiap data berubah (POS.batal dipanggil oleh simpan.jadwalkan, simpanTx, hapusTx, ganti)
+  let cacheHasil = null;
+  U.hasil = () => cacheHasil || (cacheHasil = POS.mesin.hitung(S));
+  POS.batal = () => { cacheHasil = null; };
   U.opt = (daftar, pilih, kosong) => (kosong != null ? `<option value="">${U.esc(kosong)}</option>` : '') + daftar.map(([v, l]) => `<option value="${U.esc(v)}"${String(v) === String(pilih) ? ' selected' : ''}>${U.esc(l)}</option>`).join('');
   U.namaPelanggan = (id) => (S.pelanggan.find((p) => p.id === id) || { nama: 'Umum' }).nama;
   U.namaPemasok = (id) => (S.pemasok.find((p) => p.id === id) || { nama: '-' }).nama;
@@ -542,9 +569,11 @@ header{position:relative}
   U.simpanTx = (t) => {
     t.id = 't' + (++S.seq); t.urut = S.seq;
     S.tx.push(t);
+    cacheHasil = null;
     const h = U.hasil();
-    if (h.galat.length) { S.tx.pop(); S.seq--; toast(h.galat.slice(0, 3).join(' '), true); return false; }
+    if (h.galat.length) { S.tx.pop(); S.seq--; cacheHasil = null; toast(h.galat.slice(0, 3).join(' '), true); return false; }
     POS.simpan.jadwalkan(S);
+    cacheHasil = h; // hasil ini sudah memuat transaksi baru: tak perlu dihitung ulang
     return true;
   };
   U.hapusTx = (id) => {
@@ -552,8 +581,9 @@ header{position:relative}
     if (i < 0) return false;
     const [t] = S.tx.splice(i, 1);
     const adaRujukan = S.tx.some((x) => x.ref === id);
+    cacheHasil = null;
     const h = U.hasil();
-    if (adaRujukan || h.galat.length) { S.tx.splice(i, 0, t); toast(adaRujukan ? 'Transaksi ini dirujuk transaksi lain (retur); hapus returnya dulu.' : 'Tidak bisa dihapus: ' + h.galat[0], true); return false; }
+    if (adaRujukan || h.galat.length) { S.tx.splice(i, 0, t); cacheHasil = null; toast(adaRujukan ? 'Transaksi ini dirujuk transaksi lain (retur); hapus returnya dulu.' : 'Tidak bisa dihapus: ' + h.galat[0], true); return false; }
     POS.simpan.jadwalkan(S);
     return true;
   };
@@ -602,7 +632,7 @@ header{position:relative}
     o = o || {};
     const daftar = jenis === 'pelanggan' ? S.pelanggan : S.pemasok;
     const nama = id ? ((daftar.find((x) => x.id === id) || {}).nama || '') : '';
-    return `<input${o.id ? ' id="' + o.id + '"' : ''}${o.enter ? ' data-enter="' + o.enter + '"' : ''} ${o.sug ? 'data-sug="' + jenis + '"' : 'list="dl' + jenis + '"'} value="${U.esc(nama || (o.baru && jenis === 'pelanggan' ? 'Umum' : ''))}" data-f="${jalur}" data-r="orang.pilih" data-j="${jenis}"${o.info ? ' data-info="' + o.info + '"' : ''}${o.baru ? ' data-baru="1"' : ''} autocomplete="off" placeholder="${U.esc(o.kosong || 'ketik nama…')}" style="min-width:200px">${o.sug ? '' : `<datalist id="dl${jenis}">${daftar.map((x) => `<option value="${U.esc(x.nama)}"></option>`).join('')}</datalist>`}`;
+    return `<input${o.id ? ' id="' + o.id + '"' : ''}${o.enter ? ' data-enter="' + o.enter + '"' : ''} ${o.sug ? 'data-sug="' + jenis + '"' : 'list="dl' + jenis + '"'} value="${U.esc(nama || (o.baru && jenis === 'pelanggan' ? 'Umum' : ''))}" data-f="${jalur}" data-r="orang.pilih" data-j="${jenis}"${o.info ? ' data-info="' + o.info + '"' : ''}${o.saldo ? ' data-saldo="1"' : ''}${o.baru ? ' data-baru="1"' : ''} autocomplete="off" placeholder="${U.esc(o.kosong || 'ketik nama…')}" style="min-width:200px">${o.sug ? '' : `<datalist id="dl${jenis}">${daftar.map((x) => `<option value="${U.esc(x.nama)}"></option>`).join('')}</datalist>`}`;
   };
   /** Mengubah teks ketikan menjadi id: nama persis, atau satu-satunya nama yang memuat teks itu. Kosong = tidak dipilih. */
   A['orang.pilih'] = (el) => {
@@ -622,7 +652,10 @@ header{position:relative}
     setJalur(el.dataset.f, hasil ? hasil.id : '');
     el.value = hasil ? hasil.nama : (el.dataset.baru && pel ? 'Umum' : '');
     const info = el.dataset.info && document.getElementById(el.dataset.info);
-    if (info) info.textContent = el.dataset.j === 'pelanggan' ? infoAnggota(hasil) : '';
+    if (info) {
+      if (el.dataset.saldo) { const H = hasil ? U.hasil() : null; info.textContent = hasil ? (pel ? 'Piutang ' : 'Utang ') + U.rp(((pel ? H.piutang : H.utang)[hasil.id]) || 0) : ''; }
+      else info.textContent = pel ? infoAnggota(hasil) : '';
+    }
     if (U.perbaruiStruk) U.perbaruiStruk();
     if (baru) { if (pel) { if (U.popupPembeli) U.popupPembeli(baru); } else if (U.popupPemasok) U.popupPemasok(baru); }
   };
@@ -674,7 +707,7 @@ header{position:relative}
     render();
     if (!POS.simpan.tersedia()) toast('IndexedDB tidak tersedia: data hanya di memori. Unduh backup secara rutin.', true);
   };
-  POS.ganti = (baru) => { S = baru; POS.S = S; };
+  POS.ganti = (baru) => { S = baru; POS.S = S; cacheHasil = null; };
 })(globalThis.POS = globalThis.POS || {});
 
 </script>
@@ -1273,6 +1306,7 @@ ${tabelItem(f.item, 'Harga beli', 'beli.hapus', (x) => x.h)}
     if (!f.pemasok) return U.toast('Pilih pemasok (ketik huruf nama; bila belum ada akan muncul isian pemasok baru).', true);
     if (U.simpanTx({ tgl: f.tgl, jenis: 'BELI', pemasok: f.pemasok, faktur: f.faktur, item: f.item.map((x) => ({ ...x })), cara: f.cara })) {
       f.item.forEach((x) => { const b = U.barang(x.k); if (b) b.hargaBeli = x.h; });
+      POS.batal();
       Object.assign(f, { item: [], faktur: '' }); U.toast('Pembelian tersimpan'); U.fokus = 'bfaktur'; U.render();
     }
   };
@@ -1328,17 +1362,14 @@ ${asal ? `<table><tr><th>Barang</th><th class=n>Dibeli/dijual</th><th class=n>Ma
     if (!U.s().tpl) return U.perlu();
     const S = U.s(), H = U.hasil(), f = F.bayar;
     const totP = Object.values(H.piutang).reduce((s, v) => s + v, 0), totU = Object.values(H.utang).reduce((s, v) => s + v, 0);
-    const ref = S.tpl.saldoReferensi || {};
-    const selisih = (kode, v, nama) => { const r = Object.keys(ref).filter((k) => k.startsWith(kode)).reduce((s, k) => s + ref[k], 0); return Math.abs(r - 0) > 0 && false ? '' : ''; };
-    void selisih;
     return `<h2>Piutang pelanggan &amp; utang pemasok</h2><div class=grid2>
 <div class=card><h3>Piutang pelanggan</h3><table><tr><th>Pelanggan</th><th class=n>Saldo</th></tr>${S.pelanggan.map((p) => `<tr><td>${esc(p.nama)}</td><td class=n>${rp(H.piutang[p.id] || 0)}</td></tr>`).join('') || '<tr><td colspan=2 class=c>Belum ada pelanggan</td></tr>'}<tr><th>Jumlah</th><th class=n>${rp(totP)}</th></tr></table>
 <h3>Terima pelunasan</h3><div class=bar><label>Tanggal<input type=date value="${f.tgl}" data-f="bayar.tgl"></label>
-<label>Pelanggan${U.inputOrang('pelanggan', f.pelanggan, 'bayar.pelanggan', { kosong: 'ketik huruf nama', label: (p) => 'piutang ' + rp(H.piutang[p.id] || 0) })}</label></div>
+<label>Pelanggan${U.inputOrang('pelanggan', f.pelanggan, 'bayar.pelanggan', { kosong: 'ketik huruf nama', info: 'ibp', saldo: 1 })}<span class=c id=ibp>${f.pelanggan ? 'Piutang ' + rp(H.piutang[f.pelanggan] || 0) : ''}</span></label></div>
 <div class=bar><label>Tunai<input class=n value="${f.tunai || ''}" data-f="bayar.tunai" data-t=num></label><label>Bank<input class=n value="${f.bank || ''}" data-f="bayar.bank" data-t=num></label><button class=p data-a="bayar.terima">Simpan</button></div></div>
 <div class=card><h3>Utang pemasok</h3><table><tr><th>Pemasok</th><th class=n>Saldo</th></tr>${S.pemasok.map((p) => `<tr><td>${esc(p.nama)}</td><td class=n>${rp(H.utang[p.id] || 0)}</td></tr>`).join('') || '<tr><td colspan=2 class=c>Belum ada pemasok</td></tr>'}<tr><th>Jumlah</th><th class=n>${rp(totU)}</th></tr></table>
 <h3>Bayar utang</h3><div class=bar><label>Tanggal<input type=date value="${f.tglB}" data-f="bayar.tglB"></label>
-<label>Pemasok${U.inputOrang('pemasok', f.pemasokId, 'bayar.pemasokId', { kosong: 'ketik huruf nama', label: (p) => 'utang ' + rp(H.utang[p.id] || 0) })}</label></div>
+<label>Pemasok${U.inputOrang('pemasok', f.pemasokId, 'bayar.pemasokId', { kosong: 'ketik huruf nama', info: 'ibu', saldo: 1 })}<span class=c id=ibu>${f.pemasokId ? 'Utang ' + rp(H.utang[f.pemasokId] || 0) : ''}</span></label></div>
 <div class=bar><label>Jumlah<input class=n value="${f.jumlah || ''}" data-f="bayar.jumlah" data-t=num></label><label>Dari<select data-f="bayar.dari">${U.opt([['tunai', 'Kas tunai'], ['bank', 'Bank']], f.dari)}</select></label><button class=p data-a="bayar.bayar">Simpan</button></div></div></div>
 <p class=c>Saldo awal piutang/utang per pihak diisi di tab Master. Jumlahnya harus sama dengan saldo Piutang/Utang di akuntansiApp (lihat saldo referensi di tab Ekspor/Impor).</p>`;
   };
@@ -1346,12 +1377,16 @@ ${asal ? `<table><tr><th>Barang</th><th class=n>Dibeli/dijual</th><th class=n>Ma
     const f = F.bayar;
     if (!f.pelanggan) return U.toast('Pilih pelanggan.', true);
     if (!((f.tunai || 0) + (f.bank || 0) > 0)) return U.toast('Isi jumlah.', true);
+    const saldoP = Math.round(U.hasil().piutang[f.pelanggan] || 0), bayarP = (f.tunai || 0) + (f.bank || 0);
+    if (bayarP > saldoP) return U.toast('Pelunasan ' + rp(bayarP) + ' melebihi piutang ' + U.namaPelanggan(f.pelanggan) + ' (' + rp(saldoP) + ').', true);
     if (U.simpanTx({ tgl: f.tgl, jenis: 'PELUNASAN', pelanggan: f.pelanggan, tunai: f.tunai || 0, bank: f.bank || 0 })) { f.tunai = 0; f.bank = 0; U.toast('Pelunasan tersimpan'); U.render(); }
   };
   A['bayar.bayar'] = () => {
     const f = F.bayar;
     if (!f.pemasokId) return U.toast('Pilih pemasok.', true);
     if (!(f.jumlah > 0)) return U.toast('Isi jumlah.', true);
+    const saldoU = Math.round(U.hasil().utang[f.pemasokId] || 0);
+    if (f.jumlah > saldoU) return U.toast('Pembayaran ' + rp(f.jumlah) + ' melebihi utang ' + U.namaPemasok(f.pemasokId) + ' (' + rp(saldoU) + ').', true);
     if (U.simpanTx({ tgl: f.tglB, jenis: 'BAYAR', pemasok: f.pemasokId, jumlah: f.jumlah, dari: f.dari })) { f.jumlah = 0; U.toast('Pembayaran tersimpan'); U.render(); }
   };
 
@@ -1484,6 +1519,11 @@ ${S.pemasok.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.s.${i
   A['r.hapus'] = (el) => { if (confirm('Hapus transaksi ini?')) { if (U.hapusTx(el.dataset.id)) { U.toast('Dihapus'); U.render(); } } };
 
   // ---------- Ekspor / Impor
+  // Barang baru (belum ada di template) harus punya nama dan akun persediaan sebelum dikirim ke akuntansiApp
+  const galatBarang = () => POS.kontrak.barangBaru(U.s()).flatMap((b) => [
+    ...(String(b.n || '').trim() ? [] : ['Barang baru ' + b.k + ' belum diberi nama (isi di Master).']),
+    ...(b.akun ? [] : ['Barang baru ' + b.k + ' belum punya akun persediaan (isi di Master).'])
+  ]);
   const bulanTpl = () => { const p = U.s().tpl.periode; const d = String(p.bulan).padStart(2, '0'); return [p.tahun + '-' + d + '-01', new Date(Date.UTC(p.tahun, p.bulan, 0)).toISOString().slice(0, 10)]; };
   R['Ekspor/Impor'] = () => {
     const S = U.s(), t = S.tpl;
@@ -1494,13 +1534,13 @@ ${S.pemasok.map((p, i) => `<tr><td><input value="${esc(p.nama)}" data-f="m.s.${i
     if (t) {
       const f = F.ekspor, [d0, d1] = bulanTpl();
       if (!f.dari) f.dari = d0; if (!f.sampai) f.sampai = d1;
-      const H = U.hasil();
+      const H = U.hasil(), GL = H.galat.concat(galatBarang());
       const dalam = (r) => r.d >= f.dari && r.d <= f.sampai;
       const J = H.jurnal.filter(dalam), M = H.mutasi.filter(dalam);
       h += `<div class=card><h3>2. Data POS untuk akuntansiApp</h3><div class=bar><label>Dari<input type=date value="${f.dari}" data-f="ekspor.dari" data-r="x.segar"></label><label>Sampai<input type=date value="${f.sampai}" data-f="ekspor.sampai" data-r="x.segar"></label></div>
 <p>${J.length} baris jurnal, ${M.length} mutasi stok. Total debit ${rp(J.reduce((s, r) => s + r.db, 0))}, kredit ${rp(J.reduce((s, r) => s + r.kr, 0))}.</p>
-${H.galat.length ? `<div class=galat><b>Tidak bisa diekspor:</b><ul>${H.galat.map((g) => `<li>${esc(g)}</li>`).join('')}</ul></div>` : ''}
-<button class=p data-a="x.ekspor" ${H.galat.length || !J.length && !M.length ? 'disabled' : ''}>Unduh data POS (.json)</button>
+${GL.length ? `<div class=galat><b>Tidak bisa diekspor:</b><ul>${GL.map((g) => `<li>${esc(g)}</li>`).join('')}</ul></div>` : ''}
+<button class=p data-a="x.ekspor" ${GL.length || !J.length && !M.length ? 'disabled' : ''}>Unduh data POS (.json)</button>
 <p class=c>Impor di akuntansiApp: tab Data › Impor data POS. Aman diulang: baris POS- pada rentang yang sama diganti.</p></div>`;
     }
     h += `<div class=card><h3>3. Backup lokal POS</h3><div class=bar><button class=x data-a="x.backup">Unduh backup</button><label>Pulihkan dari backup<input type=file accept=.json data-b="x.pulih"></label><button class=k data-a="x.reset">Hapus semua data POS</button></div></div>`;
@@ -1516,9 +1556,18 @@ ${H.galat.length ? `<div class=galat><b>Tidak bisa diekspor:</b><ul>${H.galat.ma
     if (err) return U.toast(err, true);
     const S = U.s();
     if (S.tpl && S.tpl.unit !== t.unit) return U.toast('Template untuk unit ' + t.unit + ', POS ini untuk ' + S.tpl.unit + '.', true);
-    const buang = S.tx.filter((x) => x.tgl <= t.posisiStok).length;
-    if (S.tpl && !confirm('Pakai template baru periode ' + t.periode.tahun + '-' + String(t.periode.bulan).padStart(2, '0') + '?\n' + buang + ' transaksi bertanggal sampai ' + t.posisiStok + ' akan dibuang dari POS (sudah tercermin di stok awal template).')) return;
-    S.tx = S.tx.filter((x) => x.tgl > t.posisiStok);
+    const dibuang = S.tx.filter((x) => x.tgl <= t.posisiStok), sisa = S.tx.filter((x) => x.tgl > t.posisiStok);
+    const idBuang = new Set(dibuang.map((x) => x.id));
+    if (sisa.some((x) => x.ref && idBuang.has(x.ref))) return U.toast('Ada retur bertanggal setelah ' + t.posisiStok + ' yang merujuk transaksi yang akan dibuang. Hapus retur itu dulu (Riwayat) atau pakai template yang periodenya sesuai.', true);
+    const buang = dibuang.length;
+    if (S.tpl && !confirm('Pakai template baru periode ' + t.periode.tahun + '-' + String(t.periode.bulan).padStart(2, '0') + '?\n' + buang + ' transaksi bertanggal sampai ' + t.posisiStok + ' akan dibuang dari POS (sudah tercermin di stok awal template). Saldo awal piutang/utang per pihak dihitung ulang dari transaksi itu.')) return;
+    // Saldo piutang/utang per pihak pada posisiStok menjadi saldo awal baru (template hanya membawa saldo agregat per akun)
+    if (S.tpl && buang) {
+      const Hb = POS.mesin.hitung(Object.assign({}, S, { tx: dibuang }));
+      S.pelanggan.forEach((p) => { p.saldoAwal = Math.round(Hb.piutang[p.id] || 0); });
+      S.pemasok.forEach((p) => { p.saldoAwal = Math.round(Hb.utang[p.id] || 0); });
+    }
+    S.tx = sisa;
     S.tpl = t;
     t.barang.forEach((b) => { const a = S.barang.find((x) => x.k === b.k); if (a) { a.n = b.n; a.akun = b.akun; } else S.barang.push({ k: b.k, n: b.n, akun: b.akun, harga: 0, hargaBeli: 0 }); });
     if (!S.pemasok.length) S.pemasok.push({ id: 's' + (++S.seq), nama: 'Pemasok umum', akun: t.pemetaan.utangUsaha, saldoAwal: 0 });
@@ -1527,7 +1576,7 @@ ${H.galat.length ? `<div class=galat><b>Tidak bisa diekspor:</b><ul>${H.galat.ma
   };
   A['x.ekspor'] = async () => {
     const S = U.s(), f = F.ekspor, H = U.hasil();
-    if (H.galat.length) return U.toast('Perbaiki galat dulu.', true);
+    if (H.galat.length || galatBarang().length) return U.toast('Perbaiki galat dulu.', true);
     if (f.dari > f.sampai) return U.toast('Rentang tanggal terbalik.', true);
     const id = (crypto.randomUUID && crypto.randomUUID()) || String(Date.now());
     const pos = await POS.kontrak.bangunData(S, H, { dari: f.dari, sampai: f.sampai, idBatch: id, now: new Date().toISOString() });
