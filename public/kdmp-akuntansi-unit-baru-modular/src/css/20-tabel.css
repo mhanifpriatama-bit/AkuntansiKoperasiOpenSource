@@ -1,0 +1,9 @@
+/* Tabel & kelas baris laporan (h1,h2,t,g) */
+table{border-collapse:collapse;background:#fff;width:100%}
+td,th{border:1px solid #e8dede;padding:4px 7px}
+th{background:var(--cd);color:#fff;font-weight:600;text-align:left}
+td.n{text-align:right;white-space:nowrap}
+.h1{background:#F0D9DA;font-weight:bold}
+.h2{background:var(--ct);font-weight:bold}
+.t{font-weight:bold;background:#f1ecec}
+.g{background:var(--c);color:#fff;font-weight:bold}

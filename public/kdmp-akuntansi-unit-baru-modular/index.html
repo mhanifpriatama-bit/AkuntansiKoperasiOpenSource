@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KDMP Akuntansi</title>
+<link rel="stylesheet" href="src/css/00-dasar.css">
+<link rel="stylesheet" href="src/css/10-kerangka.css">
+<link rel="stylesheet" href="src/css/20-tabel.css">
+<link rel="stylesheet" href="src/css/30-input-tombol.css">
+<link rel="stylesheet" href="src/css/40-komponen.css">
+<link rel="stylesheet" href="src/css/50-cetak.css">
+</head>
+<body>
+<header><div class=brand><img id=lg alt="Logo"><div><b id=ttl></b><small id=nm-koperasi></small></div></div>
+<div class=ctl><label>Periode s.d. <select id=bln></select></label><input id=thn type=number style=width:74px><span id=st></span><span id=sync style="font-size:11px;color:#cfe"></span><span id=sv class="sv k">Siap</span>
+<button class=p data-aksi="simpan.manual">Simpan</button>
+<details class=dd><summary>Unduh</summary><div>
+<button data-aksi="ekspor.excel">Excel (.xls) &#8212; tampilan ini</button>
+<button data-aksi="ekspor.csv">CSV &#8212; tampilan ini</button>
+<button data-aksi="ekspor.cetak">PDF / Cetak &#8212; tampilan ini</button>
+<button data-aksi="ekspor.excelSemua">Semua laporan sekaligus (Excel)</button>
+<button data-aksi="backup.unduh">Unduh Backup Database (.json)</button>
+<button data-aksi="backup.pilihBerkas">Pulihkan dari Backup (.json)</button><input id=rf type=file accept=.json style=display:none data-aksi-ubah="backup.pulihkan">
+</div></details>
+<button data-aksi="ekspor.cetak">Cetak / PDF</button></div></header><nav id=nav></nav><main id=m>Memuat&#8230;</main><datalist id=dl></datalist><div id=ov style="padding:24px;font:14px sans-serif">Memuat aplikasi&#8230;</div><div id=tt></div>
+<script src="src/js/galat-global.js"></script>
+<script src="src/js/namespace.js"></script>
+<script src="src/js/app/state.js"></script>
+<script src="src/js/config/aplikasi.js"></script>
+<script src="src/js/config/coa.js"></script>
+<script src="src/js/config/coa-legacy.js"></script>
+<script src="src/js/config/arus-kas.js"></script>
+<script src="src/js/config/pemetaan-arus-kas.js"></script>
+<script src="src/js/config/kategori-aset.js"></script>
+<script src="src/js/config/laporan-usp.js"></script>
+<script src="src/js/config/laporan-sembako.js"></script>
+<script src="src/js/config/laporan-konsolidasi.js"></script>
+<script src="src/js/core/format.js"></script>
+<script src="src/js/core/rumus.js"></script>
+<script src="src/js/core/coa.js"></script>
+<script src="src/js/core/arus-kas.js"></script>
+<script src="src/js/core/saldo.js"></script>
+<script src="src/js/core/laporan.js"></script>
+<script src="src/js/core/konsolidasi.js"></script>
+<script src="src/js/core/aset-tetap.js"></script>
+<script src="src/js/core/persediaan.js"></script>
+<script src="src/js/core/pos-kontrak.js"></script>
+<script src="src/js/core/unit.js"></script>
+<script src="src/js/storage/kv.js"></script>
+<script src="src/js/storage/coa-db.js"></script>
+<script src="src/js/storage/titik-pulih.js"></script>
+<script src="src/js/storage/backup.js"></script>
+<script src="src/js/security/kripto.js"></script>
+<script src="src/js/security/kunci.js"></script>
+<script src="src/js/ui/dom.js"></script>
+<script src="src/js/ui/aksi.js"></script>
+<script src="src/js/ui/pesan.js"></script>
+<script src="src/js/ui/berkas.js"></script>
+<script src="src/js/ui/tanggal-angka.js"></script>
+<script src="src/js/ui/header.js"></script>
+<script src="src/js/ui/kop.js"></script>
+<script src="src/js/ui/tabel-laporan.js"></script>
+<script src="src/js/ui/ekspor.js"></script>
+<script src="src/js/ui/daftar-akun.js"></script>
+<script src="src/js/ui/grid.js"></script>
+<script src="src/js/app/simpan.js"></script>
+<script src="src/js/app/navigasi.js"></script>
+<script src="src/js/app/sinkron.js"></script>
+<script src="src/js/app/cadangan.js"></script>
+<script src="src/js/app/sandi.js"></script>
+<script src="src/js/app/paket-unit.js"></script>
+<script src="src/js/app/impor-pos.js"></script>
+<script src="src/js/app/unit-baru.js"></script>
+<script src="src/js/app/panel-db.js"></script>
+<script src="src/js/app/sesi.js"></script>
+<script src="src/js/fitur/jurnal.js"></script>
+<script src="src/js/fitur/buku-besar.js"></script>
+<script src="src/js/fitur/laporan-unit.js"></script>
+<script src="src/js/fitur/konsolidasi.js"></script>
+<script src="src/js/fitur/master-coa.js"></script>
+<script src="src/js/fitur/data.js"></script>
+<script src="src/js/fitur/bp-aset.js"></script>
+<script src="src/js/fitur/bp-persediaan.js"></script>
+<script src="src/js/uji/pintu-uji.js"></script>
+<script src="src/js/app/mulai.js"></script>
+</body>
+</html>

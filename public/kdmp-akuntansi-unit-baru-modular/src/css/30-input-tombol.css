@@ -1,0 +1,13 @@
+/* Input, tombol, status */
+input,select{font:inherit;border:1px solid #d9cbcc;border-radius:3px;padding:4px 6px;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:2px solid #e9b6b9;outline-offset:-1px}
+input.i{width:100%;border:0;border-radius:0;padding:3px;background:transparent;color:#173a85;text-align:inherit}
+td select{width:100%;border:0;background:transparent;padding:3px}
+.bad{background:#fbe1e1}
+.ok{color:#1d6b32;font-weight:bold}
+.no{color:#b00018;font-weight:bold}
+.bar{display:flex;gap:8px;margin:8px 0;align-items:center;flex-wrap:wrap}
+button,.btn{padding:6px 13px;cursor:pointer;border:1px solid var(--c);background:#fff;color:var(--c);border-radius:3px;font:inherit;display:inline-block}
+button:hover,.btn:hover{background:var(--ct)}
+button.p{background:var(--c);color:#fff}
+button.p:hover{background:var(--cd)}
