@@ -1,0 +1,42 @@
+{
+  "app": "kdmp-usp-data",
+  "versi": 1,
+  "idBatch": "5c2e7a18-94d3-4b0f-a6e1-0d83f7b2c914",
+  "idTemplat": "a8d4e1f6-2b97-4c03-8e5a-6f1d0c93b7e2",
+  "unit": "USP",
+  "dibuat": "2027-01-06T08:10:00+07:00",
+  "periode": { "dari": "2027-01-05", "sampai": "2027-01-05" },
+  "jurnal": [
+    { "d": "2027-01-05", "no": "USP-20270105-SIMPAN", "ak": "1.1.1.01 Kas Tunai", "db": 1700000, "kr": 0, "ket": "Setoran simpanan tunai", "kom": "Simpanan Anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-SIMPAN", "ak": "1.1.1.02 Kas di Bank BRI", "db": 500000, "kr": 0, "ket": "Setoran simpanan transfer", "kom": "Simpanan Anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-SIMPAN", "ak": "3.1.1.01 Simpanan Pokok", "db": 0, "kr": 200000, "ket": "Setoran simpanan pokok" },
+    { "d": "2027-01-05", "no": "USP-20270105-SIMPAN", "ak": "3.1.2.01 Simpanan Wajib", "db": 0, "kr": 1500000, "ket": "Setoran simpanan wajib" },
+    { "d": "2027-01-05", "no": "USP-20270105-SIMPAN", "ak": "2.1.1.03 Utang Simpanan Sukarela", "db": 0, "kr": 500000, "ket": "Setoran simpanan sukarela" },
+    { "d": "2027-01-05", "no": "USP-20270105-TARIK", "ak": "2.1.1.03 Utang Simpanan Sukarela", "db": 300000, "kr": 0, "ket": "Penarikan simpanan sukarela" },
+    { "d": "2027-01-05", "no": "USP-20270105-TARIK", "ak": "1.1.1.01 Kas Tunai", "db": 0, "kr": 300000, "ket": "Penarikan simpanan sukarela", "kom": "Simpanan Anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-CAIR", "ak": "1.1.2.06 Kredit Anggota", "db": 10000000, "kr": 0, "ket": "Pencairan pinjaman" },
+    { "d": "2027-01-05", "no": "USP-20270105-CAIR", "ak": "1.1.1.01 Kas Tunai", "db": 0, "kr": 9800000, "ket": "Pencairan pinjaman (neto provisi dan Dana CRK)", "kom": "Penerimaan Kas dari Pelayanan kepada Anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-CAIR", "ak": "4.1.3.05 Pendapatan Administrasi", "db": 0, "kr": 100000, "ket": "Provisi pinjaman" },
+    { "d": "2027-01-05", "no": "USP-20270105-CAIR", "ak": "1.1.3.05 Dana CRK", "db": 0, "kr": 100000, "ket": "Dana CRK 1%" },
+    { "d": "2027-01-05", "no": "USP-20270105-ANGSUR", "ak": "1.1.1.01 Kas Tunai", "db": 1300000, "kr": 0, "ket": "Angsuran pokok dan jasa tunai", "kom": "Penerimaan Kas dari Pelayanan kepada Anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-ANGSUR", "ak": "1.1.1.02 Kas di Bank BRI", "db": 1000000, "kr": 0, "ket": "Angsuran pokok dan jasa transfer", "kom": "Penerimaan Kas dari Pelayanan kepada Anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-ANGSUR", "ak": "1.1.1.01 Kas Tunai", "db": 50000, "kr": 0, "ket": "Denda keterlambatan tunai", "kom": "Penerimaan Pendapatan Lain-lain" },
+    { "d": "2027-01-05", "no": "USP-20270105-ANGSUR", "ak": "1.1.2.06 Kredit Anggota", "db": 0, "kr": 2000000, "ket": "Angsuran pokok" },
+    { "d": "2027-01-05", "no": "USP-20270105-ANGSUR", "ak": "4.1.3.02 Pendapatan Jasa Pinjaman", "db": 0, "kr": 300000, "ket": "Jasa pinjaman" },
+    { "d": "2027-01-05", "no": "USP-20270105-ANGSUR", "ak": "9.1.3.01 Pendapatan Denda", "db": 0, "kr": 50000, "ket": "Denda keterlambatan" },
+    { "d": "2027-01-05", "no": "USP-20270105-ADMIN", "ak": "1.1.1.01 Kas Tunai", "db": 25000, "kr": 0, "ket": "Biaya administrasi anggota", "kom": "Penerimaan Pendapatan Lain-lain" },
+    { "d": "2027-01-05", "no": "USP-20270105-ADMIN", "ak": "4.1.3.05 Pendapatan Administrasi", "db": 0, "kr": 25000, "ket": "Biaya administrasi anggota" },
+    { "d": "2027-01-05", "no": "USP-20270105-SETOR", "ak": "1.1.1.02 Kas di Bank BRI", "db": 5000000, "kr": 0, "ket": "Setoran kas ke bank" },
+    { "d": "2027-01-05", "no": "USP-20270105-SETOR", "ak": "1.1.1.01 Kas Tunai", "db": 0, "kr": 5000000, "ket": "Setoran kas ke bank" }
+  ],
+  "kontrol": {
+    "jumlahJurnal": 21,
+    "totalDebit": 19875000,
+    "totalKredit": 19875000,
+    "saldoAkhir": {
+      "1.1.1.01": 7975000, "1.1.1.02": 16500000, "1.1.2.06": 58000000,
+      "1.1.3.05": 1600000, "2.1.1.03": 8200000, "3.1.1.01": 12200000, "3.1.2.01": 19500000
+    },
+    "checksum": "565972244cb7a5b005a07cdf77e5eae17c38397968e214fc6942da34918ac511"
+  }
+}
