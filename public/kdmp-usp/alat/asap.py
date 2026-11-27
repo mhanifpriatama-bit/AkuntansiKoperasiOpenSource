@@ -23,8 +23,8 @@ with sync_playwright() as p:
     open('/tmp/tpl-uji.json','w').write(json.dumps(T))
     tab('Ekspor'); pg.set_input_files('input[type=file]', '/tmp/tpl-uji.json'); pg.wait_for_selector('text=T-UJI')
     # anggota
-    tab('Anggota'); pg.fill('input[name=nama]', 'Siti Aminah'); pg.click('[data-a=anggotaBaru]')
-    pg.wait_for_selector('text=A0001')
+    tab('Anggota'); pg.fill('input[name=no]', 'KMP-0123'); pg.fill('input[name=nama]', 'Siti Aminah'); pg.click('[data-a=anggotaBaru]')
+    pg.wait_for_selector('text=KMP-0123')
     # loket: setoran
     tab('Loket'); pg.fill('#cari', 'siti'); pg.click('[data-a=pilih]')
     pg.wait_for_selector('text=Setoran simpanan')

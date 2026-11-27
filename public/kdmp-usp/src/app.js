@@ -61,7 +61,7 @@
   }
 
   function tabAnggota() {
-    return `<div class=k data-f><h4>Anggota baru</h4><div class=baris>${inp('Nama', 'nama', '')}${inp('Alamat', 'alamat', '')}${inp('Telepon', 'telepon', '')}${inp('Tanggal masuk', 'tglMasuk', hariIni(), 'date')}<button class=p data-a=anggotaBaru>Daftarkan</button></div></div>
+    return `<div class=k data-f><h4>Anggota baru</h4><p class=c>Nomor anggota diisi manual dan harus sama dengan nomor di aplikasi POS. Nomor tidak bisa diubah setelah disimpan.</p><div class=baris>${inp('Nomor anggota (sama dengan POS)', 'no', '')}${inp('Nama', 'nama', '')}${inp('Alamat', 'alamat', '')}${inp('Telepon', 'telepon', '')}${inp('Tanggal masuk', 'tglMasuk', hariIni(), 'date')}<button class=p data-a=anggotaBaru>Daftarkan</button></div></div>
     <div class=k><table><tr>${kolom(['No', 'Nama', 'Alamat', 'Telepon', 'Status'])}</tr>${D().anggota.map((a) => `<tr><td>${esc(a.no)}</td><td>${esc(a.nama)}</td><td>${esc(a.alamat)}</td><td>${esc(a.telepon)}</td><td><select data-a=status data-id="${a.id}">${['aktif', 'tidak aktif', 'keluar'].map((s) => `<option ${s === a.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td></tr>`).join('') || '<tr><td colspan=5 class=c>Belum ada anggota.</td></tr>'}</table></div>`;
   }
 

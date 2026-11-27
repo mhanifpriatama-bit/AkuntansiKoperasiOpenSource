@@ -11,9 +11,11 @@ const H = '2027-01-31';
 
 (async () => {
   const d = L.dataBaru(); d.template = T0;
-  tolak(L.tambahAnggota(d, { nama: 'A' }), 'minimal');
-  const ang = ok(L.tambahAnggota(d, { nama: 'Siti Aminah', tglMasuk: '2027-01-02' })).anggota;
-  as.strictEqual(ang.no, 'A0001');
+  tolak(L.tambahAnggota(d, { nama: 'A', no: 'X1' }), 'minimal');
+  tolak(L.tambahAnggota(d, { nama: 'Siti Aminah' }), 'Nomor anggota wajib');
+  const ang = ok(L.tambahAnggota(d, { no: 'KMP-0123', nama: 'Siti Aminah', tglMasuk: '2027-01-02' })).anggota;
+  as.strictEqual(ang.no, 'KMP-0123');
+  tolak(L.tambahAnggota(d, { no: 'kmp-0123', nama: 'Orang Lain' }), 'sudah dipakai'); // pembanding tanpa membedakan huruf besar kecil, seperti POS
 
   // Simpanan
   tolak(L.setor(d, { tgl: '2027-01-05', anggotaId: ang.id, sub: 'wajib', jumlah: 0, kasir: 'Rina' }, H), 'Jumlah');

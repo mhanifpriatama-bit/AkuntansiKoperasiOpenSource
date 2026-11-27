@@ -40,9 +40,10 @@
   function tambahAnggota(data, f, oleh) {
     const nama = String(f.nama || '').trim();
     if (nama.length < 2) return gagal('Nama anggota minimal 2 karakter.');
-    data.seq.anggota += 1;
-    const a = { id: uuid(), no: String(f.no || 'A' + String(data.seq.anggota).padStart(4, '0')), nama, alamat: f.alamat || '', telepon: f.telepon || '', tglMasuk: f.tglMasuk || '', status: 'aktif' };
-    if (data.anggota.some((x) => x.no === a.no)) return gagal('Nomor anggota sudah dipakai: ' + a.no);
+    const no = String(f.no || '').trim();
+    if (!no) return gagal('Nomor anggota wajib diisi (samakan dengan nomor anggota di aplikasi POS).');
+    if (data.anggota.some((x) => x.no.toLowerCase() === no.toLowerCase())) return gagal('Nomor anggota sudah dipakai: ' + no);
+    const a = { id: uuid(), no, nama, alamat: f.alamat || '', telepon: f.telepon || '', tglMasuk: f.tglMasuk || '', status: 'aktif' };
     data.anggota.push(a);
     catat(data, oleh, 'anggota.tambah', a.no + ' ' + a.nama);
     return { ok: true, anggota: a };
